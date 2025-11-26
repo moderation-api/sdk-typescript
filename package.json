@@ -1,5 +1,5 @@
 {
-  "name": "moderation-api",
+  "name": "@moderation-api/sdk",
   "version": "0.0.1",
   "description": "The official TypeScript library for the Moderation API API",
   "author": "Moderation API <>",

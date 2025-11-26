@@ -1,10 +1,10 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { APIPromise } from 'moderation-api/core/api-promise';
+import { APIPromise } from '@moderation-api/sdk/core/api-promise';
 
 import util from 'node:util';
-import ModerationAPI from 'moderation-api';
-import { APIUserAbortError } from 'moderation-api';
+import ModerationAPI from '@moderation-api/sdk';
+import { APIUserAbortError } from '@moderation-api/sdk';
 const defaultFetch = fetch;
 
 describe('instantiate client', () => {
