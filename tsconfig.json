@@ -8,8 +8,8 @@
     "moduleResolution": "node",
     "esModuleInterop": true,
     "paths": {
-      "moderation-api/*": ["./src/*"],
-      "moderation-api": ["./src/index.ts"]
+      "@moderation-api/sdk/*": ["./src/*"],
+      "@moderation-api/sdk": ["./src/index.ts"]
     },
     "noEmit": true,
 

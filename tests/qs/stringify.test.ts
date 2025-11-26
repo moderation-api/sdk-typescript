@@ -1,7 +1,7 @@
 import iconv from 'iconv-lite';
-import { stringify } from 'moderation-api/internal/qs';
-import { encode } from 'moderation-api/internal/qs/utils';
-import { StringifyOptions } from 'moderation-api/internal/qs/types';
+import { stringify } from '@moderation-api/sdk/internal/qs';
+import { encode } from '@moderation-api/sdk/internal/qs/utils';
+import { StringifyOptions } from '@moderation-api/sdk/internal/qs/types';
 import { empty_test_cases } from './empty-keys-cases';
 import assert from 'assert';
 
