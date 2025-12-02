@@ -30,7 +30,7 @@ import {
   AuthorUpdateResponse,
   Authors,
 } from './resources/authors';
-import { Moderate, ModerateAnalyzeParams, ModerateAnalyzeResponse } from './resources/moderate';
+import { Content, ContentSubmitParams, ContentSubmitResponse } from './resources/content';
 import {
   ActionCreateParams,
   ActionCreateResponse,
@@ -740,7 +740,7 @@ export class ModerationAPI {
   authors: API.Authors = new API.Authors(this);
   queue: API.Queue = new API.Queue(this);
   actions: API.Actions = new API.Actions(this);
-  moderate: API.Moderate = new API.Moderate(this);
+  content: API.Content = new API.Content(this);
   account: API.Account = new API.Account(this);
   auth: API.Auth = new API.Auth(this);
   wordlist: API.Wordlist = new API.Wordlist(this);
@@ -749,7 +749,7 @@ export class ModerationAPI {
 ModerationAPI.Authors = Authors;
 ModerationAPI.Queue = Queue;
 ModerationAPI.Actions = Actions;
-ModerationAPI.Moderate = Moderate;
+ModerationAPI.Content = Content;
 ModerationAPI.Account = Account;
 ModerationAPI.Auth = Auth;
 ModerationAPI.Wordlist = Wordlist;
@@ -789,9 +789,9 @@ export declare namespace ModerationAPI {
   };
 
   export {
-    Moderate as Moderate,
-    type ModerateAnalyzeResponse as ModerateAnalyzeResponse,
-    type ModerateAnalyzeParams as ModerateAnalyzeParams,
+    Content as Content,
+    type ContentSubmitResponse as ContentSubmitResponse,
+    type ContentSubmitParams as ContentSubmitParams,
   };
 
   export { Account as Account, type AccountListResponse as AccountListResponse };
