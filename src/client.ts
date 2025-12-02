@@ -30,21 +30,7 @@ import {
   AuthorUpdateResponse,
   Authors,
 } from './resources/authors';
-import {
-  Moderate,
-  ModerateAnalyzeAudioParams,
-  ModerateAnalyzeAudioResponse,
-  ModerateAnalyzeImageParams,
-  ModerateAnalyzeImageResponse,
-  ModerateAnalyzeObjectParams,
-  ModerateAnalyzeObjectResponse,
-  ModerateAnalyzeParams,
-  ModerateAnalyzeResponse,
-  ModerateAnalyzeTextParams,
-  ModerateAnalyzeTextResponse,
-  ModerateAnalyzeVideoParams,
-  ModerateAnalyzeVideoResponse,
-} from './resources/moderate';
+import { Moderate, ModerateAnalyzeParams, ModerateAnalyzeResponse } from './resources/moderate';
 import {
   ActionCreateParams,
   ActionCreateResponse,
@@ -805,17 +791,7 @@ export declare namespace ModerationAPI {
   export {
     Moderate as Moderate,
     type ModerateAnalyzeResponse as ModerateAnalyzeResponse,
-    type ModerateAnalyzeAudioResponse as ModerateAnalyzeAudioResponse,
-    type ModerateAnalyzeImageResponse as ModerateAnalyzeImageResponse,
-    type ModerateAnalyzeObjectResponse as ModerateAnalyzeObjectResponse,
-    type ModerateAnalyzeTextResponse as ModerateAnalyzeTextResponse,
-    type ModerateAnalyzeVideoResponse as ModerateAnalyzeVideoResponse,
     type ModerateAnalyzeParams as ModerateAnalyzeParams,
-    type ModerateAnalyzeAudioParams as ModerateAnalyzeAudioParams,
-    type ModerateAnalyzeImageParams as ModerateAnalyzeImageParams,
-    type ModerateAnalyzeObjectParams as ModerateAnalyzeObjectParams,
-    type ModerateAnalyzeTextParams as ModerateAnalyzeTextParams,
-    type ModerateAnalyzeVideoParams as ModerateAnalyzeVideoParams,
   };
 
   export { Account as Account, type AccountListResponse as AccountListResponse };

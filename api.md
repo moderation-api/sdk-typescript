@@ -77,20 +77,10 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/moderate.ts">ModerateAnalyzeResponse</a></code>
-- <code><a href="./src/resources/moderate.ts">ModerateAnalyzeAudioResponse</a></code>
-- <code><a href="./src/resources/moderate.ts">ModerateAnalyzeImageResponse</a></code>
-- <code><a href="./src/resources/moderate.ts">ModerateAnalyzeObjectResponse</a></code>
-- <code><a href="./src/resources/moderate.ts">ModerateAnalyzeTextResponse</a></code>
-- <code><a href="./src/resources/moderate.ts">ModerateAnalyzeVideoResponse</a></code>
 
 Methods:
 
 - <code title="post /moderate">client.moderate.<a href="./src/resources/moderate.ts">analyze</a>({ ...params }) -> ModerateAnalyzeResponse</code>
-- <code title="post /moderate/audio">client.moderate.<a href="./src/resources/moderate.ts">analyzeAudio</a>({ ...params }) -> ModerateAnalyzeAudioResponse</code>
-- <code title="post /moderate/image">client.moderate.<a href="./src/resources/moderate.ts">analyzeImage</a>({ ...params }) -> ModerateAnalyzeImageResponse</code>
-- <code title="post /moderate/object">client.moderate.<a href="./src/resources/moderate.ts">analyzeObject</a>({ ...params }) -> ModerateAnalyzeObjectResponse</code>
-- <code title="post /moderate/text">client.moderate.<a href="./src/resources/moderate.ts">analyzeText</a>({ ...params }) -> ModerateAnalyzeTextResponse</code>
-- <code title="post /moderate/video">client.moderate.<a href="./src/resources/moderate.ts">analyzeVideo</a>({ ...params }) -> ModerateAnalyzeVideoResponse</code>
 
 # Account
 
