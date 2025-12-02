@@ -4,56 +4,56 @@ import { APIResource } from '../core/resource';
 import { APIPromise } from '../core/api-promise';
 import { RequestOptions } from '../internal/request-options';
 
-export class Moderate extends APIResource {
-  analyze(body: ModerateAnalyzeParams, options?: RequestOptions): APIPromise<ModerateAnalyzeResponse> {
+export class Content extends APIResource {
+  submit(body: ContentSubmitParams, options?: RequestOptions): APIPromise<ContentSubmitResponse> {
     return this._client.post('/moderate', { body, ...options });
   }
 }
 
-export interface ModerateAnalyzeResponse {
+export interface ContentSubmitResponse {
   /**
    * The author of the content if your account has authors enabled. Requires you to
    * send authorId when submitting content.
    */
-  author: ModerateAnalyzeResponse.Author | null;
+  author: ContentSubmitResponse.Author | null;
 
   /**
    * Potentially modified content.
    */
-  content: ModerateAnalyzeResponse.Content;
+  content: ContentSubmitResponse.Content;
 
   /**
    * The evaluation of the content after running the channel policies.
    */
-  evaluation: ModerateAnalyzeResponse.Evaluation;
+  evaluation: ContentSubmitResponse.Evaluation;
 
   /**
    * Results of all insights enabled in the channel.
    */
-  insights: Array<ModerateAnalyzeResponse.UnionMember0 | ModerateAnalyzeResponse.UnionMember1>;
+  insights: Array<ContentSubmitResponse.UnionMember0 | ContentSubmitResponse.UnionMember1>;
 
   /**
    * Metadata about the moderation request
    */
-  meta: ModerateAnalyzeResponse.Meta;
+  meta: ContentSubmitResponse.Meta;
 
   /**
    * Results of all policies in the channel. Sorted by highest probability.
    */
-  policies: Array<ModerateAnalyzeResponse.UnionMember0 | ModerateAnalyzeResponse.UnionMember1>;
+  policies: Array<ContentSubmitResponse.UnionMember0 | ContentSubmitResponse.UnionMember1>;
 
   /**
    * The recommendation for the content based on the evaluation.
    */
-  recommendation: ModerateAnalyzeResponse.Recommendation;
+  recommendation: ContentSubmitResponse.Recommendation;
 
   /**
    * Policies that had errors
    */
-  errors?: Array<ModerateAnalyzeResponse.Error>;
+  errors?: Array<ContentSubmitResponse.Error>;
 }
 
-export namespace ModerateAnalyzeResponse {
+export namespace ContentSubmitResponse {
   /**
    * The author of the content if your account has authors enabled. Requires you to
    * send authorId when submitting content.
@@ -344,16 +344,16 @@ export namespace ModerateAnalyzeResponse {
   }
 }
 
-export interface ModerateAnalyzeParams {
+export interface ContentSubmitParams {
   /**
    * The content sent for moderation
    */
   content:
-    | ModerateAnalyzeParams.UnionMember0
-    | ModerateAnalyzeParams.UnionMember1
-    | ModerateAnalyzeParams.UnionMember2
-    | ModerateAnalyzeParams.UnionMember3
-    | ModerateAnalyzeParams.UnionMember4;
+    | ContentSubmitParams.UnionMember0
+    | ContentSubmitParams.UnionMember1
+    | ContentSubmitParams.UnionMember2
+    | ContentSubmitParams.UnionMember3
+    | ContentSubmitParams.UnionMember4;
 
   /**
    * The author of the content.
@@ -392,7 +392,7 @@ export interface ModerateAnalyzeParams {
   metaType?: 'profile' | 'message' | 'post' | 'comment' | 'event' | 'product' | 'review' | 'other';
 }
 
-export namespace ModerateAnalyzeParams {
+export namespace ContentSubmitParams {
   /**
    * Text
    */
@@ -510,9 +510,9 @@ export namespace ModerateAnalyzeParams {
   }
 }
 
-export declare namespace Moderate {
+export declare namespace Content {
   export {
-    type ModerateAnalyzeResponse as ModerateAnalyzeResponse,
-    type ModerateAnalyzeParams as ModerateAnalyzeParams,
+    type ContentSubmitResponse as ContentSubmitResponse,
+    type ContentSubmitParams as ContentSubmitParams,
   };
 }

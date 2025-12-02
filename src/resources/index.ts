@@ -24,7 +24,7 @@ export {
   type AuthorUpdateParams,
   type AuthorListParams,
 } from './authors';
-export { Moderate, type ModerateAnalyzeResponse, type ModerateAnalyzeParams } from './moderate';
+export { Content, type ContentSubmitResponse, type ContentSubmitParams } from './content';
 export {
   Queue,
   type QueueRetrieveResponse,

@@ -72,15 +72,15 @@ Methods:
 - <code title="post /actions/execute">client.actions.execute.<a href="./src/resources/actions/execute.ts">execute</a>({ ...params }) -> ExecuteExecuteResponse</code>
 - <code title="post /actions/{actionId}/execute">client.actions.execute.<a href="./src/resources/actions/execute.ts">executeByID</a>(actionID, { ...params }) -> ExecuteExecuteByIDResponse</code>
 
-# Moderate
+# Content
 
 Types:
 
-- <code><a href="./src/resources/moderate.ts">ModerateAnalyzeResponse</a></code>
+- <code><a href="./src/resources/content.ts">ContentSubmitResponse</a></code>
 
 Methods:
 
-- <code title="post /moderate">client.moderate.<a href="./src/resources/moderate.ts">analyze</a>({ ...params }) -> ModerateAnalyzeResponse</code>
+- <code title="post /moderate">client.content.<a href="./src/resources/content.ts">submit</a>({ ...params }) -> ContentSubmitResponse</code>
 
 # Account
 
