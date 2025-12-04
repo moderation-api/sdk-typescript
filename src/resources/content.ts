@@ -30,7 +30,7 @@ export interface ContentSubmitResponse {
   /**
    * Results of all insights enabled in the channel.
    */
-  insights: Array<ContentSubmitResponse.SentimentInsight | ContentSubmitResponse.LanguageInsight>;
+  insights: Array<ContentSubmitResponse.UnionMember0 | ContentSubmitResponse.UnionMember1>;
 
   /**
    * Metadata about the moderation request
@@ -40,7 +40,7 @@ export interface ContentSubmitResponse {
   /**
    * Results of all policies in the channel. Sorted by highest probability.
    */
-  policies: Array<ContentSubmitResponse.ClassifierOutput | ContentSubmitResponse.EntityMatcherOutput>;
+  policies: Array<ContentSubmitResponse.UnionMember0 | ContentSubmitResponse.UnionMember1>;
 
   /**
    * The recommendation for the content based on the evaluation.
@@ -129,14 +129,23 @@ export namespace ContentSubmitResponse {
     /**
      * The modified content, if any.
      */
-    modified: string | { [key: string]: Content.Text | Content.Image | Content.Video | Content.Audio } | null;
+    modified:
+      | string
+      | {
+          [key: string]:
+            | Content.UnionMember0
+            | Content.UnionMember1
+            | Content.UnionMember2
+            | Content.UnionMember3;
+        }
+      | null;
   }
 
   export namespace Content {
     /**
      * Text
      */
-    export interface Text {
+    export interface UnionMember0 {
       /**
        * The content text
        */
@@ -148,7 +157,7 @@ export namespace ContentSubmitResponse {
     /**
      * Image
      */
-    export interface Image {
+    export interface UnionMember1 {
       type: 'image';
 
       /**
@@ -160,7 +169,7 @@ export namespace ContentSubmitResponse {
     /**
      * Video
      */
-    export interface Video {
+    export interface UnionMember2 {
       type: 'video';
 
       /**
@@ -172,7 +181,7 @@ export namespace ContentSubmitResponse {
     /**
      * Audio
      */
-    export interface Audio {
+    export interface UnionMember3 {
       type: 'audio';
 
       /**
@@ -210,7 +219,7 @@ export namespace ContentSubmitResponse {
   /**
    * Sentiment insight
    */
-  export interface SentimentInsight {
+  export interface UnionMember0 {
     id: 'sentiment';
 
     probability: number;
@@ -223,7 +232,7 @@ export namespace ContentSubmitResponse {
   /**
    * Language insight
    */
-  export interface LanguageInsight {
+  export interface UnionMember1 {
     id: 'language';
 
     probability: number;
@@ -255,7 +264,7 @@ export namespace ContentSubmitResponse {
   /**
    * Classifier policy.
    */
-  export interface ClassifierOutput {
+  export interface UnionMember0 {
     /**
      * The unique identifier for the classifier output.
      */
@@ -272,10 +281,10 @@ export namespace ContentSubmitResponse {
      */
     flagged_fields?: Array<string>;
 
-    labels?: Array<ClassifierOutput.Label>;
+    labels?: Array<UnionMember0.Label>;
   }
 
-  export namespace ClassifierOutput {
+  export namespace UnionMember0 {
     export interface Label {
       id: string;
 
@@ -288,12 +297,12 @@ export namespace ContentSubmitResponse {
   /**
    * Entity matcher policy.
    */
-  export interface EntityMatcherOutput {
+  export interface UnionMember1 {
     id: string;
 
     flagged: boolean;
 
-    matches: Array<EntityMatcherOutput.Match>;
+    matches: Array<UnionMember1.Match>;
 
     probability: number;
 
@@ -302,13 +311,13 @@ export namespace ContentSubmitResponse {
     flagged_fields?: Array<string>;
   }
 
-  export namespace EntityMatcherOutput {
+  export namespace UnionMember1 {
     export interface Match {
       match: string;
 
       probability: number;
 
-      span: Array<number>;
+      span: Array<unknown>;
     }
   }
 
@@ -340,11 +349,11 @@ export interface ContentSubmitParams {
    * The content sent for moderation
    */
   content:
-    | ContentSubmitParams.Text
-    | ContentSubmitParams.Image
-    | ContentSubmitParams.Video
-    | ContentSubmitParams.Audio
-    | ContentSubmitParams.ContentNode;
+    | ContentSubmitParams.UnionMember0
+    | ContentSubmitParams.UnionMember1
+    | ContentSubmitParams.UnionMember2
+    | ContentSubmitParams.UnionMember3
+    | ContentSubmitParams.UnionMember4;
 
   /**
    * The author of the content.
@@ -387,29 +396,29 @@ export interface ContentSubmitParams {
    * (enterprise).
    */
   policies?: Array<
-    | ContentSubmitParams.Toxicity
-    | ContentSubmitParams.PersonalInformation
-    | ContentSubmitParams.ToxicitySevere
-    | ContentSubmitParams.Hate
-    | ContentSubmitParams.Illicit
-    | ContentSubmitParams.IllicitDrugs
-    | ContentSubmitParams.IllicitAlcohol
-    | ContentSubmitParams.IllicitFirearms
-    | ContentSubmitParams.IllicitTobacco
-    | ContentSubmitParams.IllicitGambling
-    | ContentSubmitParams.Sexual
-    | ContentSubmitParams.Flirtation
-    | ContentSubmitParams.Profanity
-    | ContentSubmitParams.Violence
-    | ContentSubmitParams.SelfHarm
-    | ContentSubmitParams.Spam
-    | ContentSubmitParams.SelfPromotion
-    | ContentSubmitParams.Political
-    | ContentSubmitParams.Religion
-    | ContentSubmitParams.CodeAbuse
-    | ContentSubmitParams.PiiMasking
-    | ContentSubmitParams.URLMasking
-    | ContentSubmitParams.Guideline
+    | ContentSubmitParams.UnionMember0
+    | ContentSubmitParams.UnionMember1
+    | ContentSubmitParams.UnionMember2
+    | ContentSubmitParams.UnionMember3
+    | ContentSubmitParams.UnionMember4
+    | ContentSubmitParams.UnionMember5
+    | ContentSubmitParams.UnionMember6
+    | ContentSubmitParams.UnionMember7
+    | ContentSubmitParams.UnionMember8
+    | ContentSubmitParams.UnionMember9
+    | ContentSubmitParams.UnionMember10
+    | ContentSubmitParams.UnionMember11
+    | ContentSubmitParams.UnionMember12
+    | ContentSubmitParams.UnionMember13
+    | ContentSubmitParams.UnionMember14
+    | ContentSubmitParams.UnionMember15
+    | ContentSubmitParams.UnionMember16
+    | ContentSubmitParams.UnionMember17
+    | ContentSubmitParams.UnionMember18
+    | ContentSubmitParams.UnionMember19
+    | ContentSubmitParams.UnionMember20
+    | ContentSubmitParams.UnionMember21
+    | ContentSubmitParams.UnionMember22
   >;
 }
 
@@ -417,7 +426,7 @@ export namespace ContentSubmitParams {
   /**
    * Text
    */
-  export interface Text {
+  export interface UnionMember0 {
     /**
      * The content text
      */
@@ -429,7 +438,7 @@ export namespace ContentSubmitParams {
   /**
    * Image
    */
-  export interface Image {
+  export interface UnionMember1 {
     type: 'image';
 
     /**
@@ -441,7 +450,7 @@ export namespace ContentSubmitParams {
   /**
    * Video
    */
-  export interface Video {
+  export interface UnionMember2 {
     type: 'video';
 
     /**
@@ -453,7 +462,7 @@ export namespace ContentSubmitParams {
   /**
    * Audio
    */
-  export interface Audio {
+  export interface UnionMember3 {
     type: 'audio';
 
     /**
@@ -465,20 +474,26 @@ export namespace ContentSubmitParams {
   /**
    * Object
    */
-  export interface ContentNode {
+  export interface UnionMember4 {
     /**
      * Values in the object. Can be mixed content types.
      */
-    data: { [key: string]: ContentNode.Text | ContentNode.Image | ContentNode.Video | ContentNode.Audio };
+    data: {
+      [key: string]:
+        | UnionMember4.UnionMember0
+        | UnionMember4.UnionMember1
+        | UnionMember4.UnionMember2
+        | UnionMember4.UnionMember3;
+    };
 
     type: 'object';
   }
 
-  export namespace ContentNode {
+  export namespace UnionMember4 {
     /**
      * Text
      */
-    export interface Text {
+    export interface UnionMember0 {
       /**
        * The content text
        */
@@ -490,7 +505,7 @@ export namespace ContentSubmitParams {
     /**
      * Image
      */
-    export interface Image {
+    export interface UnionMember1 {
       type: 'image';
 
       /**
@@ -502,7 +517,7 @@ export namespace ContentSubmitParams {
     /**
      * Video
      */
-    export interface Video {
+    export interface UnionMember2 {
       type: 'video';
 
       /**
@@ -514,7 +529,7 @@ export namespace ContentSubmitParams {
     /**
      * Audio
      */
-    export interface Audio {
+    export interface UnionMember3 {
       type: 'audio';
 
       /**
@@ -524,133 +539,133 @@ export namespace ContentSubmitParams {
     }
   }
 
-  export interface Toxicity {
+  export interface UnionMember0 {
     id: 'toxicity';
 
     flag: boolean;
   }
 
-  export interface PersonalInformation {
+  export interface UnionMember1 {
     id: 'personal_information';
 
     flag: boolean;
   }
 
-  export interface ToxicitySevere {
+  export interface UnionMember2 {
     id: 'toxicity_severe';
 
     flag: boolean;
   }
 
-  export interface Hate {
+  export interface UnionMember3 {
     id: 'hate';
 
     flag: boolean;
   }
 
-  export interface Illicit {
+  export interface UnionMember4 {
     id: 'illicit';
 
     flag: boolean;
   }
 
-  export interface IllicitDrugs {
+  export interface UnionMember5 {
     id: 'illicit_drugs';
 
     flag: boolean;
   }
 
-  export interface IllicitAlcohol {
+  export interface UnionMember6 {
     id: 'illicit_alcohol';
 
     flag: boolean;
   }
 
-  export interface IllicitFirearms {
+  export interface UnionMember7 {
     id: 'illicit_firearms';
 
     flag: boolean;
   }
 
-  export interface IllicitTobacco {
+  export interface UnionMember8 {
     id: 'illicit_tobacco';
 
     flag: boolean;
   }
 
-  export interface IllicitGambling {
+  export interface UnionMember9 {
     id: 'illicit_gambling';
 
     flag: boolean;
   }
 
-  export interface Sexual {
+  export interface UnionMember10 {
     id: 'sexual';
 
     flag: boolean;
   }
 
-  export interface Flirtation {
+  export interface UnionMember11 {
     id: 'flirtation';
 
     flag: boolean;
   }
 
-  export interface Profanity {
+  export interface UnionMember12 {
     id: 'profanity';
 
     flag: boolean;
   }
 
-  export interface Violence {
+  export interface UnionMember13 {
     id: 'violence';
 
     flag: boolean;
   }
 
-  export interface SelfHarm {
+  export interface UnionMember14 {
     id: 'self_harm';
 
     flag: boolean;
   }
 
-  export interface Spam {
+  export interface UnionMember15 {
     id: 'spam';
 
     flag: boolean;
   }
 
-  export interface SelfPromotion {
+  export interface UnionMember16 {
     id: 'self_promotion';
 
     flag: boolean;
   }
 
-  export interface Political {
+  export interface UnionMember17 {
     id: 'political';
 
     flag: boolean;
   }
 
-  export interface Religion {
+  export interface UnionMember18 {
     id: 'religion';
 
     flag: boolean;
   }
 
-  export interface CodeAbuse {
+  export interface UnionMember19 {
     id: 'code_abuse';
 
     flag: boolean;
   }
 
-  export interface PiiMasking {
+  export interface UnionMember20 {
     id: 'pii';
 
-    entities: { [key: string]: PiiMasking.Entities };
+    entities: { [key: string]: UnionMember20.Entities };
   }
 
-  export namespace PiiMasking {
+  export namespace UnionMember20 {
     export interface Entities {
       id:
         | 'email'
@@ -673,13 +688,13 @@ export namespace ContentSubmitParams {
     }
   }
 
-  export interface URLMasking {
+  export interface UnionMember21 {
     id: 'url';
 
-    entities: { [key: string]: URLMasking.Entities };
+    entities: { [key: string]: UnionMember21.Entities };
   }
 
-  export namespace URLMasking {
+  export namespace UnionMember21 {
     export interface Entities {
       id:
         | 'email'
@@ -702,7 +717,7 @@ export namespace ContentSubmitParams {
     }
   }
 
-  export interface Guideline {
+  export interface UnionMember22 {
     id: 'guideline';
 
     flag: boolean;
