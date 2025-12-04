@@ -23,7 +23,7 @@ The full API of this library can be found in [api.md](api.md).
 import ModerationAPI from '@moderation-api/sdk';
 
 const client = new ModerationAPI({
-  bearerToken: process.env['MODERATION_API_BEARER_TOKEN'], // This is the default and can be omitted
+  secretKey: process.env['MODAPI_SECRET_KEY'], // This is the default and can be omitted
 });
 
 const authors = await client.authors.list();
@@ -40,7 +40,7 @@ This library includes TypeScript definitions for all request params and response
 import ModerationAPI from '@moderation-api/sdk';
 
 const client = new ModerationAPI({
-  bearerToken: process.env['MODERATION_API_BEARER_TOKEN'], // This is the default and can be omitted
+  secretKey: process.env['MODAPI_SECRET_KEY'], // This is the default and can be omitted
 });
 
 const authors: ModerationAPI.AuthorListResponse = await client.authors.list();

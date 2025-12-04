@@ -23,7 +23,7 @@ describe('instantiate client', () => {
     const client = new ModerationAPI({
       baseURL: 'http://localhost:5000/',
       defaultHeaders: { 'X-My-Default-Header': '2' },
-      bearerToken: 'My Bearer Token',
+      secretKey: 'My Secret Key',
     });
 
     test('they are used in the request', async () => {
@@ -87,14 +87,14 @@ describe('instantiate client', () => {
         error: jest.fn(),
       };
 
-      const client = new ModerationAPI({ logger: logger, logLevel: 'debug', bearerToken: 'My Bearer Token' });
+      const client = new ModerationAPI({ logger: logger, logLevel: 'debug', secretKey: 'My Secret Key' });
 
       await forceAPIResponseForClient(client);
       expect(debugMock).toHaveBeenCalled();
     });
 
     test('default logLevel is warn', async () => {
-      const client = new ModerationAPI({ bearerToken: 'My Bearer Token' });
+      const client = new ModerationAPI({ secretKey: 'My Secret Key' });
       expect(client.logLevel).toBe('warn');
     });
 
@@ -107,7 +107,7 @@ describe('instantiate client', () => {
         error: jest.fn(),
       };
 
-      const client = new ModerationAPI({ logger: logger, logLevel: 'info', bearerToken: 'My Bearer Token' });
+      const client = new ModerationAPI({ logger: logger, logLevel: 'info', secretKey: 'My Secret Key' });
 
       await forceAPIResponseForClient(client);
       expect(debugMock).not.toHaveBeenCalled();
@@ -123,7 +123,7 @@ describe('instantiate client', () => {
       };
 
       process.env['MODERATION_API_LOG'] = 'debug';
-      const client = new ModerationAPI({ logger: logger, bearerToken: 'My Bearer Token' });
+      const client = new ModerationAPI({ logger: logger, secretKey: 'My Secret Key' });
       expect(client.logLevel).toBe('debug');
 
       await forceAPIResponseForClient(client);
@@ -140,7 +140,7 @@ describe('instantiate client', () => {
       };
 
       process.env['MODERATION_API_LOG'] = 'not a log level';
-      const client = new ModerationAPI({ logger: logger, bearerToken: 'My Bearer Token' });
+      const client = new ModerationAPI({ logger: logger, secretKey: 'My Secret Key' });
       expect(client.logLevel).toBe('warn');
       expect(warnMock).toHaveBeenCalledWith(
         'process.env[\'MODERATION_API_LOG\'] was set to "not a log level", expected one of ["off","error","warn","info","debug"]',
@@ -157,7 +157,7 @@ describe('instantiate client', () => {
       };
 
       process.env['MODERATION_API_LOG'] = 'debug';
-      const client = new ModerationAPI({ logger: logger, logLevel: 'off', bearerToken: 'My Bearer Token' });
+      const client = new ModerationAPI({ logger: logger, logLevel: 'off', secretKey: 'My Secret Key' });
 
       await forceAPIResponseForClient(client);
       expect(debugMock).not.toHaveBeenCalled();
@@ -173,7 +173,7 @@ describe('instantiate client', () => {
       };
 
       process.env['MODERATION_API_LOG'] = 'not a log level';
-      const client = new ModerationAPI({ logger: logger, logLevel: 'debug', bearerToken: 'My Bearer Token' });
+      const client = new ModerationAPI({ logger: logger, logLevel: 'debug', secretKey: 'My Secret Key' });
       expect(client.logLevel).toBe('debug');
       expect(warnMock).not.toHaveBeenCalled();
     });
@@ -184,7 +184,7 @@ describe('instantiate client', () => {
       const client = new ModerationAPI({
         baseURL: 'http://localhost:5000/',
         defaultQuery: { apiVersion: 'foo' },
-        bearerToken: 'My Bearer Token',
+        secretKey: 'My Secret Key',
       });
       expect(client.buildURL('/foo', null)).toEqual('http://localhost:5000/foo?apiVersion=foo');
     });
@@ -193,7 +193,7 @@ describe('instantiate client', () => {
       const client = new ModerationAPI({
         baseURL: 'http://localhost:5000/',
         defaultQuery: { apiVersion: 'foo', hello: 'world' },
-        bearerToken: 'My Bearer Token',
+        secretKey: 'My Secret Key',
       });
       expect(client.buildURL('/foo', null)).toEqual('http://localhost:5000/foo?apiVersion=foo&hello=world');
     });
@@ -202,7 +202,7 @@ describe('instantiate client', () => {
       const client = new ModerationAPI({
         baseURL: 'http://localhost:5000/',
         defaultQuery: { hello: 'world' },
-        bearerToken: 'My Bearer Token',
+        secretKey: 'My Secret Key',
       });
       expect(client.buildURL('/foo', { hello: undefined })).toEqual('http://localhost:5000/foo');
     });
@@ -211,7 +211,7 @@ describe('instantiate client', () => {
   test('custom fetch', async () => {
     const client = new ModerationAPI({
       baseURL: 'http://localhost:5000/',
-      bearerToken: 'My Bearer Token',
+      secretKey: 'My Secret Key',
       fetch: (url) => {
         return Promise.resolve(
           new Response(JSON.stringify({ url, custom: true }), {
@@ -229,7 +229,7 @@ describe('instantiate client', () => {
     // make sure the global fetch type is assignable to our Fetch type
     const client = new ModerationAPI({
       baseURL: 'http://localhost:5000/',
-      bearerToken: 'My Bearer Token',
+      secretKey: 'My Secret Key',
       fetch: defaultFetch,
     });
   });
@@ -237,7 +237,7 @@ describe('instantiate client', () => {
   test('custom signal', async () => {
     const client = new ModerationAPI({
       baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
-      bearerToken: 'My Bearer Token',
+      secretKey: 'My Secret Key',
       fetch: (...args) => {
         return new Promise((resolve, reject) =>
           setTimeout(
@@ -269,7 +269,7 @@ describe('instantiate client', () => {
 
     const client = new ModerationAPI({
       baseURL: 'http://localhost:5000/',
-      bearerToken: 'My Bearer Token',
+      secretKey: 'My Secret Key',
       fetch: testFetch,
     });
 
@@ -281,7 +281,7 @@ describe('instantiate client', () => {
     test('trailing slash', () => {
       const client = new ModerationAPI({
         baseURL: 'http://localhost:5000/custom/path/',
-        bearerToken: 'My Bearer Token',
+        secretKey: 'My Secret Key',
       });
       expect(client.buildURL('/foo', null)).toEqual('http://localhost:5000/custom/path/foo');
     });
@@ -289,7 +289,7 @@ describe('instantiate client', () => {
     test('no trailing slash', () => {
       const client = new ModerationAPI({
         baseURL: 'http://localhost:5000/custom/path',
-        bearerToken: 'My Bearer Token',
+        secretKey: 'My Secret Key',
       });
       expect(client.buildURL('/foo', null)).toEqual('http://localhost:5000/custom/path/foo');
     });
@@ -299,30 +299,30 @@ describe('instantiate client', () => {
     });
 
     test('explicit option', () => {
-      const client = new ModerationAPI({ baseURL: 'https://example.com', bearerToken: 'My Bearer Token' });
+      const client = new ModerationAPI({ baseURL: 'https://example.com', secretKey: 'My Secret Key' });
       expect(client.baseURL).toEqual('https://example.com');
     });
 
     test('env variable', () => {
       process.env['MODERATION_API_BASE_URL'] = 'https://example.com/from_env';
-      const client = new ModerationAPI({ bearerToken: 'My Bearer Token' });
+      const client = new ModerationAPI({ secretKey: 'My Secret Key' });
       expect(client.baseURL).toEqual('https://example.com/from_env');
     });
 
     test('empty env variable', () => {
       process.env['MODERATION_API_BASE_URL'] = ''; // empty
-      const client = new ModerationAPI({ bearerToken: 'My Bearer Token' });
+      const client = new ModerationAPI({ secretKey: 'My Secret Key' });
       expect(client.baseURL).toEqual('https://api.moderationapi.com/v1');
     });
 
     test('blank env variable', () => {
       process.env['MODERATION_API_BASE_URL'] = '  '; // blank
-      const client = new ModerationAPI({ bearerToken: 'My Bearer Token' });
+      const client = new ModerationAPI({ secretKey: 'My Secret Key' });
       expect(client.baseURL).toEqual('https://api.moderationapi.com/v1');
     });
 
     test('in request options', () => {
-      const client = new ModerationAPI({ bearerToken: 'My Bearer Token' });
+      const client = new ModerationAPI({ secretKey: 'My Secret Key' });
       expect(client.buildURL('/foo', null, 'http://localhost:5000/option')).toEqual(
         'http://localhost:5000/option/foo',
       );
@@ -330,7 +330,7 @@ describe('instantiate client', () => {
 
     test('in request options overridden by client options', () => {
       const client = new ModerationAPI({
-        bearerToken: 'My Bearer Token',
+        secretKey: 'My Secret Key',
         baseURL: 'http://localhost:5000/client',
       });
       expect(client.buildURL('/foo', null, 'http://localhost:5000/option')).toEqual(
@@ -340,7 +340,7 @@ describe('instantiate client', () => {
 
     test('in request options overridden by env variable', () => {
       process.env['MODERATION_API_BASE_URL'] = 'http://localhost:5000/env';
-      const client = new ModerationAPI({ bearerToken: 'My Bearer Token' });
+      const client = new ModerationAPI({ secretKey: 'My Secret Key' });
       expect(client.buildURL('/foo', null, 'http://localhost:5000/option')).toEqual(
         'http://localhost:5000/env/foo',
       );
@@ -348,11 +348,11 @@ describe('instantiate client', () => {
   });
 
   test('maxRetries option is correctly set', () => {
-    const client = new ModerationAPI({ maxRetries: 4, bearerToken: 'My Bearer Token' });
+    const client = new ModerationAPI({ maxRetries: 4, secretKey: 'My Secret Key' });
     expect(client.maxRetries).toEqual(4);
 
     // default
-    const client2 = new ModerationAPI({ bearerToken: 'My Bearer Token' });
+    const client2 = new ModerationAPI({ secretKey: 'My Secret Key' });
     expect(client2.maxRetries).toEqual(2);
   });
 
@@ -361,7 +361,7 @@ describe('instantiate client', () => {
       const client = new ModerationAPI({
         baseURL: 'http://localhost:5000/',
         maxRetries: 3,
-        bearerToken: 'My Bearer Token',
+        secretKey: 'My Secret Key',
       });
 
       const newClient = client.withOptions({
@@ -387,7 +387,7 @@ describe('instantiate client', () => {
         baseURL: 'http://localhost:5000/',
         defaultHeaders: { 'X-Test-Header': 'test-value' },
         defaultQuery: { 'test-param': 'test-value' },
-        bearerToken: 'My Bearer Token',
+        secretKey: 'My Secret Key',
       });
 
       const newClient = client.withOptions({
@@ -405,7 +405,7 @@ describe('instantiate client', () => {
       const client = new ModerationAPI({
         baseURL: 'http://localhost:5000/',
         timeout: 1000,
-        bearerToken: 'My Bearer Token',
+        secretKey: 'My Secret Key',
       });
 
       // Modify the client properties directly after creation
@@ -434,21 +434,21 @@ describe('instantiate client', () => {
 
   test('with environment variable arguments', () => {
     // set options via env var
-    process.env['MODERATION_API_BEARER_TOKEN'] = 'My Bearer Token';
+    process.env['MODAPI_SECRET_KEY'] = 'My Secret Key';
     const client = new ModerationAPI();
-    expect(client.bearerToken).toBe('My Bearer Token');
+    expect(client.secretKey).toBe('My Secret Key');
   });
 
   test('with overridden environment variable arguments', () => {
     // set options via env var
-    process.env['MODERATION_API_BEARER_TOKEN'] = 'another My Bearer Token';
-    const client = new ModerationAPI({ bearerToken: 'My Bearer Token' });
-    expect(client.bearerToken).toBe('My Bearer Token');
+    process.env['MODAPI_SECRET_KEY'] = 'another My Secret Key';
+    const client = new ModerationAPI({ secretKey: 'My Secret Key' });
+    expect(client.secretKey).toBe('My Secret Key');
   });
 });
 
 describe('request building', () => {
-  const client = new ModerationAPI({ bearerToken: 'My Bearer Token' });
+  const client = new ModerationAPI({ secretKey: 'My Secret Key' });
 
   describe('custom headers', () => {
     test('handles undefined', async () => {
@@ -467,7 +467,7 @@ describe('request building', () => {
 });
 
 describe('default encoder', () => {
-  const client = new ModerationAPI({ bearerToken: 'My Bearer Token' });
+  const client = new ModerationAPI({ secretKey: 'My Secret Key' });
 
   class Serializable {
     toJSON() {
@@ -552,7 +552,7 @@ describe('retries', () => {
       return new Response(JSON.stringify({ a: 1 }), { headers: { 'Content-Type': 'application/json' } });
     };
 
-    const client = new ModerationAPI({ bearerToken: 'My Bearer Token', timeout: 10, fetch: testFetch });
+    const client = new ModerationAPI({ secretKey: 'My Secret Key', timeout: 10, fetch: testFetch });
 
     expect(await client.request({ path: '/foo', method: 'get' })).toEqual({ a: 1 });
     expect(count).toEqual(2);
@@ -582,7 +582,7 @@ describe('retries', () => {
       return new Response(JSON.stringify({ a: 1 }), { headers: { 'Content-Type': 'application/json' } });
     };
 
-    const client = new ModerationAPI({ bearerToken: 'My Bearer Token', fetch: testFetch, maxRetries: 4 });
+    const client = new ModerationAPI({ secretKey: 'My Secret Key', fetch: testFetch, maxRetries: 4 });
 
     expect(await client.request({ path: '/foo', method: 'get' })).toEqual({ a: 1 });
 
@@ -606,7 +606,7 @@ describe('retries', () => {
       capturedRequest = init;
       return new Response(JSON.stringify({ a: 1 }), { headers: { 'Content-Type': 'application/json' } });
     };
-    const client = new ModerationAPI({ bearerToken: 'My Bearer Token', fetch: testFetch, maxRetries: 4 });
+    const client = new ModerationAPI({ secretKey: 'My Secret Key', fetch: testFetch, maxRetries: 4 });
 
     expect(
       await client.request({
@@ -636,7 +636,7 @@ describe('retries', () => {
       return new Response(JSON.stringify({ a: 1 }), { headers: { 'Content-Type': 'application/json' } });
     };
     const client = new ModerationAPI({
-      bearerToken: 'My Bearer Token',
+      secretKey: 'My Secret Key',
       fetch: testFetch,
       maxRetries: 4,
       defaultHeaders: { 'X-Stainless-Retry-Count': null },
@@ -668,7 +668,7 @@ describe('retries', () => {
       capturedRequest = init;
       return new Response(JSON.stringify({ a: 1 }), { headers: { 'Content-Type': 'application/json' } });
     };
-    const client = new ModerationAPI({ bearerToken: 'My Bearer Token', fetch: testFetch, maxRetries: 4 });
+    const client = new ModerationAPI({ secretKey: 'My Secret Key', fetch: testFetch, maxRetries: 4 });
 
     expect(
       await client.request({
@@ -698,7 +698,7 @@ describe('retries', () => {
       return new Response(JSON.stringify({ a: 1 }), { headers: { 'Content-Type': 'application/json' } });
     };
 
-    const client = new ModerationAPI({ bearerToken: 'My Bearer Token', fetch: testFetch });
+    const client = new ModerationAPI({ secretKey: 'My Secret Key', fetch: testFetch });
 
     expect(await client.request({ path: '/foo', method: 'get' })).toEqual({ a: 1 });
     expect(count).toEqual(2);
@@ -728,7 +728,7 @@ describe('retries', () => {
       return new Response(JSON.stringify({ a: 1 }), { headers: { 'Content-Type': 'application/json' } });
     };
 
-    const client = new ModerationAPI({ bearerToken: 'My Bearer Token', fetch: testFetch });
+    const client = new ModerationAPI({ secretKey: 'My Secret Key', fetch: testFetch });
 
     expect(await client.request({ path: '/foo', method: 'get' })).toEqual({ a: 1 });
     expect(count).toEqual(2);
