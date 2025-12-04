@@ -387,29 +387,29 @@ export interface ContentSubmitParams {
    * (enterprise).
    */
   policies?: Array<
-    | ContentSubmitParams.UnionMember0
-    | ContentSubmitParams.UnionMember1
-    | ContentSubmitParams.UnionMember2
-    | ContentSubmitParams.UnionMember3
-    | ContentSubmitParams.UnionMember4
-    | ContentSubmitParams.UnionMember5
-    | ContentSubmitParams.UnionMember6
-    | ContentSubmitParams.UnionMember7
-    | ContentSubmitParams.UnionMember8
-    | ContentSubmitParams.UnionMember9
-    | ContentSubmitParams.UnionMember10
-    | ContentSubmitParams.UnionMember11
-    | ContentSubmitParams.UnionMember12
-    | ContentSubmitParams.UnionMember13
-    | ContentSubmitParams.UnionMember14
-    | ContentSubmitParams.UnionMember15
-    | ContentSubmitParams.UnionMember16
-    | ContentSubmitParams.UnionMember17
-    | ContentSubmitParams.UnionMember18
-    | ContentSubmitParams.UnionMember19
-    | ContentSubmitParams.UnionMember20
-    | ContentSubmitParams.UnionMember21
-    | ContentSubmitParams.UnionMember22
+    | ContentSubmitParams.Toxicity
+    | ContentSubmitParams.PersonalInformation
+    | ContentSubmitParams.ToxicitySevere
+    | ContentSubmitParams.Hate
+    | ContentSubmitParams.Illicit
+    | ContentSubmitParams.IllicitDrugs
+    | ContentSubmitParams.IllicitAlcohol
+    | ContentSubmitParams.IllicitFirearms
+    | ContentSubmitParams.IllicitTobacco
+    | ContentSubmitParams.IllicitGambling
+    | ContentSubmitParams.Sexual
+    | ContentSubmitParams.Flirtation
+    | ContentSubmitParams.Profanity
+    | ContentSubmitParams.Violence
+    | ContentSubmitParams.SelfHarm
+    | ContentSubmitParams.Spam
+    | ContentSubmitParams.SelfPromotion
+    | ContentSubmitParams.Political
+    | ContentSubmitParams.Religion
+    | ContentSubmitParams.CodeAbuse
+    | ContentSubmitParams.PiiMasking
+    | ContentSubmitParams.URLMasking
+    | ContentSubmitParams.Guideline
   >;
 }
 
@@ -524,133 +524,133 @@ export namespace ContentSubmitParams {
     }
   }
 
-  export interface UnionMember0 {
+  export interface Toxicity {
     id: 'toxicity';
 
     flag: boolean;
   }
 
-  export interface UnionMember1 {
+  export interface PersonalInformation {
     id: 'personal_information';
 
     flag: boolean;
   }
 
-  export interface UnionMember2 {
+  export interface ToxicitySevere {
     id: 'toxicity_severe';
 
     flag: boolean;
   }
 
-  export interface UnionMember3 {
+  export interface Hate {
     id: 'hate';
 
     flag: boolean;
   }
 
-  export interface UnionMember4 {
+  export interface Illicit {
     id: 'illicit';
 
     flag: boolean;
   }
 
-  export interface UnionMember5 {
+  export interface IllicitDrugs {
     id: 'illicit_drugs';
 
     flag: boolean;
   }
 
-  export interface UnionMember6 {
+  export interface IllicitAlcohol {
     id: 'illicit_alcohol';
 
     flag: boolean;
   }
 
-  export interface UnionMember7 {
+  export interface IllicitFirearms {
     id: 'illicit_firearms';
 
     flag: boolean;
   }
 
-  export interface UnionMember8 {
+  export interface IllicitTobacco {
     id: 'illicit_tobacco';
 
     flag: boolean;
   }
 
-  export interface UnionMember9 {
+  export interface IllicitGambling {
     id: 'illicit_gambling';
 
     flag: boolean;
   }
 
-  export interface UnionMember10 {
+  export interface Sexual {
     id: 'sexual';
 
     flag: boolean;
   }
 
-  export interface UnionMember11 {
+  export interface Flirtation {
     id: 'flirtation';
 
     flag: boolean;
   }
 
-  export interface UnionMember12 {
+  export interface Profanity {
     id: 'profanity';
 
     flag: boolean;
   }
 
-  export interface UnionMember13 {
+  export interface Violence {
     id: 'violence';
 
     flag: boolean;
   }
 
-  export interface UnionMember14 {
+  export interface SelfHarm {
     id: 'self_harm';
 
     flag: boolean;
   }
 
-  export interface UnionMember15 {
+  export interface Spam {
     id: 'spam';
 
     flag: boolean;
   }
 
-  export interface UnionMember16 {
+  export interface SelfPromotion {
     id: 'self_promotion';
 
     flag: boolean;
   }
 
-  export interface UnionMember17 {
+  export interface Political {
     id: 'political';
 
     flag: boolean;
   }
 
-  export interface UnionMember18 {
+  export interface Religion {
     id: 'religion';
 
     flag: boolean;
   }
 
-  export interface UnionMember19 {
+  export interface CodeAbuse {
     id: 'code_abuse';
 
     flag: boolean;
   }
 
-  export interface UnionMember20 {
+  export interface PiiMasking {
     id: 'pii';
 
-    entities: { [key: string]: UnionMember20.Entities };
+    entities: { [key: string]: PiiMasking.Entities };
   }
 
-  export namespace UnionMember20 {
+  export namespace PiiMasking {
     export interface Entities {
       id:
         | 'email'
@@ -673,13 +673,13 @@ export namespace ContentSubmitParams {
     }
   }
 
-  export interface UnionMember21 {
+  export interface URLMasking {
     id: 'url';
 
-    entities: { [key: string]: UnionMember21.Entities };
+    entities: { [key: string]: URLMasking.Entities };
   }
 
-  export namespace UnionMember21 {
+  export namespace URLMasking {
     export interface Entities {
       id:
         | 'email'
@@ -702,7 +702,7 @@ export namespace ContentSubmitParams {
     }
   }
 
-  export interface UnionMember22 {
+  export interface Guideline {
     id: 'guideline';
 
     flag: boolean;
