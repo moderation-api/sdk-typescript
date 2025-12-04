@@ -30,7 +30,7 @@ export interface ContentSubmitResponse {
   /**
    * Results of all insights enabled in the channel.
    */
-  insights: Array<ContentSubmitResponse.UnionMember0 | ContentSubmitResponse.UnionMember1>;
+  insights: Array<ContentSubmitResponse.SentimentInsights | ContentSubmitResponse.LanguageInsights>;
 
   /**
    * Metadata about the moderation request
@@ -219,7 +219,7 @@ export namespace ContentSubmitResponse {
   /**
    * Sentiment insight
    */
-  export interface UnionMember0 {
+  export interface SentimentInsights {
     id: 'sentiment';
 
     probability: number;
@@ -232,7 +232,7 @@ export namespace ContentSubmitResponse {
   /**
    * Language insight
    */
-  export interface UnionMember1 {
+  export interface LanguageInsights {
     id: 'language';
 
     probability: number;
