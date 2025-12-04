@@ -3,7 +3,7 @@
 import ModerationAPI from '@moderation-api/sdk';
 
 const client = new ModerationAPI({
-  bearerToken: 'My Bearer Token',
+  secretKey: 'My Secret Key',
   baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
 });
 

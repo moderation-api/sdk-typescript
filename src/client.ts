@@ -71,9 +71,9 @@ import { isEmptyObj } from './internal/utils/values';
 
 export interface ClientOptions {
   /**
-   * Defaults to process.env['MODERATION_API_BEARER_TOKEN'].
+   * Defaults to process.env['MODAPI_SECRET_KEY'].
    */
-  bearerToken?: string | undefined;
+  secretKey?: string | undefined;
 
   /**
    * Override the default base URL for the API, e.g., "https://api.example.com/v2/"
@@ -148,7 +148,7 @@ export interface ClientOptions {
  * API Client for interfacing with the Moderation API API.
  */
 export class ModerationAPI {
-  bearerToken: string;
+  secretKey: string;
 
   baseURL: string;
   maxRetries: number;
@@ -165,7 +165,7 @@ export class ModerationAPI {
   /**
    * API Client for interfacing with the Moderation API API.
    *
-   * @param {string | undefined} [opts.bearerToken=process.env['MODERATION_API_BEARER_TOKEN'] ?? undefined]
+   * @param {string | undefined} [opts.secretKey=process.env['MODAPI_SECRET_KEY'] ?? undefined]
    * @param {string} [opts.baseURL=process.env['MODERATION_API_BASE_URL'] ?? https://api.moderationapi.com/v1] - Override the default base URL for the API.
    * @param {number} [opts.timeout=1 minute] - The maximum amount of time (in milliseconds) the client will wait for a response before timing out.
    * @param {MergedRequestInit} [opts.fetchOptions] - Additional `RequestInit` options to be passed to `fetch` calls.
@@ -176,17 +176,17 @@ export class ModerationAPI {
    */
   constructor({
     baseURL = readEnv('MODERATION_API_BASE_URL'),
-    bearerToken = readEnv('MODERATION_API_BEARER_TOKEN'),
+    secretKey = readEnv('MODAPI_SECRET_KEY'),
     ...opts
   }: ClientOptions = {}) {
-    if (bearerToken === undefined) {
+    if (secretKey === undefined) {
       throw new Errors.ModerationAPIError(
-        "The MODERATION_API_BEARER_TOKEN environment variable is missing or empty; either provide it, or instantiate the ModerationAPI client with an bearerToken option, like new ModerationAPI({ bearerToken: 'My Bearer Token' }).",
+        "The MODAPI_SECRET_KEY environment variable is missing or empty; either provide it, or instantiate the ModerationAPI client with an secretKey option, like new ModerationAPI({ secretKey: 'My Secret Key' }).",
       );
     }
 
     const options: ClientOptions = {
-      bearerToken,
+      secretKey,
       ...opts,
       baseURL: baseURL || `https://api.moderationapi.com/v1`,
     };
@@ -208,7 +208,7 @@ export class ModerationAPI {
 
     this._options = options;
 
-    this.bearerToken = bearerToken;
+    this.secretKey = secretKey;
   }
 
   /**
@@ -224,7 +224,7 @@ export class ModerationAPI {
       logLevel: this.logLevel,
       fetch: this.fetch,
       fetchOptions: this.fetchOptions,
-      bearerToken: this.bearerToken,
+      secretKey: this.secretKey,
       ...options,
     });
     return client;
@@ -246,7 +246,7 @@ export class ModerationAPI {
   }
 
   protected async authHeaders(opts: FinalRequestOptions): Promise<NullableHeaders | undefined> {
-    return buildHeaders([{ Authorization: `Bearer ${this.bearerToken}` }]);
+    return buildHeaders([{ Authorization: `Bearer ${this.secretKey}` }]);
   }
 
   protected stringifyQuery(query: Record<string, unknown>): string {
