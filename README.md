@@ -26,9 +26,9 @@ const client = new ModerationAPI({
   secretKey: process.env['MODAPI_SECRET_KEY'], // This is the default and can be omitted
 });
 
-const authors = await client.authors.list();
+const response = await client.content.submit({ content: { text: 'x', type: 'text' } });
 
-console.log(authors.authors);
+console.log(response.recommendation);
 ```
 
 ### Request & Response types
@@ -43,7 +43,8 @@ const client = new ModerationAPI({
   secretKey: process.env['MODAPI_SECRET_KEY'], // This is the default and can be omitted
 });
 
-const authors: ModerationAPI.AuthorListResponse = await client.authors.list();
+const params: ModerationAPI.ContentSubmitParams = { content: { text: 'x', type: 'text' } };
+const response: ModerationAPI.ContentSubmitResponse = await client.content.submit(params);
 ```
 
 Documentation for each method, request param, and response field are available in docstrings and will appear on hover in most modern editors.
@@ -56,7 +57,7 @@ a subclass of `APIError` will be thrown:
 
 <!-- prettier-ignore -->
 ```ts
-const authors = await client.authors.list().catch(async (err) => {
+const response = await client.content.submit({ content: { text: 'x', type: 'text' } }).catch(async (err) => {
   if (err instanceof ModerationAPI.APIError) {
     console.log(err.status); // 400
     console.log(err.name); // BadRequestError
@@ -96,7 +97,7 @@ const client = new ModerationAPI({
 });
 
 // Or, configure per-request:
-await client.authors.list({
+await client.content.submit({ content: { text: 'x', type: 'text' } }, {
   maxRetries: 5,
 });
 ```
@@ -113,7 +114,7 @@ const client = new ModerationAPI({
 });
 
 // Override per-request:
-await client.authors.list({
+await client.content.submit({ content: { text: 'x', type: 'text' } }, {
   timeout: 5 * 1000,
 });
 ```
@@ -136,13 +137,15 @@ Unlike `.asResponse()` this method consumes the body, returning once it is parse
 ```ts
 const client = new ModerationAPI();
 
-const response = await client.authors.list().asResponse();
+const response = await client.content.submit({ content: { text: 'x', type: 'text' } }).asResponse();
 console.log(response.headers.get('X-My-Header'));
 console.log(response.statusText); // access the underlying Response object
 
-const { data: authors, response: raw } = await client.authors.list().withResponse();
+const { data: response, response: raw } = await client.content
+  .submit({ content: { text: 'x', type: 'text' } })
+  .withResponse();
 console.log(raw.headers.get('X-My-Header'));
-console.log(authors.authors);
+console.log(response.recommendation);
 ```
 
 ### Logging
@@ -222,7 +225,7 @@ parameter. This library doesn't validate at runtime that the request matches the
 send will be sent as-is.
 
 ```ts
-client.authors.list({
+client.content.submit({
   // ...
   // @ts-expect-error baz is not yet public
   baz: 'undocumented option',
