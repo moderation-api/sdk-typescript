@@ -854,12 +854,12 @@ export interface AuthorListParams {
   /**
    * Page number to fetch
    */
-  pageNumber?: string;
+  pageNumber?: number;
 
   /**
    * Number of authors per page
    */
-  pageSize?: string;
+  pageSize?: number;
 
   sortBy?:
     | 'trustLevel'
