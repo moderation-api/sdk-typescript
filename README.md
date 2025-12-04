@@ -6,29 +6,174 @@ This library provides convenient access to the Moderation API REST API from serv
 
 The REST API documentation can be found on [docs.moderationapi.com](https://docs.moderationapi.com). The full API of this library can be found in [api.md](api.md).
 
-It is generated with [Stainless](https://www.stainless.com/).
+Use the Moderation API to analyze text and images for offensive content, profanity, toxicity, discrimination, sentiment, language and more - or detect, hide, and extract data entities like emails, phone numbers, addresses and more.
 
 ## Installation
 
 ```sh
 npm install @moderation-api/sdk
+# or
+pnpm add @moderation-api/sdk
 ```
 
 ## Usage
 
-The full API of this library can be found in [api.md](api.md).
+> The full API of this library can be found in [api.md](api.md).
 
-<!-- prettier-ignore -->
+The package needs to be configured with your project's API key, which is
+available in your [Project Dashboard](https://dash.moderationapi.com).
+
+The API key can be provided in two ways:
+
+1. (Recommended) Set the `MODAPI_SECRET_KEY` environment variable
+2. Pass it explicitly when instantiating the client
+
+### Content Moderation
+
+Use `content.submit` to moderate text, images, video, audio, or complex objects:
+
 ```js
-import ModerationAPI from '@moderation-api/sdk';
-
-const client = new ModerationAPI({
-  secretKey: process.env['MODAPI_SECRET_KEY'], // This is the default and can be omitted
+// Text moderation
+const result = await moderationApi.content.submit({
+  content: {
+    type: 'text',
+    text: 'Your text here',
+  },
+  contentId: 'message-123', // optional
+  authorId: 'user-123', // optional
+  conversationId: 'room-123', // optional
+  metaType: 'message', // optional
+  metadata: { custom: 'data' }, // optional
 });
 
-const response = await client.content.submit({ content: { text: 'x', type: 'text' } });
+// Image moderation
+const result = await moderationApi.content.submit({
+  content: {
+    type: 'image',
+    url: 'https://example.com/image.jpg',
+  },
+});
 
-console.log(response.recommendation);
+// Video moderation
+const result = await moderationApi.content.submit({
+  content: {
+    type: 'video',
+    url: 'https://example.com/video.mp4',
+  },
+});
+
+// Audio moderation
+const result = await moderationApi.content.submit({
+  content: {
+    type: 'audio',
+    url: 'https://example.com/audio.mp3',
+  },
+});
+
+// Object moderation (for complex data with multiple fields)
+const result = await moderationApi.content.submit({
+  content: {
+    type: 'object',
+    data: {
+      title: { type: 'text', text: 'Post title' },
+      body: { type: 'text', text: 'Post content' },
+      thumbnail: { type: 'image', url: 'https://example.com/thumb.jpg' },
+    },
+  },
+});
+```
+
+#### Using the Response
+
+The response includes both a `flagged` field and a `recommendation` with the API's suggested action:
+
+```js
+const result = await moderationApi.content.submit({
+  content: { type: 'text', text: 'Some content' },
+});
+
+// Simple boolean check
+if (result.evaluation.flagged) {
+  console.log('Content was flagged by policies');
+}
+
+// Use the API's recommendation (considers severity, thresholds, and more)
+switch (result.recommendation.action) {
+  case 'reject':
+    // Block the content completely
+    console.log('Content should be rejected');
+    break;
+  case 'review':
+    // Send to moderation queue for human review
+    console.log('Content needs manual review');
+    break;
+  case 'allow':
+    // Content is safe to publish
+    console.log('Content is approved');
+    break;
+}
+
+// Access detailed policy results
+result.policies.forEach((policy) => {
+  console.log(`Policy ${policy.id}: flagged=${policy.flagged}, probability=${policy.probability}`);
+});
+```
+
+### Queue Management
+
+```js
+// Get queue stats
+const stats = await moderationApi.queueView.getStats();
+
+// Get queue items
+const items = await moderationApi.queueView.getItems();
+
+// Resolve/unresolve items
+await moderationApi.queueView.resolveItem('item_id');
+await moderationApi.queueView.unresolveItem('item_id');
+```
+
+### Wordlist Management
+
+```js
+// Get wordlists
+const wordlists = await moderationApi.wordlist.list();
+
+// Add words to wordlist
+await moderationApi.wordlist.addWords('wordlist_id', {
+  words: ['word1', 'word2'],
+});
+
+// Remove words from wordlist
+await moderationApi.wordlist.removeWords('wordlist_id', {
+  words: ['word1'],
+});
+```
+
+### Author Management
+
+```js
+// Create an author
+const author = await moderationApi.author.create({
+  authorId: 'user_123',
+  username: 'john_doe',
+  email: 'john@example.com',
+});
+
+// List authors
+const authors = await moderationApi.author.list();
+
+// Get author details
+const authorDetails = await moderationApi.author.get('author_id');
+
+// Update author
+await moderationApi.author.update('author_id', {
+  username: 'jane_doe',
+  email: 'jane@example.com',
+});
+
+// Delete author
+await moderationApi.author.delete('author_id');
 ```
 
 ### Request & Response types
@@ -39,9 +184,7 @@ This library includes TypeScript definitions for all request params and response
 ```ts
 import ModerationAPI from '@moderation-api/sdk';
 
-const client = new ModerationAPI({
-  secretKey: process.env['MODAPI_SECRET_KEY'], // This is the default and can be omitted
-});
+const client = new ModerationAPI();
 
 const params: ModerationAPI.ContentSubmitParams = { content: { text: 'x', type: 'text' } };
 const response: ModerationAPI.ContentSubmitResponse = await client.content.submit(params);
@@ -335,7 +478,7 @@ This package generally follows [SemVer](https://semver.org/spec/v2.0.0.html) con
 
 We take backwards-compatibility seriously and work hard to ensure you can rely on a smooth upgrade experience.
 
-We are keen for your feedback; please open an [issue](https://www.github.com/moderation-api/sdk-typescript/issues) with questions, bugs, or suggestions.
+We are keen for your feedback; please open an [issue](https://www.github.com/moderation-api/sdk-typescript/issues) with questions, bugs, or suggestions, or reach out at [support@moderationapi.com](mailto:support@moderationapi.com).
 
 ## Requirements
 
@@ -376,3 +519,15 @@ If you are interested in other runtime environments, please open or upvote an is
 ## Contributing
 
 See [the contributing documentation](./CONTRIBUTING.md).
+
+## Email support
+
+Reach out at [support@moderationapi.com](mailto:support@moderationapi.com)
+
+## More Information
+
+- [REST API Reference](https://docs.moderationapi.com/api-reference/introduction)
+- [Rate limits](https://docs.moderationapi.com/api-reference/rate-limits)
+- [Error Handling](https://docs.moderationapi.com/api-reference/errors)
+- [Documentation](https://docs.moderationapi.com/get-started/introduction)
+- [Test your API key](https://docs.moderationapi.com/api-reference/authentication)
