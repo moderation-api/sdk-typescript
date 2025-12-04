@@ -57,6 +57,7 @@ import {
   WordlistUpdateResponse,
 } from './resources/wordlist/wordlist';
 import { type Fetch } from './internal/builtin-types';
+import { isRunningInBrowser } from './internal/detect-platform';
 import { HeadersLike, NullableHeaders, buildHeaders } from './internal/headers';
 import { FinalRequestOptions, RequestOptions } from './internal/request-options';
 import { readEnv } from './internal/utils/env';
@@ -130,6 +131,12 @@ export interface ClientOptions {
   defaultQuery?: Record<string, string | undefined> | undefined;
 
   /**
+   * By default, client-side use of this library is not allowed, as it risks exposing your secret API credentials to attackers.
+   * Only set this option to `true` if you understand the risks and have appropriate mitigations in place.
+   */
+  dangerouslyAllowBrowser?: boolean | undefined;
+
+  /**
    * Set the log level.
    *
    * Defaults to process.env['MODERATION_API_LOG'] or 'warn' if it isn't set.
@@ -173,6 +180,7 @@ export class ModerationAPI {
    * @param {number} [opts.maxRetries=2] - The maximum number of times the client will retry a request.
    * @param {HeadersLike} opts.defaultHeaders - Default headers to include with every request to the API.
    * @param {Record<string, string | undefined>} opts.defaultQuery - Default query parameters to include with every request to the API.
+   * @param {boolean} [opts.dangerouslyAllowBrowser=false] - By default, client-side use of this library is not allowed, as it risks exposing your secret API credentials to attackers.
    */
   constructor({
     baseURL = readEnv('MODERATION_API_BASE_URL'),
@@ -190,6 +198,12 @@ export class ModerationAPI {
       ...opts,
       baseURL: baseURL || `https://api.moderationapi.com/v1`,
     };
+
+    if (!options.dangerouslyAllowBrowser && isRunningInBrowser()) {
+      throw new Errors.ModerationAPIError(
+        'The client should not be used in the browser as it will expose your secret api key.',
+      );
+    }
 
     this.baseURL = options.baseURL!;
     this.timeout = options.timeout ?? ModerationAPI.DEFAULT_TIMEOUT /* 1 minute */;
