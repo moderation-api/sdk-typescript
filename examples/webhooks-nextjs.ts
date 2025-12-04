@@ -1,5 +1,5 @@
+// @ts-nocheck
 // Next.js API route example for handling webhooks
-
 import { webhooks } from '@moderation-api/sdk';
 import { buffer } from 'micro';
 
