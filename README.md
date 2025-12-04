@@ -28,6 +28,18 @@ The API key can be provided in two ways:
 1. (Recommended) Set the `MODAPI_SECRET_KEY` environment variable
 2. Pass it explicitly when instantiating the client
 
+```js
+import ModerationAPI from '@moderation-api/sdk';
+
+// Option 1: Use environment variable MODAPI_SECRET_KEY
+const moderationApi = new ModerationAPI();
+
+// Option 2: Pass key explicitly (overrides environment variable)
+const moderationApi = new ModerationAPI({
+  key: 'proj_...',
+});
+```
+
 ### Content Moderation
 
 Use `content.submit` to moderate text, images, video, audio, or complex objects:
