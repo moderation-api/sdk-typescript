@@ -131,6 +131,8 @@ export interface ActionCreateResponse {
     | 'AUTHOR_REPORT'
     | 'AUTHOR_WARN'
     | 'AUTHOR_CUSTOM'
+    | 'ITEM_REJECT'
+    | 'ITEM_ALLOW'
     | 'ITEM_CUSTOM'
     | null;
 }
@@ -225,6 +227,8 @@ export interface ActionRetrieveResponse {
     | 'AUTHOR_REPORT'
     | 'AUTHOR_WARN'
     | 'AUTHOR_CUSTOM'
+    | 'ITEM_REJECT'
+    | 'ITEM_ALLOW'
     | 'ITEM_CUSTOM'
     | null;
 }
@@ -342,6 +346,8 @@ export interface ActionUpdateResponse {
     | 'AUTHOR_REPORT'
     | 'AUTHOR_WARN'
     | 'AUTHOR_CUSTOM'
+    | 'ITEM_REJECT'
+    | 'ITEM_ALLOW'
     | 'ITEM_CUSTOM'
     | null;
 }
@@ -442,6 +448,8 @@ export namespace ActionListResponse {
       | 'AUTHOR_REPORT'
       | 'AUTHOR_WARN'
       | 'AUTHOR_CUSTOM'
+      | 'ITEM_REJECT'
+      | 'ITEM_ALLOW'
       | 'ITEM_CUSTOM'
       | null;
   }
@@ -557,6 +565,8 @@ export interface ActionCreateParams {
     | 'AUTHOR_REPORT'
     | 'AUTHOR_WARN'
     | 'AUTHOR_CUSTOM'
+    | 'ITEM_REJECT'
+    | 'ITEM_ALLOW'
     | 'ITEM_CUSTOM'
     | null;
 
@@ -663,6 +673,8 @@ export interface ActionUpdateParams {
     | 'AUTHOR_REPORT'
     | 'AUTHOR_WARN'
     | 'AUTHOR_CUSTOM'
+    | 'ITEM_REJECT'
+    | 'ITEM_ALLOW'
     | 'ITEM_CUSTOM'
     | null;
 

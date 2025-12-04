@@ -390,6 +390,36 @@ export interface ContentSubmitParams {
    * The meta type of content being moderated
    */
   metaType?: 'profile' | 'message' | 'post' | 'comment' | 'event' | 'product' | 'review' | 'other';
+
+  /**
+   * Optionally override the channel policies for this moderation request only
+   * (enterprise).
+   */
+  policies?: Array<
+    | ContentSubmitParams.UnionMember0
+    | ContentSubmitParams.UnionMember1
+    | ContentSubmitParams.UnionMember2
+    | ContentSubmitParams.UnionMember3
+    | ContentSubmitParams.UnionMember4
+    | ContentSubmitParams.UnionMember5
+    | ContentSubmitParams.UnionMember6
+    | ContentSubmitParams.UnionMember7
+    | ContentSubmitParams.UnionMember8
+    | ContentSubmitParams.UnionMember9
+    | ContentSubmitParams.UnionMember10
+    | ContentSubmitParams.UnionMember11
+    | ContentSubmitParams.UnionMember12
+    | ContentSubmitParams.UnionMember13
+    | ContentSubmitParams.UnionMember14
+    | ContentSubmitParams.UnionMember15
+    | ContentSubmitParams.UnionMember16
+    | ContentSubmitParams.UnionMember17
+    | ContentSubmitParams.UnionMember18
+    | ContentSubmitParams.UnionMember19
+    | ContentSubmitParams.UnionMember20
+    | ContentSubmitParams.UnionMember21
+    | ContentSubmitParams.UnionMember22
+  >;
 }
 
 export namespace ContentSubmitParams {
@@ -507,6 +537,194 @@ export namespace ContentSubmitParams {
        */
       url: string;
     }
+  }
+
+  export interface UnionMember0 {
+    id: 'toxicity';
+
+    flag: boolean;
+  }
+
+  export interface UnionMember1 {
+    id: 'personal_information';
+
+    flag: boolean;
+  }
+
+  export interface UnionMember2 {
+    id: 'toxicity_severe';
+
+    flag: boolean;
+  }
+
+  export interface UnionMember3 {
+    id: 'hate';
+
+    flag: boolean;
+  }
+
+  export interface UnionMember4 {
+    id: 'illicit';
+
+    flag: boolean;
+  }
+
+  export interface UnionMember5 {
+    id: 'illicit_drugs';
+
+    flag: boolean;
+  }
+
+  export interface UnionMember6 {
+    id: 'illicit_alcohol';
+
+    flag: boolean;
+  }
+
+  export interface UnionMember7 {
+    id: 'illicit_firearms';
+
+    flag: boolean;
+  }
+
+  export interface UnionMember8 {
+    id: 'illicit_tobacco';
+
+    flag: boolean;
+  }
+
+  export interface UnionMember9 {
+    id: 'illicit_gambling';
+
+    flag: boolean;
+  }
+
+  export interface UnionMember10 {
+    id: 'sexual';
+
+    flag: boolean;
+  }
+
+  export interface UnionMember11 {
+    id: 'flirtation';
+
+    flag: boolean;
+  }
+
+  export interface UnionMember12 {
+    id: 'profanity';
+
+    flag: boolean;
+  }
+
+  export interface UnionMember13 {
+    id: 'violence';
+
+    flag: boolean;
+  }
+
+  export interface UnionMember14 {
+    id: 'self_harm';
+
+    flag: boolean;
+  }
+
+  export interface UnionMember15 {
+    id: 'spam';
+
+    flag: boolean;
+  }
+
+  export interface UnionMember16 {
+    id: 'self_promotion';
+
+    flag: boolean;
+  }
+
+  export interface UnionMember17 {
+    id: 'political';
+
+    flag: boolean;
+  }
+
+  export interface UnionMember18 {
+    id: 'religion';
+
+    flag: boolean;
+  }
+
+  export interface UnionMember19 {
+    id: 'code_abuse';
+
+    flag: boolean;
+  }
+
+  export interface UnionMember20 {
+    id: 'pii';
+
+    entities: { [key: string]: UnionMember20.Entities };
+  }
+
+  export namespace UnionMember20 {
+    export interface Entities {
+      id:
+        | 'email'
+        | 'phone'
+        | 'url'
+        | 'address'
+        | 'name'
+        | 'username'
+        | 'ip_address'
+        | 'credit_card'
+        | 'sensitive_other';
+
+      enable: boolean;
+
+      flag: boolean;
+
+      shouldMask: boolean;
+
+      mask?: string;
+    }
+  }
+
+  export interface UnionMember21 {
+    id: 'url';
+
+    entities: { [key: string]: UnionMember21.Entities };
+  }
+
+  export namespace UnionMember21 {
+    export interface Entities {
+      id:
+        | 'email'
+        | 'phone'
+        | 'url'
+        | 'address'
+        | 'name'
+        | 'username'
+        | 'ip_address'
+        | 'credit_card'
+        | 'sensitive_other';
+
+      enable: boolean;
+
+      flag: boolean;
+
+      shouldMask: boolean;
+
+      mask?: string;
+    }
+  }
+
+  export interface UnionMember22 {
+    id: 'guideline';
+
+    flag: boolean;
+
+    guidelineKey: string;
+
+    instructions: string;
   }
 }
 
