@@ -30,7 +30,7 @@ export interface ContentSubmitResponse {
   /**
    * Results of all insights enabled in the channel.
    */
-  insights: Array<ContentSubmitResponse.SentimentInsights | ContentSubmitResponse.LanguageInsights>;
+  insights: Array<ContentSubmitResponse.SentimentInsight | ContentSubmitResponse.LanguageInsight>;
 
   /**
    * Metadata about the moderation request
@@ -40,7 +40,7 @@ export interface ContentSubmitResponse {
   /**
    * Results of all policies in the channel. Sorted by highest probability.
    */
-  policies: Array<ContentSubmitResponse.UnionMember0 | ContentSubmitResponse.UnionMember1>;
+  policies: Array<ContentSubmitResponse.ClassifierOutput | ContentSubmitResponse.EntityMatcherOutput>;
 
   /**
    * The recommendation for the content based on the evaluation.
@@ -129,23 +129,14 @@ export namespace ContentSubmitResponse {
     /**
      * The modified content, if any.
      */
-    modified:
-      | string
-      | {
-          [key: string]:
-            | Content.UnionMember0
-            | Content.UnionMember1
-            | Content.UnionMember2
-            | Content.UnionMember3;
-        }
-      | null;
+    modified: string | { [key: string]: Content.Text | Content.Image | Content.Video | Content.Audio } | null;
   }
 
   export namespace Content {
     /**
      * Text
      */
-    export interface UnionMember0 {
+    export interface Text {
       /**
        * The content text
        */
@@ -157,7 +148,7 @@ export namespace ContentSubmitResponse {
     /**
      * Image
      */
-    export interface UnionMember1 {
+    export interface Image {
       type: 'image';
 
       /**
@@ -169,7 +160,7 @@ export namespace ContentSubmitResponse {
     /**
      * Video
      */
-    export interface UnionMember2 {
+    export interface Video {
       type: 'video';
 
       /**
@@ -181,7 +172,7 @@ export namespace ContentSubmitResponse {
     /**
      * Audio
      */
-    export interface UnionMember3 {
+    export interface Audio {
       type: 'audio';
 
       /**
@@ -219,7 +210,7 @@ export namespace ContentSubmitResponse {
   /**
    * Sentiment insight
    */
-  export interface SentimentInsights {
+  export interface SentimentInsight {
     id: 'sentiment';
 
     probability: number;
@@ -232,7 +223,7 @@ export namespace ContentSubmitResponse {
   /**
    * Language insight
    */
-  export interface LanguageInsights {
+  export interface LanguageInsight {
     id: 'language';
 
     probability: number;
@@ -264,7 +255,7 @@ export namespace ContentSubmitResponse {
   /**
    * Classifier policy.
    */
-  export interface UnionMember0 {
+  export interface ClassifierOutput {
     /**
      * The unique identifier for the classifier output.
      */
@@ -281,10 +272,10 @@ export namespace ContentSubmitResponse {
      */
     flagged_fields?: Array<string>;
 
-    labels?: Array<UnionMember0.Label>;
+    labels?: Array<ClassifierOutput.Label>;
   }
 
-  export namespace UnionMember0 {
+  export namespace ClassifierOutput {
     export interface Label {
       id: string;
 
@@ -297,12 +288,12 @@ export namespace ContentSubmitResponse {
   /**
    * Entity matcher policy.
    */
-  export interface UnionMember1 {
+  export interface EntityMatcherOutput {
     id: string;
 
     flagged: boolean;
 
-    matches: Array<UnionMember1.Match>;
+    matches: Array<EntityMatcherOutput.Match>;
 
     probability: number;
 
@@ -311,7 +302,7 @@ export namespace ContentSubmitResponse {
     flagged_fields?: Array<string>;
   }
 
-  export namespace UnionMember1 {
+  export namespace EntityMatcherOutput {
     export interface Match {
       match: string;
 
@@ -349,11 +340,11 @@ export interface ContentSubmitParams {
    * The content sent for moderation
    */
   content:
-    | ContentSubmitParams.UnionMember0
-    | ContentSubmitParams.UnionMember1
-    | ContentSubmitParams.UnionMember2
-    | ContentSubmitParams.UnionMember3
-    | ContentSubmitParams.UnionMember4;
+    | ContentSubmitParams.Text
+    | ContentSubmitParams.Image
+    | ContentSubmitParams.Video
+    | ContentSubmitParams.Audio
+    | ContentSubmitParams.ContentNode;
 
   /**
    * The author of the content.
@@ -426,7 +417,7 @@ export namespace ContentSubmitParams {
   /**
    * Text
    */
-  export interface UnionMember0 {
+  export interface Text {
     /**
      * The content text
      */
@@ -438,7 +429,7 @@ export namespace ContentSubmitParams {
   /**
    * Image
    */
-  export interface UnionMember1 {
+  export interface Image {
     type: 'image';
 
     /**
@@ -450,7 +441,7 @@ export namespace ContentSubmitParams {
   /**
    * Video
    */
-  export interface UnionMember2 {
+  export interface Video {
     type: 'video';
 
     /**
@@ -462,7 +453,7 @@ export namespace ContentSubmitParams {
   /**
    * Audio
    */
-  export interface UnionMember3 {
+  export interface Audio {
     type: 'audio';
 
     /**
@@ -474,26 +465,20 @@ export namespace ContentSubmitParams {
   /**
    * Object
    */
-  export interface UnionMember4 {
+  export interface ContentNode {
     /**
      * Values in the object. Can be mixed content types.
      */
-    data: {
-      [key: string]:
-        | UnionMember4.UnionMember0
-        | UnionMember4.UnionMember1
-        | UnionMember4.UnionMember2
-        | UnionMember4.UnionMember3;
-    };
+    data: { [key: string]: ContentNode.Text | ContentNode.Image | ContentNode.Video | ContentNode.Audio };
 
     type: 'object';
   }
 
-  export namespace UnionMember4 {
+  export namespace ContentNode {
     /**
      * Text
      */
-    export interface UnionMember0 {
+    export interface Text {
       /**
        * The content text
        */
@@ -505,7 +490,7 @@ export namespace ContentSubmitParams {
     /**
      * Image
      */
-    export interface UnionMember1 {
+    export interface Image {
       type: 'image';
 
       /**
@@ -517,7 +502,7 @@ export namespace ContentSubmitParams {
     /**
      * Video
      */
-    export interface UnionMember2 {
+    export interface Video {
       type: 'video';
 
       /**
@@ -529,7 +514,7 @@ export namespace ContentSubmitParams {
     /**
      * Audio
      */
-    export interface UnionMember3 {
+    export interface Audio {
       type: 'audio';
 
       /**
