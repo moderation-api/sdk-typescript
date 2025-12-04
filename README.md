@@ -1,4 +1,4 @@
-# Moderation API TypeScript Library API Library
+# Moderation API TypeScript Library
 
 [![NPM version](<https://img.shields.io/npm/v/@moderation-api/sdk.svg?label=npm%20(stable)>)](https://npmjs.org/package/@moderation-api/sdk) ![npm bundle size](https://img.shields.io/bundlephobia/minzip/@moderation-api/sdk)
 
