@@ -308,7 +308,7 @@ export namespace ContentSubmitResponse {
 
       probability: number;
 
-      span: Array<unknown>;
+      span: Array<number>;
     }
   }
 
