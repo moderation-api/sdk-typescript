@@ -208,12 +208,12 @@ export interface ItemListParams {
   /**
    * Page number to fetch
    */
-  pageNumber?: string;
+  pageNumber?: number;
 
   /**
    * Number of items per page
    */
-  pageSize?: string;
+  pageSize?: number;
 
   /**
    * Sort direction
