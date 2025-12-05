@@ -24,21 +24,7 @@ export {
   type AuthorUpdateParams,
   type AuthorListParams,
 } from './authors';
-export {
-  Moderate,
-  type ModerateAnalyzeResponse,
-  type ModerateAnalyzeAudioResponse,
-  type ModerateAnalyzeImageResponse,
-  type ModerateAnalyzeObjectResponse,
-  type ModerateAnalyzeTextResponse,
-  type ModerateAnalyzeVideoResponse,
-  type ModerateAnalyzeParams,
-  type ModerateAnalyzeAudioParams,
-  type ModerateAnalyzeImageParams,
-  type ModerateAnalyzeObjectParams,
-  type ModerateAnalyzeTextParams,
-  type ModerateAnalyzeVideoParams,
-} from './moderate';
+export { Content, type ContentSubmitResponse, type ContentSubmitParams } from './content';
 export {
   Queue,
   type QueueRetrieveResponse,

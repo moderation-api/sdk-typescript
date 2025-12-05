@@ -30,21 +30,7 @@ import {
   AuthorUpdateResponse,
   Authors,
 } from './resources/authors';
-import {
-  Moderate,
-  ModerateAnalyzeAudioParams,
-  ModerateAnalyzeAudioResponse,
-  ModerateAnalyzeImageParams,
-  ModerateAnalyzeImageResponse,
-  ModerateAnalyzeObjectParams,
-  ModerateAnalyzeObjectResponse,
-  ModerateAnalyzeParams,
-  ModerateAnalyzeResponse,
-  ModerateAnalyzeTextParams,
-  ModerateAnalyzeTextResponse,
-  ModerateAnalyzeVideoParams,
-  ModerateAnalyzeVideoResponse,
-} from './resources/moderate';
+import { Content, ContentSubmitParams, ContentSubmitResponse } from './resources/content';
 import {
   ActionCreateParams,
   ActionCreateResponse,
@@ -71,6 +57,7 @@ import {
   WordlistUpdateResponse,
 } from './resources/wordlist/wordlist';
 import { type Fetch } from './internal/builtin-types';
+import { isRunningInBrowser } from './internal/detect-platform';
 import { HeadersLike, NullableHeaders, buildHeaders } from './internal/headers';
 import { FinalRequestOptions, RequestOptions } from './internal/request-options';
 import { readEnv } from './internal/utils/env';
@@ -85,9 +72,9 @@ import { isEmptyObj } from './internal/utils/values';
 
 export interface ClientOptions {
   /**
-   * Defaults to process.env['MODERATION_API_BEARER_TOKEN'].
+   * Defaults to process.env['MODAPI_SECRET_KEY'].
    */
-  bearerToken?: string | undefined;
+  secretKey?: string | undefined;
 
   /**
    * Override the default base URL for the API, e.g., "https://api.example.com/v2/"
@@ -144,6 +131,12 @@ export interface ClientOptions {
   defaultQuery?: Record<string, string | undefined> | undefined;
 
   /**
+   * By default, client-side use of this library is not allowed, as it risks exposing your secret API credentials to attackers.
+   * Only set this option to `true` if you understand the risks and have appropriate mitigations in place.
+   */
+  dangerouslyAllowBrowser?: boolean | undefined;
+
+  /**
    * Set the log level.
    *
    * Defaults to process.env['MODERATION_API_LOG'] or 'warn' if it isn't set.
@@ -162,12 +155,12 @@ export interface ClientOptions {
  * API Client for interfacing with the Moderation API API.
  */
 export class ModerationAPI {
-  bearerToken: string;
+  secretKey: string;
 
   baseURL: string;
   maxRetries: number;
   timeout: number;
-  logger: Logger | undefined;
+  logger: Logger;
   logLevel: LogLevel | undefined;
   fetchOptions: MergedRequestInit | undefined;
 
@@ -179,7 +172,7 @@ export class ModerationAPI {
   /**
    * API Client for interfacing with the Moderation API API.
    *
-   * @param {string | undefined} [opts.bearerToken=process.env['MODERATION_API_BEARER_TOKEN'] ?? undefined]
+   * @param {string | undefined} [opts.secretKey=process.env['MODAPI_SECRET_KEY'] ?? undefined]
    * @param {string} [opts.baseURL=process.env['MODERATION_API_BASE_URL'] ?? https://api.moderationapi.com/v1] - Override the default base URL for the API.
    * @param {number} [opts.timeout=1 minute] - The maximum amount of time (in milliseconds) the client will wait for a response before timing out.
    * @param {MergedRequestInit} [opts.fetchOptions] - Additional `RequestInit` options to be passed to `fetch` calls.
@@ -187,23 +180,30 @@ export class ModerationAPI {
    * @param {number} [opts.maxRetries=2] - The maximum number of times the client will retry a request.
    * @param {HeadersLike} opts.defaultHeaders - Default headers to include with every request to the API.
    * @param {Record<string, string | undefined>} opts.defaultQuery - Default query parameters to include with every request to the API.
+   * @param {boolean} [opts.dangerouslyAllowBrowser=false] - By default, client-side use of this library is not allowed, as it risks exposing your secret API credentials to attackers.
    */
   constructor({
     baseURL = readEnv('MODERATION_API_BASE_URL'),
-    bearerToken = readEnv('MODERATION_API_BEARER_TOKEN'),
+    secretKey = readEnv('MODAPI_SECRET_KEY'),
     ...opts
   }: ClientOptions = {}) {
-    if (bearerToken === undefined) {
+    if (secretKey === undefined) {
       throw new Errors.ModerationAPIError(
-        "The MODERATION_API_BEARER_TOKEN environment variable is missing or empty; either provide it, or instantiate the ModerationAPI client with an bearerToken option, like new ModerationAPI({ bearerToken: 'My Bearer Token' }).",
+        "The MODAPI_SECRET_KEY environment variable is missing or empty; either provide it, or instantiate the ModerationAPI client with an secretKey option, like new ModerationAPI({ secretKey: 'My Secret Key' }).",
       );
     }
 
     const options: ClientOptions = {
-      bearerToken,
+      secretKey,
       ...opts,
       baseURL: baseURL || `https://api.moderationapi.com/v1`,
     };
+
+    if (!options.dangerouslyAllowBrowser && isRunningInBrowser()) {
+      throw new Errors.ModerationAPIError(
+        'The client should not be used in the browser as it will expose your secret api key.',
+      );
+    }
 
     this.baseURL = options.baseURL!;
     this.timeout = options.timeout ?? ModerationAPI.DEFAULT_TIMEOUT /* 1 minute */;
@@ -222,7 +222,7 @@ export class ModerationAPI {
 
     this._options = options;
 
-    this.bearerToken = bearerToken;
+    this.secretKey = secretKey;
   }
 
   /**
@@ -238,7 +238,7 @@ export class ModerationAPI {
       logLevel: this.logLevel,
       fetch: this.fetch,
       fetchOptions: this.fetchOptions,
-      bearerToken: this.bearerToken,
+      secretKey: this.secretKey,
       ...options,
     });
     return client;
@@ -260,7 +260,7 @@ export class ModerationAPI {
   }
 
   protected async authHeaders(opts: FinalRequestOptions): Promise<NullableHeaders | undefined> {
-    return buildHeaders([{ Authorization: `Bearer ${this.bearerToken}` }]);
+    return buildHeaders([{ Authorization: `Bearer ${this.secretKey}` }]);
   }
 
   protected stringifyQuery(query: Record<string, unknown>): string {
@@ -754,7 +754,7 @@ export class ModerationAPI {
   authors: API.Authors = new API.Authors(this);
   queue: API.Queue = new API.Queue(this);
   actions: API.Actions = new API.Actions(this);
-  moderate: API.Moderate = new API.Moderate(this);
+  content: API.Content = new API.Content(this);
   account: API.Account = new API.Account(this);
   auth: API.Auth = new API.Auth(this);
   wordlist: API.Wordlist = new API.Wordlist(this);
@@ -763,7 +763,7 @@ export class ModerationAPI {
 ModerationAPI.Authors = Authors;
 ModerationAPI.Queue = Queue;
 ModerationAPI.Actions = Actions;
-ModerationAPI.Moderate = Moderate;
+ModerationAPI.Content = Content;
 ModerationAPI.Account = Account;
 ModerationAPI.Auth = Auth;
 ModerationAPI.Wordlist = Wordlist;
@@ -803,19 +803,9 @@ export declare namespace ModerationAPI {
   };
 
   export {
-    Moderate as Moderate,
-    type ModerateAnalyzeResponse as ModerateAnalyzeResponse,
-    type ModerateAnalyzeAudioResponse as ModerateAnalyzeAudioResponse,
-    type ModerateAnalyzeImageResponse as ModerateAnalyzeImageResponse,
-    type ModerateAnalyzeObjectResponse as ModerateAnalyzeObjectResponse,
-    type ModerateAnalyzeTextResponse as ModerateAnalyzeTextResponse,
-    type ModerateAnalyzeVideoResponse as ModerateAnalyzeVideoResponse,
-    type ModerateAnalyzeParams as ModerateAnalyzeParams,
-    type ModerateAnalyzeAudioParams as ModerateAnalyzeAudioParams,
-    type ModerateAnalyzeImageParams as ModerateAnalyzeImageParams,
-    type ModerateAnalyzeObjectParams as ModerateAnalyzeObjectParams,
-    type ModerateAnalyzeTextParams as ModerateAnalyzeTextParams,
-    type ModerateAnalyzeVideoParams as ModerateAnalyzeVideoParams,
+    Content as Content,
+    type ContentSubmitResponse as ContentSubmitResponse,
+    type ContentSubmitParams as ContentSubmitParams,
   };
 
   export { Account as Account, type AccountListResponse as AccountListResponse };

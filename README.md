@@ -1,37 +1,191 @@
-# Moderation API TypeScript API Library
+# Moderation API TypeScript Library
 
-[![NPM version](<https://img.shields.io/npm/v/moderation-api.svg?label=npm%20(stable)>)](https://npmjs.org/package/moderation-api) ![npm bundle size](https://img.shields.io/bundlephobia/minzip/moderation-api)
+[![NPM version](<https://img.shields.io/npm/v/@moderation-api/sdk.svg?label=npm%20(stable)>)](https://npmjs.org/package/@moderation-api/sdk) ![npm bundle size](https://img.shields.io/bundlephobia/minzip/@moderation-api/sdk)
 
 This library provides convenient access to the Moderation API REST API from server-side TypeScript or JavaScript.
 
 The REST API documentation can be found on [docs.moderationapi.com](https://docs.moderationapi.com). The full API of this library can be found in [api.md](api.md).
 
-It is generated with [Stainless](https://www.stainless.com/).
+Use the Moderation API to analyze text and images for offensive content, profanity, toxicity, discrimination, sentiment, language and more - or detect, hide, and extract data entities like emails, phone numbers, addresses and more.
 
 ## Installation
 
 ```sh
-npm install git+ssh://git@github.com:stainless-sdks/moderation-api-typescript.git
+npm install @moderation-api/sdk
+# or
+pnpm add @moderation-api/sdk
 ```
-
-> [!NOTE]
-> Once this package is [published to npm](https://www.stainless.com/docs/guides/publish), this will become: `npm install moderation-api`
 
 ## Usage
 
-The full API of this library can be found in [api.md](api.md).
+> The full API of this library can be found in [api.md](api.md).
 
-<!-- prettier-ignore -->
+The package needs to be configured with your project's API key, which is
+available in your [Project Dashboard](https://dash.moderationapi.com).
+
+The API key can be provided in two ways:
+
+1. (Recommended) Set the `MODAPI_SECRET_KEY` environment variable
+2. Pass it explicitly when instantiating the client
+
 ```js
-import ModerationAPI from 'moderation-api';
+import ModerationAPI from '@moderation-api/sdk';
 
-const client = new ModerationAPI({
-  bearerToken: process.env['MODERATION_API_BEARER_TOKEN'], // This is the default and can be omitted
+// Option 1: Use environment variable MODAPI_SECRET_KEY
+const moderationApi = new ModerationAPI();
+
+// Option 2: Pass key explicitly (overrides environment variable)
+const moderationApi = new ModerationAPI({
+  key: 'proj_...',
+});
+```
+
+### Content Moderation
+
+Use `content.submit` to moderate text, images, video, audio, or complex objects:
+
+```js
+// Text moderation
+const result = await moderationApi.content.submit({
+  content: {
+    type: 'text',
+    text: 'Your text here',
+  },
+  contentId: 'message-123', // optional
+  authorId: 'user-123', // optional
+  conversationId: 'room-123', // optional
+  metaType: 'message', // optional
+  metadata: { custom: 'data' }, // optional
 });
 
-const authors = await client.authors.list();
+// Image moderation
+const result = await moderationApi.content.submit({
+  content: {
+    type: 'image',
+    url: 'https://example.com/image.jpg',
+  },
+});
 
-console.log(authors.authors);
+// Video moderation
+const result = await moderationApi.content.submit({
+  content: {
+    type: 'video',
+    url: 'https://example.com/video.mp4',
+  },
+});
+
+// Audio moderation
+const result = await moderationApi.content.submit({
+  content: {
+    type: 'audio',
+    url: 'https://example.com/audio.mp3',
+  },
+});
+
+// Object moderation (for complex data with multiple fields)
+const result = await moderationApi.content.submit({
+  content: {
+    type: 'object',
+    data: {
+      title: { type: 'text', text: 'Post title' },
+      body: { type: 'text', text: 'Post content' },
+      thumbnail: { type: 'image', url: 'https://example.com/thumb.jpg' },
+    },
+  },
+});
+```
+
+#### Using the Response
+
+The response includes both a `flagged` field and a `recommendation` with the API's suggested action:
+
+```js
+const result = await moderationApi.content.submit({
+  content: { type: 'text', text: 'Some content' },
+});
+
+// Simple boolean check
+if (result.evaluation.flagged) {
+  console.log('Content was flagged by policies');
+}
+
+// Use the API's recommendation (considers severity, thresholds, and more)
+switch (result.recommendation.action) {
+  case 'reject':
+    // Block the content completely
+    console.log('Content should be rejected');
+    break;
+  case 'review':
+    // Send to moderation queue for human review
+    console.log('Content needs manual review');
+    break;
+  case 'allow':
+    // Content is safe to publish
+    console.log('Content is approved');
+    break;
+}
+
+// Access detailed policy results
+result.policies.forEach((policy) => {
+  console.log(`Policy ${policy.id}: flagged=${policy.flagged}, probability=${policy.probability}`);
+});
+```
+
+### Queue Management
+
+```js
+// Get queue stats
+const stats = await moderationApi.queueView.getStats();
+
+// Get queue items
+const items = await moderationApi.queueView.getItems();
+
+// Resolve/unresolve items
+await moderationApi.queueView.resolveItem('item_id');
+await moderationApi.queueView.unresolveItem('item_id');
+```
+
+### Wordlist Management
+
+```js
+// Get wordlists
+const wordlists = await moderationApi.wordlist.list();
+
+// Add words to wordlist
+await moderationApi.wordlist.addWords('wordlist_id', {
+  words: ['word1', 'word2'],
+});
+
+// Remove words from wordlist
+await moderationApi.wordlist.removeWords('wordlist_id', {
+  words: ['word1'],
+});
+```
+
+### Author Management
+
+```js
+// Create an author
+const author = await moderationApi.author.create({
+  authorId: 'user_123',
+  username: 'john_doe',
+  email: 'john@example.com',
+});
+
+// List authors
+const authors = await moderationApi.author.list();
+
+// Get author details
+const authorDetails = await moderationApi.author.get('author_id');
+
+// Update author
+await moderationApi.author.update('author_id', {
+  username: 'jane_doe',
+  email: 'jane@example.com',
+});
+
+// Delete author
+await moderationApi.author.delete('author_id');
 ```
 
 ### Request & Response types
@@ -40,13 +194,12 @@ This library includes TypeScript definitions for all request params and response
 
 <!-- prettier-ignore -->
 ```ts
-import ModerationAPI from 'moderation-api';
+import ModerationAPI from '@moderation-api/sdk';
 
-const client = new ModerationAPI({
-  bearerToken: process.env['MODERATION_API_BEARER_TOKEN'], // This is the default and can be omitted
-});
+const client = new ModerationAPI();
 
-const authors: ModerationAPI.AuthorListResponse = await client.authors.list();
+const params: ModerationAPI.ContentSubmitParams = { content: { text: 'x', type: 'text' } };
+const response: ModerationAPI.ContentSubmitResponse = await client.content.submit(params);
 ```
 
 Documentation for each method, request param, and response field are available in docstrings and will appear on hover in most modern editors.
@@ -59,7 +212,7 @@ a subclass of `APIError` will be thrown:
 
 <!-- prettier-ignore -->
 ```ts
-const authors = await client.authors.list().catch(async (err) => {
+const response = await client.content.submit({ content: { text: 'x', type: 'text' } }).catch(async (err) => {
   if (err instanceof ModerationAPI.APIError) {
     console.log(err.status); // 400
     console.log(err.name); // BadRequestError
@@ -99,7 +252,7 @@ const client = new ModerationAPI({
 });
 
 // Or, configure per-request:
-await client.authors.list({
+await client.content.submit({ content: { text: 'x', type: 'text' } }, {
   maxRetries: 5,
 });
 ```
@@ -116,7 +269,7 @@ const client = new ModerationAPI({
 });
 
 // Override per-request:
-await client.authors.list({
+await client.content.submit({ content: { text: 'x', type: 'text' } }, {
   timeout: 5 * 1000,
 });
 ```
@@ -139,13 +292,15 @@ Unlike `.asResponse()` this method consumes the body, returning once it is parse
 ```ts
 const client = new ModerationAPI();
 
-const response = await client.authors.list().asResponse();
+const response = await client.content.submit({ content: { text: 'x', type: 'text' } }).asResponse();
 console.log(response.headers.get('X-My-Header'));
 console.log(response.statusText); // access the underlying Response object
 
-const { data: authors, response: raw } = await client.authors.list().withResponse();
+const { data: response, response: raw } = await client.content
+  .submit({ content: { text: 'x', type: 'text' } })
+  .withResponse();
 console.log(raw.headers.get('X-My-Header'));
-console.log(authors.authors);
+console.log(response.recommendation);
 ```
 
 ### Logging
@@ -162,7 +317,7 @@ The log level can be configured in two ways:
 2. Using the `logLevel` client option (overrides the environment variable if set)
 
 ```ts
-import ModerationAPI from 'moderation-api';
+import ModerationAPI from '@moderation-api/sdk';
 
 const client = new ModerationAPI({
   logLevel: 'debug', // Show all log messages
@@ -190,7 +345,7 @@ When providing a custom logger, the `logLevel` option still controls which messa
 below the configured level will not be sent to your logger.
 
 ```ts
-import ModerationAPI from 'moderation-api';
+import ModerationAPI from '@moderation-api/sdk';
 import pino from 'pino';
 
 const logger = pino();
@@ -225,7 +380,7 @@ parameter. This library doesn't validate at runtime that the request matches the
 send will be sent as-is.
 
 ```ts
-client.authors.list({
+client.content.submit({
   // ...
   // @ts-expect-error baz is not yet public
   baz: 'undocumented option',
@@ -259,7 +414,7 @@ globalThis.fetch = fetch;
 Or pass it to the client:
 
 ```ts
-import ModerationAPI from 'moderation-api';
+import ModerationAPI from '@moderation-api/sdk';
 import fetch from 'my-fetch';
 
 const client = new ModerationAPI({ fetch });
@@ -270,7 +425,7 @@ const client = new ModerationAPI({ fetch });
 If you want to set custom `fetch` options without overriding the `fetch` function, you can provide a `fetchOptions` object when instantiating the client or making a request. (Request-specific options override client options.)
 
 ```ts
-import ModerationAPI from 'moderation-api';
+import ModerationAPI from '@moderation-api/sdk';
 
 const client = new ModerationAPI({
   fetchOptions: {
@@ -287,7 +442,7 @@ options to requests:
 <img src="https://raw.githubusercontent.com/stainless-api/sdk-assets/refs/heads/main/node.svg" align="top" width="18" height="21"> **Node** <sup>[[docs](https://github.com/nodejs/undici/blob/main/docs/docs/api/ProxyAgent.md#example---proxyagent-with-fetch)]</sup>
 
 ```ts
-import ModerationAPI from 'moderation-api';
+import ModerationAPI from '@moderation-api/sdk';
 import * as undici from 'undici';
 
 const proxyAgent = new undici.ProxyAgent('http://localhost:8888');
@@ -301,7 +456,7 @@ const client = new ModerationAPI({
 <img src="https://raw.githubusercontent.com/stainless-api/sdk-assets/refs/heads/main/bun.svg" align="top" width="18" height="21"> **Bun** <sup>[[docs](https://bun.sh/guides/http/proxy)]</sup>
 
 ```ts
-import ModerationAPI from 'moderation-api';
+import ModerationAPI from '@moderation-api/sdk';
 
 const client = new ModerationAPI({
   fetchOptions: {
@@ -313,7 +468,7 @@ const client = new ModerationAPI({
 <img src="https://raw.githubusercontent.com/stainless-api/sdk-assets/refs/heads/main/deno.svg" align="top" width="18" height="21"> **Deno** <sup>[[docs](https://docs.deno.com/api/deno/~/Deno.createHttpClient)]</sup>
 
 ```ts
-import ModerationAPI from 'npm:moderation-api';
+import ModerationAPI from 'npm:@moderation-api/sdk';
 
 const httpClient = Deno.createHttpClient({ proxy: { url: 'http://localhost:8888' } });
 const client = new ModerationAPI({
@@ -335,7 +490,7 @@ This package generally follows [SemVer](https://semver.org/spec/v2.0.0.html) con
 
 We take backwards-compatibility seriously and work hard to ensure you can rely on a smooth upgrade experience.
 
-We are keen for your feedback; please open an [issue](https://www.github.com/stainless-sdks/moderation-api-typescript/issues) with questions, bugs, or suggestions.
+We are keen for your feedback; please open an [issue](https://www.github.com/moderation-api/sdk-typescript/issues) with questions, bugs, or suggestions, or reach out at [support@moderationapi.com](mailto:support@moderationapi.com).
 
 ## Requirements
 
@@ -343,7 +498,6 @@ TypeScript >= 4.9 is supported.
 
 The following runtimes are supported:
 
-- Web browsers (Up-to-date Chrome, Firefox, Safari, Edge, and more)
 - Node.js 20 LTS or later ([non-EOL](https://endoflife.date/nodejs)) versions.
 - Deno v1.28.0 or higher.
 - Bun 1.0 or later.
@@ -351,6 +505,24 @@ The following runtimes are supported:
 - Vercel Edge Runtime.
 - Jest 28 or greater with the `"node"` environment (`"jsdom"` is not supported at this time).
 - Nitro v2.6 or greater.
+- Web browsers: disabled by default to avoid exposing your secret API credentials. Enable browser support by explicitly setting `dangerouslyAllowBrowser` to true'.
+  <details>
+    <summary>More explanation</summary>
+
+  ### Why is this dangerous?
+
+  Enabling the `dangerouslyAllowBrowser` option can be dangerous because it exposes your secret API credentials in the client-side code. Web browsers are inherently less secure than server environments,
+  any user with access to the browser can potentially inspect, extract, and misuse these credentials. This could lead to unauthorized access using your credentials and potentially compromise sensitive data or functionality.
+
+  ### When might this not be dangerous?
+
+  In certain scenarios where enabling browser support might not pose significant risks:
+
+  - Internal Tools: If the application is used solely within a controlled internal environment where the users are trusted, the risk of credential exposure can be mitigated.
+  - Public APIs with Limited Scope: If your API has very limited scope and the exposed credentials do not grant access to sensitive data or critical operations, the potential impact of exposure is reduced.
+  - Development or debugging purpose: Enabling this feature temporarily might be acceptable, provided the credentials are short-lived, aren't also used in production environments, or are frequently rotated.
+
+</details>
 
 Note that React Native is not supported at this time.
 
@@ -359,3 +531,15 @@ If you are interested in other runtime environments, please open or upvote an is
 ## Contributing
 
 See [the contributing documentation](./CONTRIBUTING.md).
+
+## Email support
+
+Reach out at [support@moderationapi.com](mailto:support@moderationapi.com)
+
+## More Information
+
+- [REST API Reference](https://docs.moderationapi.com/api-reference/introduction)
+- [Rate limits](https://docs.moderationapi.com/api-reference/rate-limits)
+- [Error Handling](https://docs.moderationapi.com/api-reference/errors)
+- [Documentation](https://docs.moderationapi.com/get-started/introduction)
+- [Test your API key](https://docs.moderationapi.com/api-reference/authentication)
