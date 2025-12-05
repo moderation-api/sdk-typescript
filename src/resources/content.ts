@@ -344,7 +344,7 @@ export interface ContentSubmitParams {
     | ContentSubmitParams.Image
     | ContentSubmitParams.Video
     | ContentSubmitParams.Audio
-    | ContentSubmitParams.ContentNode;
+    | ContentSubmitParams.Object;
 
   /**
    * The author of the content.
@@ -383,8 +383,7 @@ export interface ContentSubmitParams {
   metaType?: 'profile' | 'message' | 'post' | 'comment' | 'event' | 'product' | 'review' | 'other';
 
   /**
-   * Optionally override the channel policies for this moderation request only
-   * (enterprise).
+   * (Enterprise) override the channel policies for this moderation request only.
    */
   policies?: Array<
     | ContentSubmitParams.Toxicity
@@ -465,16 +464,16 @@ export namespace ContentSubmitParams {
   /**
    * Object
    */
-  export interface ContentNode {
+  export interface Object {
     /**
      * Values in the object. Can be mixed content types.
      */
-    data: { [key: string]: ContentNode.Text | ContentNode.Image | ContentNode.Video | ContentNode.Audio };
+    data: { [key: string]: Object.Text | Object.Image | Object.Video | Object.Audio };
 
     type: 'object';
   }
 
-  export namespace ContentNode {
+  export namespace Object {
     /**
      * Text
      */
