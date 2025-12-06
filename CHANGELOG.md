@@ -1,5 +1,14 @@
 # Changelog
 
+## 3.0.1 (2025-12-06)
+
+Full Changelog: [v3.0.0...v3.0.1](https://github.com/moderation-api/sdk-typescript/compare/v3.0.0...v3.0.1)
+
+### Bug Fixes
+
+* expose webhook helpers on client ([ebd635f](https://github.com/moderation-api/sdk-typescript/commit/ebd635f4c29d68966145bbc192f98a64180204c7))
+* expose webhooks on client ([b444d76](https://github.com/moderation-api/sdk-typescript/commit/b444d76aaac14c375b71217d588e27a41dc9b119))
+
 ## 3.0.0 (2025-12-05)
 
 Full Changelog: [v0.1.0...v3.0.0](https://github.com/moderation-api/sdk-typescript/compare/v0.1.0...v3.0.0)
