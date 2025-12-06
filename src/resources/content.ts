@@ -129,7 +129,11 @@ export namespace ContentSubmitResponse {
     /**
      * The modified content, if any.
      */
-    modified: string | { [key: string]: Content.Text | Content.Image | Content.Video | Content.Audio } | null;
+    modified:
+      | string
+      | { [key: string]: unknown }
+      | { [key: string]: Content.Text | Content.Image | Content.Video | Content.Audio }
+      | null;
   }
 
   export namespace Content {
