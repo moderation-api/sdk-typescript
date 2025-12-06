@@ -761,8 +761,8 @@ export class ModerationAPI {
   wordlist: API.Wordlist = new API.Wordlist(this);
 
   // expose webhook helpers
-  static webhooks = webhooks;
-  webhooks = webhooks;
+  static webhooks: typeof webhooks = webhooks;
+  webhooks: typeof webhooks = webhooks;
 }
 
 ModerationAPI.Authors = Authors;
