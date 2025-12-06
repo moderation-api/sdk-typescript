@@ -69,6 +69,7 @@ import {
   parseLogLevel,
 } from './internal/utils/log';
 import { isEmptyObj } from './internal/utils/values';
+import { webhooks } from './lib/webhooks';
 
 export interface ClientOptions {
   /**
@@ -758,6 +759,10 @@ export class ModerationAPI {
   account: API.Account = new API.Account(this);
   auth: API.Auth = new API.Auth(this);
   wordlist: API.Wordlist = new API.Wordlist(this);
+
+  // expose webhook helpers
+  static webhooks: typeof webhooks = webhooks;
+  webhooks: typeof webhooks = webhooks;
 }
 
 ModerationAPI.Authors = Authors;
