@@ -1,6 +1,6 @@
 {
   "name": "@moderation-api/sdk",
-  "version": "3.1.0",
+  "version": "3.1.1",
   "description": "The official TypeScript library for the Moderation API API",
   "author": "Moderation API <support@moderationapi.com>",
   "types": "dist/index.d.ts",
@@ -8,7 +8,7 @@
   "type": "commonjs",
   "repository": "github:moderation-api/sdk-typescript",
   "license": "Apache-2.0",
-  "packageManager": "pnpm@10.14.0",
+  "packageManager": "pnpm@10.24.0",
   "files": [
     "**/*"
   ],

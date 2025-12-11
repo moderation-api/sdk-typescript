@@ -1,5 +1,13 @@
 # Changelog
 
+## 3.1.1 (2025-12-09)
+
+Full Changelog: [v3.1.0...v3.1.1](https://github.com/moderation-api/sdk-typescript/compare/v3.1.0...v3.1.1)
+
+### Chores
+
+* **internal:** escape package name in pnpm workspace file ([c94f331](https://github.com/moderation-api/sdk-typescript/commit/c94f3319e525dd0d969e69a2a20639c035562c1e))
+
 ## 3.1.0 (2025-12-06)
 
 Full Changelog: [v3.0.1...v3.1.0](https://github.com/moderation-api/sdk-typescript/compare/v3.0.1...v3.1.0)
