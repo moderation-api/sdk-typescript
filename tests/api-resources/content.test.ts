@@ -31,7 +31,7 @@ describe('resource content', () => {
       doNotStore: true,
       metadata: { foo: 'bar' },
       metaType: 'profile',
-      policies: [{ id: 'toxicity', flag: true }],
+      policies: [{ id: 'toxicity', flag: true, threshold: 0 }],
     });
   });
 });
