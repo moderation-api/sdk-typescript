@@ -531,120 +531,160 @@ export namespace ContentSubmitParams {
     id: 'toxicity';
 
     flag: boolean;
+
+    threshold?: number;
   }
 
   export interface PersonalInformation {
     id: 'personal_information';
 
     flag: boolean;
+
+    threshold?: number;
   }
 
   export interface ToxicitySevere {
     id: 'toxicity_severe';
 
     flag: boolean;
+
+    threshold?: number;
   }
 
   export interface Hate {
     id: 'hate';
 
     flag: boolean;
+
+    threshold?: number;
   }
 
   export interface Illicit {
     id: 'illicit';
 
     flag: boolean;
+
+    threshold?: number;
   }
 
   export interface IllicitDrugs {
     id: 'illicit_drugs';
 
     flag: boolean;
+
+    threshold?: number;
   }
 
   export interface IllicitAlcohol {
     id: 'illicit_alcohol';
 
     flag: boolean;
+
+    threshold?: number;
   }
 
   export interface IllicitFirearms {
     id: 'illicit_firearms';
 
     flag: boolean;
+
+    threshold?: number;
   }
 
   export interface IllicitTobacco {
     id: 'illicit_tobacco';
 
     flag: boolean;
+
+    threshold?: number;
   }
 
   export interface IllicitGambling {
     id: 'illicit_gambling';
 
     flag: boolean;
+
+    threshold?: number;
   }
 
   export interface Sexual {
     id: 'sexual';
 
     flag: boolean;
+
+    threshold?: number;
   }
 
   export interface Flirtation {
     id: 'flirtation';
 
     flag: boolean;
+
+    threshold?: number;
   }
 
   export interface Profanity {
     id: 'profanity';
 
     flag: boolean;
+
+    threshold?: number;
   }
 
   export interface Violence {
     id: 'violence';
 
     flag: boolean;
+
+    threshold?: number;
   }
 
   export interface SelfHarm {
     id: 'self_harm';
 
     flag: boolean;
+
+    threshold?: number;
   }
 
   export interface Spam {
     id: 'spam';
 
     flag: boolean;
+
+    threshold?: number;
   }
 
   export interface SelfPromotion {
     id: 'self_promotion';
 
     flag: boolean;
+
+    threshold?: number;
   }
 
   export interface Political {
     id: 'political';
 
     flag: boolean;
+
+    threshold?: number;
   }
 
   export interface Religion {
     id: 'religion';
 
     flag: boolean;
+
+    threshold?: number;
   }
 
   export interface CodeAbuse {
     id: 'code_abuse';
 
     flag: boolean;
+
+    threshold?: number;
   }
 
   export interface PiiMasking {
@@ -713,6 +753,8 @@ export namespace ContentSubmitParams {
     guidelineKey: string;
 
     instructions: string;
+
+    threshold?: number;
   }
 }
 
