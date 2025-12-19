@@ -36,7 +36,7 @@ const moderationApi = new ModerationAPI();
 
 // Option 2: Pass key explicitly (overrides environment variable)
 const moderationApi = new ModerationAPI({
-  key: 'proj_...',
+  secretKey: 'proj_...',
 });
 ```
 
