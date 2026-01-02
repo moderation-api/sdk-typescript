@@ -695,24 +695,15 @@ export namespace ContentSubmitParams {
 
   export namespace PiiMasking {
     export interface Entities {
-      id:
-        | 'email'
-        | 'phone'
-        | 'url'
-        | 'address'
-        | 'name'
-        | 'username'
-        | 'ip_address'
-        | 'credit_card'
-        | 'sensitive_other';
+      enable?: boolean;
 
-      enable: boolean;
-
-      flag: boolean;
-
-      shouldMask: boolean;
+      flag?: boolean;
 
       mask?: string;
+
+      shouldMask?: boolean;
+
+      [k: string]: unknown;
     }
   }
 
@@ -724,24 +715,15 @@ export namespace ContentSubmitParams {
 
   export namespace URLMasking {
     export interface Entities {
-      id:
-        | 'email'
-        | 'phone'
-        | 'url'
-        | 'address'
-        | 'name'
-        | 'username'
-        | 'ip_address'
-        | 'credit_card'
-        | 'sensitive_other';
+      enable?: boolean;
 
-      enable: boolean;
-
-      flag: boolean;
-
-      shouldMask: boolean;
+      flag?: boolean;
 
       mask?: string;
+
+      shouldMask?: boolean;
+
+      [k: string]: unknown;
     }
   }
 
