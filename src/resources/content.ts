@@ -414,6 +414,12 @@ export interface ContentSubmitParams {
     | ContentSubmitParams.URLMasking
     | ContentSubmitParams.Guideline
   >;
+
+  /**
+   * Unix timestamp (in milliseconds) of when the content was created. Use if content
+   * is not submitted in real-time.
+   */
+  timestamp?: number;
 }
 
 export namespace ContentSubmitParams {

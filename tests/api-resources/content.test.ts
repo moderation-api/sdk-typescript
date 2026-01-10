@@ -38,6 +38,7 @@ describe('resource content', () => {
           threshold: 0,
         },
       ],
+      timestamp: 0,
     });
   });
 });
