@@ -1,5 +1,18 @@
 # Changelog
 
+## 3.4.0 (2026-01-10)
+
+Full Changelog: [v3.3.0...v3.4.0](https://github.com/moderation-api/sdk-typescript/compare/v3.3.0...v3.4.0)
+
+### Features
+
+* **api:** api update ([f718a30](https://github.com/moderation-api/sdk-typescript/commit/f718a30f25777e7b60eb43fdf8624e35c197d840))
+
+
+### Chores
+
+* break long lines in snippets into multiline ([92f3b55](https://github.com/moderation-api/sdk-typescript/commit/92f3b55a251e534868c57f21389d764e06fc0d14))
+
 ## 3.3.0 (2026-01-02)
 
 Full Changelog: [v3.2.0...v3.3.0](https://github.com/moderation-api/sdk-typescript/compare/v3.2.0...v3.3.0)
