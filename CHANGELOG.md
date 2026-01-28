@@ -1,5 +1,22 @@
 # Changelog
 
+## 3.5.0 (2026-01-28)
+
+Full Changelog: [v3.4.0...v3.5.0](https://github.com/moderation-api/sdk-typescript/compare/v3.4.0...v3.5.0)
+
+### Features
+
+* **api:** api update ([bbc8fe4](https://github.com/moderation-api/sdk-typescript/commit/bbc8fe417c72f507a2ae1f3503ef5de69b398e98))
+
+
+### Chores
+
+* **ci:** upgrade `actions/github-script` ([a249d9b](https://github.com/moderation-api/sdk-typescript/commit/a249d9b283168184021dd1d0a25f70a5d6a9a12a))
+* **internal:** update `actions/checkout` version ([98a1367](https://github.com/moderation-api/sdk-typescript/commit/98a13678dfdc2e39dfc46b9cadc002aa1c351769))
+* **internal:** update lock file ([cc807ab](https://github.com/moderation-api/sdk-typescript/commit/cc807abac5e3838b6ac52f7facbf192eb04c266d))
+* **internal:** upgrade babel, qs, js-yaml ([295fc21](https://github.com/moderation-api/sdk-typescript/commit/295fc21f12ee0b0cdbc66378108b6e6141057da6))
+* **internal:** upgrade brace-expansion and @babel/helpers ([3b2fd71](https://github.com/moderation-api/sdk-typescript/commit/3b2fd71abc858b2ce07f0711340eb8c72b14e04c))
+
 ## 3.4.0 (2026-01-10)
 
 Full Changelog: [v3.3.0...v3.4.0](https://github.com/moderation-api/sdk-typescript/compare/v3.3.0...v3.4.0)
