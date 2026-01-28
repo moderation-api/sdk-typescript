@@ -401,6 +401,8 @@ export interface ContentSubmitParams {
     | ContentSubmitParams.IllicitTobacco
     | ContentSubmitParams.IllicitGambling
     | ContentSubmitParams.Cannabis
+    | ContentSubmitParams.Adult
+    | ContentSubmitParams.Crypto
     | ContentSubmitParams.Sexual
     | ContentSubmitParams.Flirtation
     | ContentSubmitParams.Profanity
@@ -616,6 +618,22 @@ export namespace ContentSubmitParams {
 
   export interface Cannabis {
     id: 'cannabis';
+
+    flag: boolean;
+
+    threshold?: number;
+  }
+
+  export interface Adult {
+    id: 'adult';
+
+    flag: boolean;
+
+    threshold?: number;
+  }
+
+  export interface Crypto {
+    id: 'crypto';
 
     flag: boolean;
 
