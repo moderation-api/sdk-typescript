@@ -1,5 +1,13 @@
 # Changelog
 
+## 3.6.1 (2026-02-03)
+
+Full Changelog: [v3.6.0...v3.6.1](https://github.com/moderation-api/sdk-typescript/compare/v3.6.0...v3.6.1)
+
+### Bug Fixes
+
+* **client:** avoid memory leak with abort signals ([16bb0cb](https://github.com/moderation-api/sdk-typescript/commit/16bb0cb77d8f78f97c2bfebd8abc5f31ae90c523))
+
 ## 3.6.0 (2026-01-28)
 
 Full Changelog: [v3.5.0...v3.6.0](https://github.com/moderation-api/sdk-typescript/compare/v3.5.0...v3.6.0)
