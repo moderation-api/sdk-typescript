@@ -1,5 +1,18 @@
 # Changelog
 
+## 3.7.0 (2026-02-06)
+
+Full Changelog: [v3.6.2...v3.7.0](https://github.com/moderation-api/sdk-typescript/compare/v3.6.2...v3.7.0)
+
+### Features
+
+* **api:** api update ([3db3b85](https://github.com/moderation-api/sdk-typescript/commit/3db3b850be82ad738e8deaa7f003a4a05638da0d))
+
+
+### Chores
+
+* **internal:** upgrade pnpm ([9904b8a](https://github.com/moderation-api/sdk-typescript/commit/9904b8ad2131a92a2b3c822f5d8f43075fc58bc3))
+
 ## 3.6.2 (2026-02-06)
 
 Full Changelog: [v3.6.1...v3.6.2](https://github.com/moderation-api/sdk-typescript/compare/v3.6.1...v3.6.2)
