@@ -1,5 +1,19 @@
 # Changelog
 
+## 3.6.2 (2026-02-06)
+
+Full Changelog: [v3.6.1...v3.6.2](https://github.com/moderation-api/sdk-typescript/compare/v3.6.1...v3.6.2)
+
+### Bug Fixes
+
+* **client:** avoid removing abort listener too early ([1d89cb2](https://github.com/moderation-api/sdk-typescript/commit/1d89cb27203faa83ff1709b03d0ec9b44003d510))
+
+
+### Chores
+
+* **client:** do not parse responses with empty content-length ([532f911](https://github.com/moderation-api/sdk-typescript/commit/532f9110239e90c4230ed122a89756719d588b66))
+* **client:** restructure abort controller binding ([78d4ba7](https://github.com/moderation-api/sdk-typescript/commit/78d4ba7ae247a74c4e275db1874249badb11dc02))
+
 ## 3.6.1 (2026-02-03)
 
 Full Changelog: [v3.6.0...v3.6.1](https://github.com/moderation-api/sdk-typescript/compare/v3.6.0...v3.6.1)
