@@ -329,7 +329,14 @@ export namespace ContentSubmitResponse {
      * The reason code for the recommendation. Can be used to display a reason to the
      * user.
      */
-    reason_codes: Array<'severity_reject' | 'severity_review' | 'author_block' | 'dry_run'>;
+    reason_codes: Array<
+      | 'severity_reject'
+      | 'severity_review'
+      | 'author_block'
+      | 'dry_run'
+      | 'trusted_allow'
+      | 'untrusted_severity'
+    >;
   }
 
   export interface Error {
