@@ -1,5 +1,20 @@
 # Changelog
 
+## 3.8.0 (2026-02-20)
+
+Full Changelog: [v3.7.0...v3.8.0](https://github.com/moderation-api/sdk-typescript/compare/v3.7.0...v3.8.0)
+
+### Features
+
+* **api:** api update ([4742909](https://github.com/moderation-api/sdk-typescript/commit/47429093b8576bf96eee092449ae866ae1821841))
+
+
+### Chores
+
+* **internal/client:** fix form-urlencoded requests ([c07bcbb](https://github.com/moderation-api/sdk-typescript/commit/c07bcbbe7561c3816adafe4180b50fe6b0515c79))
+* **internal:** avoid type checking errors with ts-reset ([673f28f](https://github.com/moderation-api/sdk-typescript/commit/673f28f00d2d48465efd5781bee9eb7ff13a8c9b))
+* **internal:** remove mock server code ([e03c0a1](https://github.com/moderation-api/sdk-typescript/commit/e03c0a1210fd74de39e041843533daf75ee2cc64))
+
 ## 3.7.0 (2026-02-06)
 
 Full Changelog: [v3.6.2...v3.7.0](https://github.com/moderation-api/sdk-typescript/compare/v3.6.2...v3.7.0)
