@@ -156,9 +156,14 @@ export namespace ContentSubmitResponse {
       type: 'image';
 
       /**
+       * Base64-encoded image data
+       */
+      data?: string;
+
+      /**
        * A public URL of the image content
        */
-      url: string;
+      url?: string;
     }
 
     /**
@@ -452,9 +457,14 @@ export namespace ContentSubmitParams {
     type: 'image';
 
     /**
+     * Base64-encoded image data
+     */
+    data?: string;
+
+    /**
      * A public URL of the image content
      */
-    url: string;
+    url?: string;
   }
 
   /**
@@ -513,9 +523,14 @@ export namespace ContentSubmitParams {
       type: 'image';
 
       /**
+       * Base64-encoded image data
+       */
+      data?: string;
+
+      /**
        * A public URL of the image content
        */
-      url: string;
+      url?: string;
     }
 
     /**
