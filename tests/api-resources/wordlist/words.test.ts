@@ -8,7 +8,7 @@ const client = new ModerationAPI({
 });
 
 describe('resource words', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('add: only required params', async () => {
     const responsePromise = client.wordlist.words.add('id', { words: ['string'] });
     const rawResponse = await responsePromise.asResponse();
@@ -20,12 +20,12 @@ describe('resource words', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('add: required and optional params', async () => {
     const response = await client.wordlist.words.add('id', { words: ['string'] });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('remove: only required params', async () => {
     const responsePromise = client.wordlist.words.remove('id', { words: ['string'] });
     const rawResponse = await responsePromise.asResponse();
@@ -37,7 +37,7 @@ describe('resource words', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('remove: required and optional params', async () => {
     const response = await client.wordlist.words.remove('id', { words: ['string'] });
   });

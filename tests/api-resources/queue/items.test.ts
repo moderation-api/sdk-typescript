@@ -8,7 +8,7 @@ const client = new ModerationAPI({
 });
 
 describe('resource items', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list', async () => {
     const responsePromise = client.queue.items.list('id');
     const rawResponse = await responsePromise.asResponse();
@@ -20,7 +20,7 @@ describe('resource items', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
@@ -44,7 +44,7 @@ describe('resource items', () => {
     ).rejects.toThrow(ModerationAPI.NotFoundError);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('resolve: only required params', async () => {
     const responsePromise = client.queue.items.resolve('itemId', { id: 'id' });
     const rawResponse = await responsePromise.asResponse();
@@ -56,12 +56,12 @@ describe('resource items', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('resolve: required and optional params', async () => {
     const response = await client.queue.items.resolve('itemId', { id: 'id', comment: 'comment' });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('unresolve: only required params', async () => {
     const responsePromise = client.queue.items.unresolve('itemId', { id: 'id' });
     const rawResponse = await responsePromise.asResponse();
@@ -73,7 +73,7 @@ describe('resource items', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('unresolve: required and optional params', async () => {
     const response = await client.queue.items.unresolve('itemId', { id: 'id', comment: 'comment' });
   });
