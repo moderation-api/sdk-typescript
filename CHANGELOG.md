@@ -1,5 +1,13 @@
 # Changelog
 
+## 3.8.1 (2026-02-20)
+
+Full Changelog: [v3.8.0...v3.8.1](https://github.com/moderation-api/sdk-typescript/compare/v3.8.0...v3.8.1)
+
+### Chores
+
+* update mock server docs ([fe6b3f8](https://github.com/moderation-api/sdk-typescript/commit/fe6b3f863b4a50cafcd6ac18835d73ff9845873f))
+
 ## 3.8.0 (2026-02-20)
 
 Full Changelog: [v3.7.0...v3.8.0](https://github.com/moderation-api/sdk-typescript/compare/v3.7.0...v3.8.0)

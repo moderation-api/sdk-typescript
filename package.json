@@ -1,6 +1,6 @@
 {
   "name": "@moderation-api/sdk",
-  "version": "3.8.0",
+  "version": "3.8.1",
   "description": "The official TypeScript library for the Moderation API API",
   "author": "Moderation API <support@moderationapi.com>",
   "types": "dist/index.d.ts",
