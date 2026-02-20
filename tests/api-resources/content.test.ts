@@ -8,7 +8,7 @@ const client = new ModerationAPI({
 });
 
 describe('resource content', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('submit: only required params', async () => {
     const responsePromise = client.content.submit({ content: { text: 'x', type: 'text' } });
     const rawResponse = await responsePromise.asResponse();
@@ -20,7 +20,7 @@ describe('resource content', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('submit: required and optional params', async () => {
     const response = await client.content.submit({
       content: { text: 'x', type: 'text' },

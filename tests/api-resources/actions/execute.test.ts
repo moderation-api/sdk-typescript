@@ -8,7 +8,7 @@ const client = new ModerationAPI({
 });
 
 describe('resource execute', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('execute: only required params', async () => {
     const responsePromise = client.actions.execute.execute({ actionKey: 'actionKey' });
     const rawResponse = await responsePromise.asResponse();
@@ -20,7 +20,7 @@ describe('resource execute', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('execute: required and optional params', async () => {
     const response = await client.actions.execute.execute({
       actionKey: 'actionKey',
@@ -32,7 +32,7 @@ describe('resource execute', () => {
     });
   });
 
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('executeByID', async () => {
     const responsePromise = client.actions.execute.executeByID('actionId', {});
     const rawResponse = await responsePromise.asResponse();
