@@ -8,7 +8,7 @@ const client = new ModerationAPI({
 });
 
 describe('resource account', () => {
-  // Prism tests are disabled
+  // Mock server tests are disabled
   test.skip('list', async () => {
     const responsePromise = client.account.list();
     const rawResponse = await responsePromise.asResponse();
