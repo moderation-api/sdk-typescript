@@ -60,7 +60,7 @@ $ yarn link @moderation-api/sdk
 # With pnpm
 $ pnpm link --global
 $ cd ../my-package
-$ pnpm link -—global @moderation-api/sdk
+$ pnpm link --global @moderation-api/sdk
 ```
 
 ## Running tests
