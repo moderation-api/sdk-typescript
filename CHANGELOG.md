@@ -1,5 +1,18 @@
 # Changelog
 
+## 3.9.1 (2026-02-24)
+
+Full Changelog: [v3.9.0...v3.9.1](https://github.com/moderation-api/sdk-typescript/compare/v3.9.0...v3.9.1)
+
+### Bug Fixes
+
+* **docs/contributing:** correct pnpm link command ([4ab2e78](https://github.com/moderation-api/sdk-typescript/commit/4ab2e78bd4ac1a0e3bdbd2048888645313789e23))
+
+
+### Chores
+
+* **internal:** upgrade pnpm version ([22088ce](https://github.com/moderation-api/sdk-typescript/commit/22088ceda763628dc9060eed8edb23a320631cba))
+
 ## 3.9.0 (2026-02-23)
 
 Full Changelog: [v3.8.1...v3.9.0](https://github.com/moderation-api/sdk-typescript/compare/v3.8.1...v3.9.0)
