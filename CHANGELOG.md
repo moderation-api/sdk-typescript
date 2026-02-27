@@ -1,5 +1,13 @@
 # Changelog
 
+## 3.9.2 (2026-02-27)
+
+Full Changelog: [v3.9.1...v3.9.2](https://github.com/moderation-api/sdk-typescript/compare/v3.9.1...v3.9.2)
+
+### Chores
+
+* **internal:** move stringifyQuery implementation to internal function ([7b4ca4e](https://github.com/moderation-api/sdk-typescript/commit/7b4ca4e410fc7a6624417e94e527971132ea9015))
+
 ## 3.9.1 (2026-02-24)
 
 Full Changelog: [v3.9.0...v3.9.1](https://github.com/moderation-api/sdk-typescript/compare/v3.9.0...v3.9.1)
