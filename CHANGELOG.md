@@ -1,5 +1,18 @@
 # Changelog
 
+## 3.10.0 (2026-03-03)
+
+Full Changelog: [v3.9.1...v3.10.0](https://github.com/moderation-api/sdk-typescript/compare/v3.9.1...v3.10.0)
+
+### Features
+
+* **api:** api update ([1cca559](https://github.com/moderation-api/sdk-typescript/commit/1cca55994c701afe1832ed3fcf872beb12ff7c85))
+
+
+### Chores
+
+* **internal:** move stringifyQuery implementation to internal function ([7b4ca4e](https://github.com/moderation-api/sdk-typescript/commit/7b4ca4e410fc7a6624417e94e527971132ea9015))
+
 ## 3.9.1 (2026-02-24)
 
 Full Changelog: [v3.9.0...v3.9.1](https://github.com/moderation-api/sdk-typescript/compare/v3.9.0...v3.9.1)
