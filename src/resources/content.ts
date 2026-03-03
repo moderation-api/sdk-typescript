@@ -212,6 +212,12 @@ export namespace ContentSubmitResponse {
     severity_score: number;
 
     /**
+     * Whether the content would have been flagged by analyze-only policies (flag:
+     * false).
+     */
+    shadow_flagged?: boolean;
+
+    /**
      * Whether the content was flagged for Unicode spoofing.
      */
     unicode_spoofed?: boolean;
