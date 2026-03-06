@@ -1,5 +1,13 @@
 # Changelog
 
+## 3.10.1 (2026-03-06)
+
+Full Changelog: [v3.10.0...v3.10.1](https://github.com/moderation-api/sdk-typescript/compare/v3.10.0...v3.10.1)
+
+### Chores
+
+* **internal:** codegen related update ([2f33e22](https://github.com/moderation-api/sdk-typescript/commit/2f33e2218ccd459a94bfedc3132b4e933a6e4625))
+
 ## 3.10.0 (2026-03-03)
 
 Full Changelog: [v3.9.1...v3.10.0](https://github.com/moderation-api/sdk-typescript/compare/v3.9.1...v3.10.0)
