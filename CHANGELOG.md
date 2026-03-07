@@ -1,5 +1,19 @@
 # Changelog
 
+## 3.10.1 (2026-03-07)
+
+Full Changelog: [v3.10.0...v3.10.1](https://github.com/moderation-api/sdk-typescript/compare/v3.10.0...v3.10.1)
+
+### Bug Fixes
+
+* **client:** preserve URL params already embedded in path ([26d93e7](https://github.com/moderation-api/sdk-typescript/commit/26d93e75196f31bcdad42cf1a9c4deef12f3c655))
+
+
+### Chores
+
+* **ci:** skip uploading artifacts on stainless-internal branches ([8dc36f8](https://github.com/moderation-api/sdk-typescript/commit/8dc36f8527e1890bd8316a90a3bc7d596fe73814))
+* **internal:** codegen related update ([2f33e22](https://github.com/moderation-api/sdk-typescript/commit/2f33e2218ccd459a94bfedc3132b4e933a6e4625))
+
 ## 3.10.0 (2026-03-03)
 
 Full Changelog: [v3.9.1...v3.10.0](https://github.com/moderation-api/sdk-typescript/compare/v3.9.1...v3.10.0)
