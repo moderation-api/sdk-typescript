@@ -434,6 +434,7 @@ export interface ContentSubmitParams {
     | ContentSubmitParams.CodeAbuse
     | ContentSubmitParams.PiiMasking
     | ContentSubmitParams.URLMasking
+    | ContentSubmitParams.URLRisk
     | ContentSubmitParams.Guideline
   >;
 
@@ -789,6 +790,14 @@ export namespace ContentSubmitParams {
 
       [k: string]: unknown;
     }
+  }
+
+  export interface URLRisk {
+    id: 'url_risk';
+
+    flag: boolean;
+
+    threshold?: number;
   }
 
   export interface Guideline {
