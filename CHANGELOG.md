@@ -1,5 +1,18 @@
 # Changelog
 
+## 3.11.0 (2026-03-16)
+
+Full Changelog: [v3.10.1...v3.11.0](https://github.com/moderation-api/sdk-typescript/compare/v3.10.1...v3.11.0)
+
+### Features
+
+* **api:** api update ([da163a0](https://github.com/moderation-api/sdk-typescript/commit/da163a01c2f3e4d08625df81cb66fe055aefcf40))
+
+
+### Chores
+
+* **internal:** update dependencies to address dependabot vulnerabilities ([4531b71](https://github.com/moderation-api/sdk-typescript/commit/4531b714dc1d2e66181d4fdcb01d83a30ccbc845))
+
 ## 3.10.1 (2026-03-07)
 
 Full Changelog: [v3.10.0...v3.10.1](https://github.com/moderation-api/sdk-typescript/compare/v3.10.0...v3.10.1)
