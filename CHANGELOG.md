@@ -1,5 +1,13 @@
 # Changelog
 
+## 3.11.1 (2026-03-19)
+
+Full Changelog: [v3.11.0...v3.11.1](https://github.com/moderation-api/sdk-typescript/compare/v3.11.0...v3.11.1)
+
+### Chores
+
+* **internal:** tweak CI branches ([8ea5928](https://github.com/moderation-api/sdk-typescript/commit/8ea5928908f3b5f9feb86a6e72672936e14fe277))
+
 ## 3.11.0 (2026-03-16)
 
 Full Changelog: [v3.10.1...v3.11.0](https://github.com/moderation-api/sdk-typescript/compare/v3.10.1...v3.11.0)
