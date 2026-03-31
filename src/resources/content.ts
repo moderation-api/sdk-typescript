@@ -134,6 +134,12 @@ export namespace ContentSubmitResponse {
       | { [key: string]: unknown }
       | { [key: string]: Content.Text | Content.Image | Content.Video | Content.Audio }
       | null;
+
+    /**
+     * The transcribed text from audio content. Only present when audio moderation is
+     * used and transcript inclusion is enabled on the channel.
+     */
+    transcript?: string | null;
   }
 
   export namespace Content {
