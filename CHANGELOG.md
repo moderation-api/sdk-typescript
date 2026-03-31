@@ -1,5 +1,20 @@
 # Changelog
 
+## 3.12.0 (2026-03-31)
+
+Full Changelog: [v3.11.0...v3.12.0](https://github.com/moderation-api/sdk-typescript/compare/v3.11.0...v3.12.0)
+
+### Features
+
+* **api:** api update ([85ebcb3](https://github.com/moderation-api/sdk-typescript/commit/85ebcb3f0774693fd257bc4fbeba709e679851a2))
+
+
+### Chores
+
+* **ci:** skip lint on metadata-only changes ([8a7f082](https://github.com/moderation-api/sdk-typescript/commit/8a7f08215c7f396abb0b1e92012673ec99bdb44b))
+* **internal:** tweak CI branches ([8ea5928](https://github.com/moderation-api/sdk-typescript/commit/8ea5928908f3b5f9feb86a6e72672936e14fe277))
+* **internal:** update gitignore ([293a667](https://github.com/moderation-api/sdk-typescript/commit/293a66760ef5eebaa8e7558c74b339aaa38b8988))
+
 ## 3.11.0 (2026-03-16)
 
 Full Changelog: [v3.10.1...v3.11.0](https://github.com/moderation-api/sdk-typescript/compare/v3.10.1...v3.11.0)
