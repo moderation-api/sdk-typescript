@@ -1,5 +1,20 @@
 # Changelog
 
+## 3.13.0 (2026-04-24)
+
+Full Changelog: [v3.12.1...v3.13.0](https://github.com/moderation-api/sdk-typescript/compare/v3.12.1...v3.13.0)
+
+### Features
+
+* **api:** api update ([fd09d48](https://github.com/moderation-api/sdk-typescript/commit/fd09d48abd824b911ad109a54da98d9a983b7c77))
+
+
+### Chores
+
+* **internal:** codegen related update ([19833a8](https://github.com/moderation-api/sdk-typescript/commit/19833a854de66b0a52a27fda2cbd9695296f171d))
+* **internal:** more robust bootstrap script ([2107963](https://github.com/moderation-api/sdk-typescript/commit/2107963ef7f5394e6dcfad63ff23dcb61d665796))
+* update SDK settings ([52a362d](https://github.com/moderation-api/sdk-typescript/commit/52a362dac26f31f3d6e12b4bbd22226c0a85c21c))
+
 ## 3.12.1 (2026-04-04)
 
 Full Changelog: [v3.12.0...v3.12.1](https://github.com/moderation-api/sdk-typescript/compare/v3.12.0...v3.12.1)
