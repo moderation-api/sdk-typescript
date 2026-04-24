@@ -331,6 +331,58 @@ export namespace ContentSubmitResponse {
       probability: number;
 
       span: Array<number>;
+
+      /**
+       * Sub-type of the entity match — e.g. the NER key (email, phone, name, …) for PII
+       * matches. Absent for URL Risk and wordlist matches where the type is already
+       * encoded in the parent label.
+       */
+      entity_type?: string;
+
+      /**
+       * Stable codes explaining why a URL was flagged (URL Risk only).
+       */
+      reasons?: Array<string>;
+
+      /**
+       * Observable properties of a URL (URL Risk only). Absent for allow/block list
+       * matches.
+       */
+      signals?: Match.Signals;
+    }
+
+    export namespace Match {
+      /**
+       * Observable properties of a URL (URL Risk only). Absent for allow/block list
+       * matches.
+       */
+      export interface Signals {
+        bot_protection: boolean | null;
+
+        brand_impersonation: Signals.BrandImpersonation | null;
+
+        domain_age_days: number | null;
+
+        final_url: string | null;
+
+        has_email_setup: boolean | null;
+
+        has_suspicious_characters: boolean;
+
+        is_link_shortener: boolean;
+
+        is_reported: boolean;
+
+        redirect_count: number | null;
+      }
+
+      export namespace Signals {
+        export interface BrandImpersonation {
+          brand: string;
+
+          method: 'registered_domain_token' | 'subdomain_token';
+        }
+      }
     }
   }
 
@@ -802,6 +854,19 @@ export namespace ContentSubmitParams {
     id: 'url_risk';
 
     flag: boolean;
+
+    /**
+     * IDs of wordlists whose entries are treated as allowed URL domains. Matches
+     * short-circuit the risk model and are never flagged.
+     */
+    allowlistWordlistIds?: Array<string>;
+
+    /**
+     * IDs of wordlists whose entries are treated as blocked URL domains. Matches
+     * short-circuit the risk model and are always flagged. Blocklists take precedence
+     * over allowlists.
+     */
+    blocklistWordlistIds?: Array<string>;
 
     threshold?: number;
   }
