@@ -1,5 +1,13 @@
 # Changelog
 
+## 3.13.1 (2026-04-27)
+
+Full Changelog: [v3.13.0...v3.13.1](https://github.com/moderation-api/sdk-typescript/compare/v3.13.0...v3.13.1)
+
+### Chores
+
+* update SDK settings ([ebd9ee9](https://github.com/moderation-api/sdk-typescript/commit/ebd9ee9dd41d82260caaf891f8078972fd36c2a4))
+
 ## 3.13.0 (2026-04-24)
 
 Full Changelog: [v3.12.1...v3.13.0](https://github.com/moderation-api/sdk-typescript/compare/v3.12.1...v3.13.0)
