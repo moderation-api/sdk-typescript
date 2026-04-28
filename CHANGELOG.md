@@ -1,5 +1,18 @@
 # Changelog
 
+## 3.14.0 (2026-04-28)
+
+Full Changelog: [v3.13.1...v3.14.0](https://github.com/moderation-api/sdk-typescript/compare/v3.13.1...v3.14.0)
+
+### Features
+
+* support setting headers via env ([af2db72](https://github.com/moderation-api/sdk-typescript/commit/af2db7255cb3210158674b087ed07957f30490db))
+
+
+### Chores
+
+* **internal:** codegen related update ([c2ec904](https://github.com/moderation-api/sdk-typescript/commit/c2ec9040fdbd065d999b5089f974f42c9b1a0ac3))
+
 ## 3.13.1 (2026-04-27)
 
 Full Changelog: [v3.13.0...v3.13.1](https://github.com/moderation-api/sdk-typescript/compare/v3.13.0...v3.13.1)
