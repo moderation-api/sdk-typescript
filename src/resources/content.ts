@@ -406,7 +406,23 @@ export namespace ContentSubmitResponse {
       | 'dry_run'
       | 'trusted_allow'
       | 'untrusted_severity'
+      | 'rule_match'
+      | 'rule_default'
+      | 'rule_fallback'
     >;
+
+    /**
+     * Rules that matched during evaluation, if rules engine is active.
+     */
+    matched_rules?: Array<Recommendation.MatchedRule>;
+  }
+
+  export namespace Recommendation {
+    export interface MatchedRule {
+      key: string;
+
+      name: string;
+    }
   }
 
   export interface Error {
