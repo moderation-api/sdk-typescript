@@ -1,5 +1,18 @@
 # Changelog
 
+## 3.15.0 (2026-04-29)
+
+Full Changelog: [v3.14.0...v3.15.0](https://github.com/moderation-api/sdk-typescript/compare/v3.14.0...v3.15.0)
+
+### Features
+
+* **api:** api update ([f09ed6a](https://github.com/moderation-api/sdk-typescript/commit/f09ed6abb7093765677d7497f7cc83676d7fe07f))
+
+
+### Chores
+
+* **format:** run eslint and prettier separately ([2358577](https://github.com/moderation-api/sdk-typescript/commit/2358577402d7d84c9d02df7faf21b2ab2db22a0d))
+
 ## 3.14.0 (2026-04-28)
 
 Full Changelog: [v3.13.1...v3.14.0](https://github.com/moderation-api/sdk-typescript/compare/v3.13.1...v3.14.0)
