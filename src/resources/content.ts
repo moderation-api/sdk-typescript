@@ -884,6 +884,12 @@ export namespace ContentSubmitParams {
      */
     blocklistWordlistIds?: Array<string>;
 
+    /**
+     * When true, any URL detected as a free link shortener (bit.ly, t.co, tinyurl,
+     * etc.) is always flagged regardless of risk score. Allowlist matches still win.
+     */
+    flagLinkShorteners?: boolean;
+
     threshold?: number;
   }
 
