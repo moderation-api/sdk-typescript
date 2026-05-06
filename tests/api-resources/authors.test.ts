@@ -24,6 +24,7 @@ describe('resource authors', () => {
   test.skip('create: required and optional params', async () => {
     const response = await client.authors.create({
       external_id: 'external_id',
+      company: 'company',
       email: 'dev@stainless.com',
       external_link: 'https://example.com',
       first_seen: 0,

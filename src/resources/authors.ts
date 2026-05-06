@@ -89,6 +89,11 @@ export interface AuthorCreateResponse {
   trust_level: AuthorCreateResponse.TrustLevel;
 
   /**
+   * The author's company or organization
+   */
+  company?: string | null;
+
+  /**
    * Author email address
    */
   email?: string | null;
@@ -246,6 +251,11 @@ export interface AuthorRetrieveResponse {
   trust_level: AuthorRetrieveResponse.TrustLevel;
 
   /**
+   * The author's company or organization
+   */
+  company?: string | null;
+
+  /**
    * Author email address
    */
   email?: string | null;
@@ -401,6 +411,11 @@ export interface AuthorUpdateResponse {
   status: 'enabled' | 'suspended' | 'blocked';
 
   trust_level: AuthorUpdateResponse.TrustLevel;
+
+  /**
+   * The author's company or organization
+   */
+  company?: string | null;
 
   /**
    * Author email address
@@ -567,6 +582,11 @@ export namespace AuthorListResponse {
     trust_level: Author.TrustLevel;
 
     /**
+     * The author's company or organization
+     */
+    company?: string | null;
+
+    /**
      * Author email address
      */
     email?: string | null;
@@ -706,6 +726,11 @@ export interface AuthorCreateParams {
   external_id: string;
 
   /**
+   * The author's company or organization
+   */
+  company?: string | null;
+
+  /**
    * Author email address
    */
   email?: string | null;
@@ -775,6 +800,11 @@ export namespace AuthorCreateParams {
 }
 
 export interface AuthorUpdateParams {
+  /**
+   * The author's company or organization
+   */
+  company?: string | null;
+
   /**
    * Author email address
    */
