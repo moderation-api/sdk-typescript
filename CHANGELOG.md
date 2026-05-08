@@ -1,5 +1,24 @@
 # Changelog
 
+## 4.0.0 (2026-05-08)
+
+Full Changelog: [v3.16.0...v4.0.0](https://github.com/moderation-api/sdk-typescript/compare/v3.16.0...v4.0.0)
+
+### ⚠ BREAKING CHANGES
+
+* **webhooks:** WebhookType and WebhookPayload exports removed in favor of WebhookEvent. Event type strings change from SCREAMING_SNAKE (QUEUE_ITEM_ACTION) to dot.notation (queue_item.action). Payload envelope changes from flat (event.item / event.queue / event.action) to wrapped (event.data.object). The QUEUE_ITEM_NEW event no longer exists; five new author.* events are emitted instead.
+
+### Features
+
+* **api:** api update ([3effeec](https://github.com/moderation-api/sdk-typescript/commit/3effeec4ff4be48ac6d8c2e6ecaaaa888e8c95ef))
+* **api:** manual updates ([a298af3](https://github.com/moderation-api/sdk-typescript/commit/a298af3d46c5723271f6804b0f5b1e49ce12fa07))
+* **webhooks:** switch to generated v2 WebhookEvent types ([#31](https://github.com/moderation-api/sdk-typescript/issues/31)) ([de99ac4](https://github.com/moderation-api/sdk-typescript/commit/de99ac49b6da7ae30350e73476dab66414c22d23))
+
+
+### Chores
+
+* redact api-key headers in debug logs ([076c3c6](https://github.com/moderation-api/sdk-typescript/commit/076c3c657af867b229740f3226927d95a7453b8c))
+
 ## 3.16.0 (2026-05-06)
 
 Full Changelog: [v3.15.0...v3.16.0](https://github.com/moderation-api/sdk-typescript/compare/v3.15.0...v3.16.0)
