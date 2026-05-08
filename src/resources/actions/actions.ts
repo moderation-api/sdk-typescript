@@ -202,11 +202,6 @@ export interface ActionRetrieveResponse {
   valueRequired: boolean;
 
   /**
-   * The action's webhooks.
-   */
-  webhooks: Array<ActionRetrieveResponse.Webhook>;
-
-  /**
    * The description of the action.
    */
   description?: string | null;
@@ -239,34 +234,6 @@ export namespace ActionRetrieveResponse {
      * The value of the action.
      */
     value: string;
-  }
-
-  export interface Webhook {
-    /**
-     * The ID of the webhook.
-     */
-    id: string;
-
-    /**
-     * The webhook's name, used to identify it in the dashboard
-     */
-    name: string;
-
-    /**
-     * The webhook's URL. We'll call this URL when the event occurs.
-     */
-    url: string;
-
-    /**
-     * The webhook's description
-     */
-    description?: string | null;
-
-    /**
-     * The ID of the moderation action to trigger the webhook on. Only used for
-     * moderation action webhooks.
-     */
-    moderationActionId?: string | null;
   }
 }
 
@@ -423,11 +390,6 @@ export namespace ActionListResponse {
     valueRequired: boolean;
 
     /**
-     * The action's webhooks.
-     */
-    webhooks: Array<ActionListResponseItem.Webhook>;
-
-    /**
      * The description of the action.
      */
     description?: string | null;
@@ -460,34 +422,6 @@ export namespace ActionListResponse {
        * The value of the action.
        */
       value: string;
-    }
-
-    export interface Webhook {
-      /**
-       * The ID of the webhook.
-       */
-      id: string;
-
-      /**
-       * The webhook's name, used to identify it in the dashboard
-       */
-      name: string;
-
-      /**
-       * The webhook's URL. We'll call this URL when the event occurs.
-       */
-      url: string;
-
-      /**
-       * The webhook's description
-       */
-      description?: string | null;
-
-      /**
-       * The ID of the moderation action to trigger the webhook on. Only used for
-       * moderation action webhooks.
-       */
-      moderationActionId?: string | null;
     }
   }
 }
@@ -574,11 +508,6 @@ export interface ActionCreateParams {
    * Whether the action requires a value to be executed.
    */
   valueRequired?: boolean;
-
-  /**
-   * The action's webhooks.
-   */
-  webhooks?: Array<ActionCreateParams.Webhook>;
 }
 
 export namespace ActionCreateParams {
@@ -587,28 +516,6 @@ export namespace ActionCreateParams {
      * The value of the action.
      */
     value: string;
-  }
-
-  export interface Webhook {
-    /**
-     * The webhook's name, used to identify it in the dashboard
-     */
-    name: string;
-
-    /**
-     * The webhook's URL. We'll call this URL when the event occurs.
-     */
-    url: string;
-
-    /**
-     * ID of an existing webhook or undefined if this is a new webhook.
-     */
-    id?: string;
-
-    /**
-     * The webhook's description
-     */
-    description?: string | null;
   }
 }
 
@@ -682,11 +589,6 @@ export interface ActionUpdateParams {
    * Whether the action requires a value to be executed.
    */
   valueRequired?: boolean;
-
-  /**
-   * The action's webhooks.
-   */
-  webhooks?: Array<ActionUpdateParams.Webhook>;
 }
 
 export namespace ActionUpdateParams {
@@ -695,28 +597,6 @@ export namespace ActionUpdateParams {
      * The value of the action.
      */
     value: string;
-  }
-
-  export interface Webhook {
-    /**
-     * The webhook's name, used to identify it in the dashboard
-     */
-    name: string;
-
-    /**
-     * The webhook's URL. We'll call this URL when the event occurs.
-     */
-    url: string;
-
-    /**
-     * ID of an existing webhook or undefined if this is a new webhook.
-     */
-    id?: string;
-
-    /**
-     * The webhook's description
-     */
-    description?: string | null;
   }
 }
 
