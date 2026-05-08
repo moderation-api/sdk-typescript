@@ -27,6 +27,7 @@ export {
 export { Content, type ContentSubmitResponse, type ContentSubmitParams } from './content';
 export {
   Queue,
+  type WebhookEvent,
   type QueueRetrieveResponse,
   type QueueGetStatsResponse,
   type QueueGetStatsParams,
