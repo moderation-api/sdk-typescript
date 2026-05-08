@@ -20,6 +20,7 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/queue/queue.ts">WebhookEvent</a></code>
 - <code><a href="./src/resources/queue/queue.ts">QueueRetrieveResponse</a></code>
 - <code><a href="./src/resources/queue/queue.ts">QueueGetStatsResponse</a></code>
 

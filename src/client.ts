@@ -47,6 +47,7 @@ import {
   QueueGetStatsParams,
   QueueGetStatsResponse,
   QueueRetrieveResponse,
+  WebhookEvent,
 } from './resources/queue/queue';
 import {
   Wordlist,
@@ -818,6 +819,7 @@ export declare namespace ModerationAPI {
 
   export {
     Queue as Queue,
+    type WebhookEvent as WebhookEvent,
     type QueueRetrieveResponse as QueueRetrieveResponse,
     type QueueGetStatsResponse as QueueGetStatsResponse,
     type QueueGetStatsParams as QueueGetStatsParams,

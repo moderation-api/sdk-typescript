@@ -11,6 +11,7 @@ export {
 } from './items';
 export {
   Queue,
+  type WebhookEvent,
   type QueueRetrieveResponse,
   type QueueGetStatsResponse,
   type QueueGetStatsParams,
