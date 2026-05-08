@@ -1415,7 +1415,7 @@ export namespace WebhookEvent {
     /**
      * The event type.
      */
-    type: 'queue_item.completed';
+    type: 'queue_item.resolved';
   }
 
   export namespace QueueItemCompletedEvent {
