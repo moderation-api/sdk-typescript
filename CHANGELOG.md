@@ -1,5 +1,9 @@
 # Changelog
 
+## 4.1.1 (2026-05-13)
+
+Full Changelog: [v4.1.0...v4.1.1](https://github.com/moderation-api/sdk-typescript/compare/v4.1.0...v4.1.1)
+
 ## 4.1.0 (2026-05-08)
 
 Full Changelog: [v4.0.0...v4.1.0](https://github.com/moderation-api/sdk-typescript/compare/v4.0.0...v4.1.0)
