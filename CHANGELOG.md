@@ -1,5 +1,18 @@
 # Changelog
 
+## 4.1.1 (2026-05-19)
+
+Full Changelog: [v4.1.0...v4.1.1](https://github.com/moderation-api/sdk-typescript/compare/v4.1.0...v4.1.1)
+
+### Bug Fixes
+
+* **typescript:** upgrade tsc-multi so that it works with Node 26 ([d788796](https://github.com/moderation-api/sdk-typescript/commit/d7887968e58466244b4fc6d120bb925bb4654bfb))
+
+
+### Chores
+
+* **tests:** remove redundant File import ([ad5cefa](https://github.com/moderation-api/sdk-typescript/commit/ad5cefa8ade6f9da4747bc6a456f7a66e241b71d))
+
 ## 4.1.0 (2026-05-08)
 
 Full Changelog: [v4.0.0...v4.1.0](https://github.com/moderation-api/sdk-typescript/compare/v4.0.0...v4.1.0)
