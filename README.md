@@ -26,7 +26,7 @@ const client = new ModerationAPI({
   secretKey: process.env['MODAPI_SECRET_KEY'], // This is the default and can be omitted
 });
 
-const response = await client.content.submit({ content: { text: 'x', type: 'text' } });
+const response = await client.content.submit({ content: { text: 'text', type: 'text' } });
 
 console.log(response.recommendation);
 ```
@@ -43,7 +43,7 @@ const client = new ModerationAPI({
   secretKey: process.env['MODAPI_SECRET_KEY'], // This is the default and can be omitted
 });
 
-const params: ModerationAPI.ContentSubmitParams = { content: { text: 'x', type: 'text' } };
+const params: ModerationAPI.ContentSubmitParams = { content: { text: 'text', type: 'text' } };
 const response: ModerationAPI.ContentSubmitResponse = await client.content.submit(params);
 ```
 
@@ -58,7 +58,7 @@ a subclass of `APIError` will be thrown:
 <!-- prettier-ignore -->
 ```ts
 const response = await client.content
-  .submit({ content: { text: 'x', type: 'text' } })
+  .submit({ content: { text: 'text', type: 'text' } })
   .catch(async (err) => {
     if (err instanceof ModerationAPI.APIError) {
       console.log(err.status); // 400
@@ -99,7 +99,7 @@ const client = new ModerationAPI({
 });
 
 // Or, configure per-request:
-await client.content.submit({ content: { text: 'x', type: 'text' } }, {
+await client.content.submit({ content: { text: 'text', type: 'text' } }, {
   maxRetries: 5,
 });
 ```
@@ -116,7 +116,7 @@ const client = new ModerationAPI({
 });
 
 // Override per-request:
-await client.content.submit({ content: { text: 'x', type: 'text' } }, {
+await client.content.submit({ content: { text: 'text', type: 'text' } }, {
   timeout: 5 * 1000,
 });
 ```
@@ -139,12 +139,14 @@ Unlike `.asResponse()` this method consumes the body, returning once it is parse
 ```ts
 const client = new ModerationAPI();
 
-const response = await client.content.submit({ content: { text: 'x', type: 'text' } }).asResponse();
+const response = await client.content
+  .submit({ content: { text: 'text', type: 'text' } })
+  .asResponse();
 console.log(response.headers.get('X-My-Header'));
 console.log(response.statusText); // access the underlying Response object
 
 const { data: response, response: raw } = await client.content
-  .submit({ content: { text: 'x', type: 'text' } })
+  .submit({ content: { text: 'text', type: 'text' } })
   .withResponse();
 console.log(raw.headers.get('X-My-Header'));
 console.log(response.recommendation);
