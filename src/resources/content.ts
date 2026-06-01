@@ -290,6 +290,12 @@ export namespace ContentSubmitResponse {
     type: 'classifier';
 
     /**
+     * Optional structured data produced by the policy. For face detection: { count,
+     * faces: [{ confidence, gender, age }] }.
+     */
+    data?: { [key: string]: unknown };
+
+    /**
      * The keys of the flagged fields if submitting an object.
      */
     flagged_fields?: Array<string>;
@@ -503,6 +509,7 @@ export interface ContentSubmitParams {
     | ContentSubmitParams.SelfHarm
     | ContentSubmitParams.Spam
     | ContentSubmitParams.LowQualityContent
+    | ContentSubmitParams.FaceDetection
     | ContentSubmitParams.SelfPromotion
     | ContentSubmitParams.Political
     | ContentSubmitParams.Religion
@@ -805,6 +812,26 @@ export namespace ContentSubmitParams {
      * to disable by omitting.
      */
     minWords?: number;
+
+    threshold?: number;
+  }
+
+  export interface FaceDetection {
+    id: 'face_detection';
+
+    flag: boolean;
+
+    /**
+     * Flag images that contain "at least" or "fewer than" the configured number of
+     * faces. Defaults to at_least.
+     */
+    comparator?: 'at_least' | 'fewer_than';
+
+    /**
+     * Number of faces the comparator applies to. Defaults to 1, so the default rule
+     * flags any image containing a face.
+     */
+    count?: number;
 
     threshold?: number;
   }
