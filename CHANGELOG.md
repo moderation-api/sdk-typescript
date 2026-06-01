@@ -1,5 +1,15 @@
 # Changelog
 
+## 4.2.0 (2026-06-01)
+
+Full Changelog: [v4.1.1...v4.2.0](https://github.com/moderation-api/sdk-typescript/compare/v4.1.1...v4.2.0)
+
+### Features
+
+* **api:** api update ([3e63e9b](https://github.com/moderation-api/sdk-typescript/commit/3e63e9b0cc49dd5c18a47ad1917fd835a9ca6628))
+* **api:** api update ([1ffcc3b](https://github.com/moderation-api/sdk-typescript/commit/1ffcc3bc1df790e111b95697dd3a520a0d8d0f97))
+* **api:** api update ([cc909b9](https://github.com/moderation-api/sdk-typescript/commit/cc909b999d8790d84b69693d773334f5361e75b5))
+
 ## 4.1.1 (2026-05-19)
 
 Full Changelog: [v4.1.0...v4.1.1](https://github.com/moderation-api/sdk-typescript/compare/v4.1.0...v4.1.1)
