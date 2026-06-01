@@ -10,7 +10,7 @@ const client = new ModerationAPI({
 describe('resource content', () => {
   // Mock server tests are disabled
   test.skip('submit: only required params', async () => {
-    const responsePromise = client.content.submit({ content: { text: 'x', type: 'text' } });
+    const responsePromise = client.content.submit({ content: { text: 'text', type: 'text' } });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -23,7 +23,7 @@ describe('resource content', () => {
   // Mock server tests are disabled
   test.skip('submit: required and optional params', async () => {
     const response = await client.content.submit({
-      content: { text: 'x', type: 'text' },
+      content: { text: 'text', type: 'text' },
       authorId: 'authorId',
       channel: 'channel',
       contentId: 'contentId',
