@@ -502,6 +502,7 @@ export interface ContentSubmitParams {
     | ContentSubmitParams.Violence
     | ContentSubmitParams.SelfHarm
     | ContentSubmitParams.Spam
+    | ContentSubmitParams.LowQualityContent
     | ContentSubmitParams.SelfPromotion
     | ContentSubmitParams.Political
     | ContentSubmitParams.Religion
@@ -790,6 +791,20 @@ export namespace ContentSubmitParams {
     id: 'spam';
 
     flag: boolean;
+
+    threshold?: number;
+  }
+
+  export interface LowQualityContent {
+    id: 'low_quality';
+
+    flag: boolean;
+
+    /**
+     * Flag content with fewer than this many words as low-effort. Defaults to 3. Set
+     * to disable by omitting.
+     */
+    minWords?: number;
 
     threshold?: number;
   }
