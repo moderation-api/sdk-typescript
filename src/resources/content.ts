@@ -415,6 +415,7 @@ export namespace ContentSubmitResponse {
       | 'rule_match'
       | 'rule_default'
       | 'rule_fallback'
+      | 'client_override'
     >;
 
     /**
@@ -459,6 +460,13 @@ export interface ContentSubmitParams {
    * provided.
    */
   channel?: string;
+
+  /**
+   * A recommendation from your own client-side flagging (e.g. a banned-IP list or a
+   * third-party tool). Feeds the rules engine and can escalate or override the
+   * recommended action. Does not change whether our analysis flagged the content.
+   */
+  clientAction?: ContentSubmitParams.ClientAction;
 
   /**
    * The unique ID of the content in your database.
@@ -648,6 +656,34 @@ export namespace ContentSubmitParams {
        */
       url: string;
     }
+  }
+
+  /**
+   * A recommendation from your own client-side flagging (e.g. a banned-IP list or a
+   * third-party tool). Feeds the rules engine and can escalate or override the
+   * recommended action. Does not change whether our analysis flagged the content.
+   */
+  export interface ClientAction {
+    /**
+     * Your recommendation for the content: allow, review, or reject.
+     */
+    action: 'review' | 'allow' | 'reject';
+
+    /**
+     * How your recommendation combines with ours. Defaults to 'escalate', which only
+     * applies it when stricter than ours; 'override' replaces ours outright.
+     */
+    behavior?: 'override' | 'escalate';
+
+    /**
+     * A human-readable explanation for your recommendation.
+     */
+    reason?: string;
+
+    /**
+     * Where your recommendation came from, e.g. "banned-ip".
+     */
+    source?: string;
   }
 
   export interface Toxicity {

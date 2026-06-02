@@ -26,6 +26,12 @@ describe('resource content', () => {
       content: { text: 'text', type: 'text' },
       authorId: 'authorId',
       channel: 'channel',
+      clientAction: {
+        action: 'review',
+        behavior: 'override',
+        reason: 'reason',
+        source: 'source',
+      },
       contentId: 'contentId',
       conversationId: 'conversationId',
       doNotStore: true,
