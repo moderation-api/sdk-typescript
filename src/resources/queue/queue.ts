@@ -1451,6 +1451,11 @@ export namespace WebhookEvent {
           channel_key: string | null;
 
           /**
+           * A recommendation from your own client-side flagging.
+           */
+          client_action: Item.ClientAction | null;
+
+          /**
            * The original content payload
            */
           content: Item.Text | Item.Image | Item.Video | Item.Audio | Item.Object;
@@ -1503,6 +1508,32 @@ export namespace WebhookEvent {
         }
 
         export namespace Item {
+          /**
+           * A recommendation from your own client-side flagging.
+           */
+          export interface ClientAction {
+            /**
+             * Your recommendation for the content: allow, review, or reject.
+             */
+            action: 'review' | 'allow' | 'reject';
+
+            /**
+             * How your recommendation combines with ours. Defaults to 'escalate', which only
+             * applies it when stricter than ours; 'override' replaces ours outright.
+             */
+            behavior?: 'override' | 'escalate';
+
+            /**
+             * A human-readable explanation for your recommendation.
+             */
+            reason?: string;
+
+            /**
+             * Where your recommendation came from, e.g. "banned-ip".
+             */
+            source?: string;
+          }
+
           /**
            * Text
            */
@@ -2132,6 +2163,11 @@ export namespace WebhookEvent {
           channel_key: string | null;
 
           /**
+           * A recommendation from your own client-side flagging.
+           */
+          client_action: Item.ClientAction | null;
+
+          /**
            * The original content payload
            */
           content: Item.Text | Item.Image | Item.Video | Item.Audio | Item.Object;
@@ -2184,6 +2220,32 @@ export namespace WebhookEvent {
         }
 
         export namespace Item {
+          /**
+           * A recommendation from your own client-side flagging.
+           */
+          export interface ClientAction {
+            /**
+             * Your recommendation for the content: allow, review, or reject.
+             */
+            action: 'review' | 'allow' | 'reject';
+
+            /**
+             * How your recommendation combines with ours. Defaults to 'escalate', which only
+             * applies it when stricter than ours; 'override' replaces ours outright.
+             */
+            behavior?: 'override' | 'escalate';
+
+            /**
+             * A human-readable explanation for your recommendation.
+             */
+            reason?: string;
+
+            /**
+             * Where your recommendation came from, e.g. "banned-ip".
+             */
+            source?: string;
+          }
+
           /**
            * Text
            */
@@ -2654,6 +2716,11 @@ export namespace WebhookEvent {
           channel_key: string | null;
 
           /**
+           * A recommendation from your own client-side flagging.
+           */
+          client_action: Item.ClientAction | null;
+
+          /**
            * The original content payload
            */
           content: Item.Text | Item.Image | Item.Video | Item.Audio | Item.Object;
@@ -2706,6 +2773,32 @@ export namespace WebhookEvent {
         }
 
         export namespace Item {
+          /**
+           * A recommendation from your own client-side flagging.
+           */
+          export interface ClientAction {
+            /**
+             * Your recommendation for the content: allow, review, or reject.
+             */
+            action: 'review' | 'allow' | 'reject';
+
+            /**
+             * How your recommendation combines with ours. Defaults to 'escalate', which only
+             * applies it when stricter than ours; 'override' replaces ours outright.
+             */
+            behavior?: 'override' | 'escalate';
+
+            /**
+             * A human-readable explanation for your recommendation.
+             */
+            reason?: string;
+
+            /**
+             * Where your recommendation came from, e.g. "banned-ip".
+             */
+            source?: string;
+          }
+
           /**
            * Text
            */
@@ -3176,6 +3269,11 @@ export namespace WebhookEvent {
           channel_key: string | null;
 
           /**
+           * A recommendation from your own client-side flagging.
+           */
+          client_action: Item.ClientAction | null;
+
+          /**
            * The original content payload
            */
           content: Item.Text | Item.Image | Item.Video | Item.Audio | Item.Object;
@@ -3228,6 +3326,32 @@ export namespace WebhookEvent {
         }
 
         export namespace Item {
+          /**
+           * A recommendation from your own client-side flagging.
+           */
+          export interface ClientAction {
+            /**
+             * Your recommendation for the content: allow, review, or reject.
+             */
+            action: 'review' | 'allow' | 'reject';
+
+            /**
+             * How your recommendation combines with ours. Defaults to 'escalate', which only
+             * applies it when stricter than ours; 'override' replaces ours outright.
+             */
+            behavior?: 'override' | 'escalate';
+
+            /**
+             * A human-readable explanation for your recommendation.
+             */
+            reason?: string;
+
+            /**
+             * Where your recommendation came from, e.g. "banned-ip".
+             */
+            source?: string;
+          }
+
           /**
            * Text
            */
