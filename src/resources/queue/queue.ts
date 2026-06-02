@@ -1471,6 +1471,12 @@ export namespace WebhookEvent {
           flagged: boolean | null;
 
           /**
+           * For object content, the field keys (e.g. "bio") that triggered a flag. Empty
+           * when no fields were flagged or the content is not an object.
+           */
+          flagged_fields: Array<string>;
+
+          /**
            * Moderation labels applied to the content
            */
           labels: Array<Item.Label> | null;
@@ -2183,6 +2189,12 @@ export namespace WebhookEvent {
           flagged: boolean | null;
 
           /**
+           * For object content, the field keys (e.g. "bio") that triggered a flag. Empty
+           * when no fields were flagged or the content is not an object.
+           */
+          flagged_fields: Array<string>;
+
+          /**
            * Moderation labels applied to the content
            */
           labels: Array<Item.Label> | null;
@@ -2736,6 +2748,12 @@ export namespace WebhookEvent {
           flagged: boolean | null;
 
           /**
+           * For object content, the field keys (e.g. "bio") that triggered a flag. Empty
+           * when no fields were flagged or the content is not an object.
+           */
+          flagged_fields: Array<string>;
+
+          /**
            * Moderation labels applied to the content
            */
           labels: Array<Item.Label> | null;
@@ -3287,6 +3305,12 @@ export namespace WebhookEvent {
            * Whether the content was flagged by moderation
            */
           flagged: boolean | null;
+
+          /**
+           * For object content, the field keys (e.g. "bio") that triggered a flag. Empty
+           * when no fields were flagged or the content is not an object.
+           */
+          flagged_fields: Array<string>;
 
           /**
            * Moderation labels applied to the content
