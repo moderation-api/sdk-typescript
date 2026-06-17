@@ -1,5 +1,13 @@
 # Changelog
 
+## 4.4.1 (2026-06-17)
+
+Full Changelog: [v4.4.0...v4.4.1](https://github.com/moderation-api/sdk-typescript/compare/v4.4.0...v4.4.1)
+
+### Bug Fixes
+
+* **client:** send content-type header for requests with an omitted optional body ([9addaf5](https://github.com/moderation-api/sdk-typescript/commit/9addaf5022954837794748a332601bcade5fd7d2))
+
 ## 4.4.0 (2026-06-02)
 
 Full Changelog: [v4.3.0...v4.4.0](https://github.com/moderation-api/sdk-typescript/compare/v4.3.0...v4.4.0)
