@@ -491,7 +491,7 @@ export interface ContentSubmitParams {
   /**
    * The meta type of content being moderated
    */
-  metaType?: 'profile' | 'message' | 'post' | 'comment' | 'event' | 'product' | 'review' | 'other';
+  metaType?: 'profile' | 'message' | 'post' | 'comment' | 'event' | 'product' | 'review' | 'voice' | 'other';
 
   /**
    * (Enterprise) override the channel policies for this moderation request only.
