@@ -1499,6 +1499,7 @@ export namespace WebhookEvent {
             | 'event'
             | 'product'
             | 'review'
+            | 'voice'
             | 'other'
             | null;
 
@@ -2217,6 +2218,7 @@ export namespace WebhookEvent {
             | 'event'
             | 'product'
             | 'review'
+            | 'voice'
             | 'other'
             | null;
 
@@ -2776,6 +2778,7 @@ export namespace WebhookEvent {
             | 'event'
             | 'product'
             | 'review'
+            | 'voice'
             | 'other'
             | null;
 
@@ -3335,6 +3338,7 @@ export namespace WebhookEvent {
             | 'event'
             | 'product'
             | 'review'
+            | 'voice'
             | 'other'
             | null;
 
