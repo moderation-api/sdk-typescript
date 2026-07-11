@@ -1,5 +1,13 @@
 # Changelog
 
+## 4.5.1 (2026-07-11)
+
+Full Changelog: [v4.5.0...v4.5.1](https://github.com/moderation-api/sdk-typescript/compare/v4.5.0...v4.5.1)
+
+### Bug Fixes
+
+* **ci:** bump @arethetypeswrong/cli to ^0.18.0 and run CI workflows on Node 24 ([3dd7ae5](https://github.com/moderation-api/sdk-typescript/commit/3dd7ae545e1a8ce311d7874468456968842df97d))
+
 ## 4.5.0 (2026-06-18)
 
 Full Changelog: [v4.4.1...v4.5.0](https://github.com/moderation-api/sdk-typescript/compare/v4.4.1...v4.5.0)
