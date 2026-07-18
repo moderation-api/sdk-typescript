@@ -1,5 +1,13 @@
 # Changelog
 
+## 4.6.0 (2026-07-18)
+
+Full Changelog: [v4.5.1...v4.6.0](https://github.com/moderation-api/sdk-typescript/compare/v4.5.1...v4.6.0)
+
+### Features
+
+* **stlc:** configurable CI runner and private-production-repo support in workflow templates ([de1e8a9](https://github.com/moderation-api/sdk-typescript/commit/de1e8a9392fb0c89995cae229319448850108a3f))
+
 ## 4.5.1 (2026-07-11)
 
 Full Changelog: [v4.5.0...v4.5.1](https://github.com/moderation-api/sdk-typescript/compare/v4.5.0...v4.5.1)
