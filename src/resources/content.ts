@@ -140,6 +140,13 @@ export namespace ContentSubmitResponse {
      * used and transcript inclusion is enabled on the channel.
      */
     transcript?: string | null;
+
+    /**
+     * Whether Unicode spoofing normalization rewrote the content — confusables folded
+     * to their Latin lookalikes, invisible characters and combining-mark abuse
+     * stripped.
+     */
+    unicode_cleaned?: boolean;
   }
 
   export namespace Content {
@@ -522,6 +529,7 @@ export interface ContentSubmitParams {
     | ContentSubmitParams.Political
     | ContentSubmitParams.Religion
     | ContentSubmitParams.CodeAbuse
+    | ContentSubmitParams.UnicodeSpoofing
     | ContentSubmitParams.PiiMasking
     | ContentSubmitParams.URLMasking
     | ContentSubmitParams.URLRisk
@@ -902,6 +910,27 @@ export namespace ContentSubmitParams {
     flag: boolean;
 
     threshold?: number;
+  }
+
+  export interface UnicodeSpoofing {
+    id: 'unicode_spoofing';
+
+    flag: boolean;
+
+    /**
+     * Per-signal flag toggles. Omitted signals are enabled. A signal set to { flag:
+     * false } is still detected and reported as a label, but does not by itself flag
+     * the policy.
+     */
+    signals?: { [key: string]: UnicodeSpoofing.Signals };
+
+    threshold?: number;
+  }
+
+  export namespace UnicodeSpoofing {
+    export interface Signals {
+      flag?: boolean;
+    }
   }
 
   export interface PiiMasking {
