@@ -136,17 +136,17 @@ export namespace ContentSubmitResponse {
       | null;
 
     /**
-     * The transcribed text from audio content. Only present when audio moderation is
-     * used and transcript inclusion is enabled on the channel.
-     */
-    transcript?: string | null;
-
-    /**
      * Whether Unicode spoofing normalization rewrote the content — confusables folded
      * to their Latin lookalikes, invisible characters and combining-mark abuse
      * stripped.
      */
-    unicode_cleaned?: boolean;
+    unicode_cleaned: boolean;
+
+    /**
+     * The transcribed text from audio content. Only present when audio moderation is
+     * used and transcript inclusion is enabled on the channel.
+     */
+    transcript?: string | null;
   }
 
   export namespace Content {
