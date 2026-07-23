@@ -1716,7 +1716,11 @@ export namespace WebhookEvent {
 
               reasons?: Array<string>;
 
+              scripts?: Array<string>;
+
               signals?: Match.Signals;
+
+              skeleton?: string;
             }
 
             export namespace Match {
@@ -2441,7 +2445,11 @@ export namespace WebhookEvent {
 
               reasons?: Array<string>;
 
+              scripts?: Array<string>;
+
               signals?: Match.Signals;
+
+              skeleton?: string;
             }
 
             export namespace Match {
@@ -3007,7 +3015,11 @@ export namespace WebhookEvent {
 
               reasons?: Array<string>;
 
+              scripts?: Array<string>;
+
               signals?: Match.Signals;
+
+              skeleton?: string;
             }
 
             export namespace Match {
@@ -3573,7 +3585,11 @@ export namespace WebhookEvent {
 
               reasons?: Array<string>;
 
+              scripts?: Array<string>;
+
               signals?: Match.Signals;
+
+              skeleton?: string;
             }
 
             export namespace Match {
