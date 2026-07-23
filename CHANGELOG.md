@@ -1,5 +1,13 @@
 # Changelog
 
+## 4.9.0 (2026-07-23)
+
+Full Changelog: [v4.8.0...v4.9.0](https://github.com/moderation-api/sdk-typescript/compare/v4.8.0...v4.9.0)
+
+### Features
+
+* **api:** api update ([50f8f53](https://github.com/moderation-api/sdk-typescript/commit/50f8f53ef27ffe6f2416c642ca4dddf0f6ac84ea))
+
 ## 4.8.0 (2026-07-20)
 
 Full Changelog: [v4.7.0...v4.8.0](https://github.com/moderation-api/sdk-typescript/compare/v4.7.0...v4.8.0)
