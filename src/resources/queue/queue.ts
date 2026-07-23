@@ -1685,6 +1685,12 @@ export namespace WebhookEvent {
             manual?: boolean;
 
             matches?: Array<Label.Match>;
+
+            /**
+             * Whether this label crossed its threshold under a shadowed policy — reported for
+             * visibility, never counted toward a flagging decision
+             */
+            shadow_flagged?: boolean;
           }
 
           export namespace Label {
@@ -2404,6 +2410,12 @@ export namespace WebhookEvent {
             manual?: boolean;
 
             matches?: Array<Label.Match>;
+
+            /**
+             * Whether this label crossed its threshold under a shadowed policy — reported for
+             * visibility, never counted toward a flagging decision
+             */
+            shadow_flagged?: boolean;
           }
 
           export namespace Label {
@@ -2964,6 +2976,12 @@ export namespace WebhookEvent {
             manual?: boolean;
 
             matches?: Array<Label.Match>;
+
+            /**
+             * Whether this label crossed its threshold under a shadowed policy — reported for
+             * visibility, never counted toward a flagging decision
+             */
+            shadow_flagged?: boolean;
           }
 
           export namespace Label {
@@ -3524,6 +3542,12 @@ export namespace WebhookEvent {
             manual?: boolean;
 
             matches?: Array<Label.Match>;
+
+            /**
+             * Whether this label crossed its threshold under a shadowed policy — reported for
+             * visibility, never counted toward a flagging decision
+             */
+            shadow_flagged?: boolean;
           }
 
           export namespace Label {

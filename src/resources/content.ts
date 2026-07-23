@@ -317,6 +317,8 @@ export namespace ContentSubmitResponse {
       flagged: boolean;
 
       probability: number;
+
+      shadowFlagged?: boolean;
     }
   }
 
