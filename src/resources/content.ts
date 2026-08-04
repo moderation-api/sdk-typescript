@@ -411,8 +411,9 @@ export namespace ContentSubmitResponse {
     action: 'review' | 'allow' | 'reject';
 
     /**
-     * The reason code for the recommendation. Can be used to display a reason to the
-     * user.
+     * Reason codes for the recommendation. Standard codes plus a `rule:<key>` code
+     * identifying the rule that produced the action. Can be used to display a reason
+     * to the user.
      */
     reason_codes: Array<
       | 'severity_reject'
@@ -425,6 +426,7 @@ export namespace ContentSubmitResponse {
       | 'rule_default'
       | 'rule_fallback'
       | 'client_override'
+      | (string & {})
     >;
 
     /**
