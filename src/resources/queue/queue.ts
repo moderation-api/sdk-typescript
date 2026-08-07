@@ -3662,7 +3662,19 @@ export namespace QueueRetrieveResponse {
 
       authorID?: string;
 
+      authorTrustLevels?: Array<number>;
+
       beforeDate?: string;
+
+      checkStatus?: 'all' | 'checked' | 'unchecked' | null;
+
+      clearDateWindow?: boolean;
+
+      contentID?: string;
+
+      contentTypes?: Array<
+        'profile' | 'message' | 'post' | 'comment' | 'event' | 'product' | 'review' | 'voice' | 'other'
+      >;
 
       conversationIds?: Array<string | null>;
 
@@ -3672,11 +3684,21 @@ export namespace QueueRetrieveResponse {
 
       filterLabels?: Array<Filter.FilterLabel>;
 
+      isFlagged?: 'ALL' | 'FLAGGED' | 'NOT_FLAGGED' | 'SHADOW_FLAGGED';
+
       labels?: Array<string>;
+
+      languages?: Array<string>;
+
+      mediaTypes?: Array<'text' | 'image' | 'video' | 'object' | 'audio'>;
 
       recommendationActions?: Array<'review' | 'allow' | 'reject'>;
 
-      showChecked?: boolean;
+      search?: Array<string>;
+
+      within?: number;
+
+      withinUnit?: 'MINUTES' | 'HOURS' | 'DAYS' | 'WEEKS' | 'MONTHS' | 'YEARS';
     }
 
     export namespace Filter {
