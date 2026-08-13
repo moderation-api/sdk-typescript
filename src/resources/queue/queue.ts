@@ -3705,7 +3705,7 @@ export namespace QueueRetrieveResponse {
       export interface FilterLabel {
         label: string;
 
-        type: 'FLAGGED' | 'NOT_FLAGGED' | 'THRESHOLDS';
+        type: 'FLAGGED' | 'NOT_FLAGGED' | 'THRESHOLDS' | 'MATCHED';
 
         maxThreshold?: number | null;
 
