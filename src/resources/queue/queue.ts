@@ -3690,7 +3690,11 @@ export namespace QueueRetrieveResponse {
 
       languages?: Array<string>;
 
+      maxSeverity?: number;
+
       mediaTypes?: Array<'text' | 'image' | 'video' | 'object' | 'audio'>;
+
+      minSeverity?: number;
 
       recommendationActions?: Array<'review' | 'allow' | 'reject'>;
 
