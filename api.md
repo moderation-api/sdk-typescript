@@ -81,6 +81,7 @@ Types:
 
 Methods:
 
+- <code title="get /stream">client.content.<a href="./src/resources/content.ts">stream</a>({ ...params }) -> void</code>
 - <code title="post /moderate">client.content.<a href="./src/resources/content.ts">submit</a>({ ...params }) -> ContentSubmitResponse</code>
 
 # Account
@@ -132,3 +133,31 @@ Methods:
 
 - <code title="post /wordlist/{id}/words">client.wordlist.words.<a href="./src/resources/wordlist/words.ts">add</a>(id, { ...params }) -> WordAddResponse</code>
 - <code title="delete /wordlist/{id}/words">client.wordlist.words.<a href="./src/resources/wordlist/words.ts">remove</a>(id, { ...params }) -> WordRemoveResponse</code>
+
+# Webhooks
+
+Types:
+
+- <code><a href="./src/resources/webhooks.ts">WebhookCreateResponse</a></code>
+- <code><a href="./src/resources/webhooks.ts">WebhookRetrieveResponse</a></code>
+- <code><a href="./src/resources/webhooks.ts">WebhookUpdateResponse</a></code>
+- <code><a href="./src/resources/webhooks.ts">WebhookListResponse</a></code>
+- <code><a href="./src/resources/webhooks.ts">WebhookDeleteResponse</a></code>
+
+Methods:
+
+- <code title="post /webhooks">client.webhooks.<a href="./src/resources/webhooks.ts">create</a>({ ...params }) -> WebhookCreateResponse</code>
+- <code title="get /webhooks/{id}">client.webhooks.<a href="./src/resources/webhooks.ts">retrieve</a>(id) -> WebhookRetrieveResponse</code>
+- <code title="put /webhooks/{id}">client.webhooks.<a href="./src/resources/webhooks.ts">update</a>(id, { ...params }) -> WebhookUpdateResponse</code>
+- <code title="get /webhooks">client.webhooks.<a href="./src/resources/webhooks.ts">list</a>() -> WebhookListResponse</code>
+- <code title="delete /webhooks/{id}">client.webhooks.<a href="./src/resources/webhooks.ts">delete</a>(id) -> WebhookDeleteResponse</code>
+
+# WebhookSecret
+
+Types:
+
+- <code><a href="./src/resources/webhook-secret.ts">WebhookSecretRetrieveResponse</a></code>
+
+Methods:
+
+- <code title="get /webhook-secret">client.webhookSecret.<a href="./src/resources/webhook-secret.ts">retrieve</a>() -> WebhookSecretRetrieveResponse</code>

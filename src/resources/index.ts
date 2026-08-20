@@ -24,7 +24,12 @@ export {
   type AuthorUpdateParams,
   type AuthorListParams,
 } from './authors';
-export { Content, type ContentSubmitResponse, type ContentSubmitParams } from './content';
+export {
+  Content,
+  type ContentSubmitResponse,
+  type ContentStreamParams,
+  type ContentSubmitParams,
+} from './content';
 export {
   Queue,
   type WebhookEvent,
@@ -32,6 +37,17 @@ export {
   type QueueGetStatsResponse,
   type QueueGetStatsParams,
 } from './queue/queue';
+export { WebhookSecret, type WebhookSecretRetrieveResponse } from './webhook-secret';
+export {
+  Webhooks,
+  type WebhookCreateResponse,
+  type WebhookRetrieveResponse,
+  type WebhookUpdateResponse,
+  type WebhookListResponse,
+  type WebhookDeleteResponse,
+  type WebhookCreateParams,
+  type WebhookUpdateParams,
+} from './webhooks';
 export {
   Wordlist,
   type WordlistRetrieveResponse,

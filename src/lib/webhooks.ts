@@ -11,7 +11,7 @@ export type { WebhookEvent };
  * @returns The payload of the webhook request if the signature is valid.
  * @throws An error if the signature is invalid.
  */
-const constructEvent = (
+export const constructEvent = (
   webhookRawBody: Buffer,
   webhookSignatureHeader: string,
   webhookSecret?: string,
