@@ -2,9 +2,44 @@
 
 import { APIResource } from '../core/resource';
 import { APIPromise } from '../core/api-promise';
+import { buildHeaders } from '../internal/headers';
 import { RequestOptions } from '../internal/request-options';
 
 export class Content extends APIResource {
+  /**
+   * Open a WebSocket to moderate live voice/call audio in real time. Speech is
+   * transcribed and each finalized utterance is moderated by your enabled text
+   * policies; you receive a verdict per utterance as it's spoken.
+   *
+   * **This is a WebSocket upgrade, not a regular HTTP call.** The request body below
+   * documents the frames you _send_ over the socket; the `101` response documents
+   * the events you _receive_.
+   *
+   * - **Auth:** `Authorization: Bearer <api_key>` on the upgrade. A missing/invalid
+   *   key closes `4401`; voice not enabled on the plan/channel closes `4403`.
+   * - **Subprotocol:** request `moderationapi.v1`.
+   * - **Flow:** send one `start` frame, then `media` frames as audio arrives, then
+   *   `stop` (or disconnect). You receive `session.started`, `utterance.final` per
+   *   utterance, optional `utterance.partial`/`warning`, and `session.ended`.
+   * - **Close codes:** `1000` normal · `1011` server error · `4400` bad request ·
+   *   `4401` auth failed · `4403` voice not enabled · `4429` concurrency limit.
+   *
+   * See the
+   * [Real-time voice guide](https://docs.moderationapi.com/content-moderation/real-time-voice)
+   * for the full walkthrough and code examples.
+   */
+  stream(params: ContentStreamParams, options?: RequestOptions): APIPromise<void> {
+    const { 'Sec-WebSocket-Protocol': secWebSocketProtocol } = params;
+    return this._client.get('/stream', {
+      defaultBaseURL: 'wss://voice.moderationapi.com/v1',
+      ...options,
+      headers: buildHeaders([
+        { Accept: '*/*', 'Sec-WebSocket-Protocol': secWebSocketProtocol.toString() },
+        options?.headers,
+      ]),
+    });
+  }
+
   submit(body: ContentSubmitParams, options?: RequestOptions): APIPromise<ContentSubmitResponse> {
     return this._client.post('/moderate', { body, ...options });
   }
@@ -448,6 +483,13 @@ export namespace ContentSubmitResponse {
 
     message: string;
   }
+}
+
+export interface ContentStreamParams {
+  /**
+   * Requested subprotocol.
+   */
+  'Sec-WebSocket-Protocol': 'moderationapi.v1';
 }
 
 export interface ContentSubmitParams {
@@ -1021,6 +1063,7 @@ export namespace ContentSubmitParams {
 export declare namespace Content {
   export {
     type ContentSubmitResponse as ContentSubmitResponse,
+    type ContentStreamParams as ContentStreamParams,
     type ContentSubmitParams as ContentSubmitParams,
   };
 }
