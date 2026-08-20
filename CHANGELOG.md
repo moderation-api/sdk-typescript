@@ -1,5 +1,13 @@
 # Changelog
 
+## 4.15.0 (2026-08-20)
+
+Full Changelog: [v4.14.0...v4.15.0](https://github.com/moderation-api/sdk-typescript/compare/v4.14.0...v4.15.0)
+
+### Features
+
+* **api:** webhooks and stream ([df47e47](https://github.com/moderation-api/sdk-typescript/commit/df47e479e7e4b652cb38debed815f8c3ae8ea981))
+
 ## 4.14.0 (2026-08-14)
 
 Full Changelog: [v4.13.0...v4.14.0](https://github.com/moderation-api/sdk-typescript/compare/v4.13.0...v4.14.0)
