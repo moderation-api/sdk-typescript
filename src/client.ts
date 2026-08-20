@@ -30,7 +30,23 @@ import {
   AuthorUpdateResponse,
   Authors,
 } from './resources/authors';
-import { Content, ContentSubmitParams, ContentSubmitResponse } from './resources/content';
+import {
+  Content,
+  ContentStreamParams,
+  ContentSubmitParams,
+  ContentSubmitResponse,
+} from './resources/content';
+import { WebhookSecret, WebhookSecretRetrieveResponse } from './resources/webhook-secret';
+import {
+  WebhookCreateParams,
+  WebhookCreateResponse,
+  WebhookDeleteResponse,
+  WebhookListResponse,
+  WebhookRetrieveResponse,
+  WebhookUpdateParams,
+  WebhookUpdateResponse,
+  Webhooks,
+} from './resources/webhooks';
 import {
   ActionCreateParams,
   ActionCreateResponse,
@@ -795,6 +811,8 @@ export class ModerationAPI {
   account: API.Account = new API.Account(this);
   auth: API.Auth = new API.Auth(this);
   wordlist: API.Wordlist = new API.Wordlist(this);
+  webhooks: API.Webhooks = new API.Webhooks(this);
+  webhookSecret: API.WebhookSecret = new API.WebhookSecret(this);
 }
 
 ModerationAPI.Authors = Authors;
@@ -804,6 +822,8 @@ ModerationAPI.Content = Content;
 ModerationAPI.Account = Account;
 ModerationAPI.Auth = Auth;
 ModerationAPI.Wordlist = Wordlist;
+ModerationAPI.Webhooks = Webhooks;
+ModerationAPI.WebhookSecret = WebhookSecret;
 
 export declare namespace ModerationAPI {
   export type RequestOptions = Opts.RequestOptions;
@@ -843,6 +863,7 @@ export declare namespace ModerationAPI {
   export {
     Content as Content,
     type ContentSubmitResponse as ContentSubmitResponse,
+    type ContentStreamParams as ContentStreamParams,
     type ContentSubmitParams as ContentSubmitParams,
   };
 
@@ -862,5 +883,21 @@ export declare namespace ModerationAPI {
     type WordlistListResponse as WordlistListResponse,
     type WordlistGetEmbeddingStatusResponse as WordlistGetEmbeddingStatusResponse,
     type WordlistUpdateParams as WordlistUpdateParams,
+  };
+
+  export {
+    Webhooks as Webhooks,
+    type WebhookCreateResponse as WebhookCreateResponse,
+    type WebhookRetrieveResponse as WebhookRetrieveResponse,
+    type WebhookUpdateResponse as WebhookUpdateResponse,
+    type WebhookListResponse as WebhookListResponse,
+    type WebhookDeleteResponse as WebhookDeleteResponse,
+    type WebhookCreateParams as WebhookCreateParams,
+    type WebhookUpdateParams as WebhookUpdateParams,
+  };
+
+  export {
+    WebhookSecret as WebhookSecret,
+    type WebhookSecretRetrieveResponse as WebhookSecretRetrieveResponse,
   };
 }
