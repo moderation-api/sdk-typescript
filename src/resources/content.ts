@@ -53,6 +53,15 @@ export interface ContentSubmitResponse {
   author: ContentSubmitResponse.Author | null;
 
   /**
+   * What your casebook — the record of your past moderation decisions — found for
+   * this content, or null when it had nothing close enough to say, when the matching
+   * cases disagreed, or when casebook lookups are not switched on for this channel.
+   * Reports what the casebook found; whether it decided the outcome is shown in
+   * `recommendation`, where a higher-priority rule may have settled the item first.
+   */
+  casebook: ContentSubmitResponse.Casebook | null;
+
+  /**
    * Potentially modified content.
    */
   content: ContentSubmitResponse.Content;
@@ -143,6 +152,66 @@ export namespace ContentSubmitResponse {
        * True if the trust level was set manually by a moderator
        */
       manual: boolean;
+    }
+  }
+
+  /**
+   * What your casebook — the record of your past moderation decisions — found for
+   * this content, or null when it had nothing close enough to say, when the matching
+   * cases disagreed, or when casebook lookups are not switched on for this channel.
+   * Reports what the casebook found; whether it decided the outcome is shown in
+   * `recommendation`, where a higher-priority rule may have settled the item first.
+   */
+  export interface Casebook {
+    /**
+     * How unanimous the matching cases are, from 0 to 1: the share of them that
+     * decided this way, ignoring how many there are. Always at least 0.8 when a ruling
+     * is returned — below that the casebook reports a disagreement instead of picking
+     * a side — so it tells you how clean the consensus was, and is not a threshold to
+     * re-apply yourself.
+     */
+    agreement: number;
+
+    /**
+     * How many of your past cases backed this ruling.
+     */
+    case_count: number;
+
+    /**
+     * How strongly the casebook holds this ruling, from 0 to 1: the agreement scaled
+     * by how much evidence backs it, so a handful of close, recent cases outweighs one
+     * distant one. Older cases count for less, halving in weight roughly every 180
+     * days. This is the number to use in rules when you want a strength condition.
+     */
+    confidence: number;
+
+    /**
+     * How close the nearest matching case is, from 0 to 1. 1 means the content is
+     * identical to something you have already decided.
+     */
+    similarity: number;
+
+    /**
+     * The topic the closest matching case is filed under, or null when it has not been
+     * grouped into one yet.
+     */
+    topic: Casebook.Topic | null;
+
+    /**
+     * The ruling your past decisions point to for this content.
+     */
+    verdict: 'allow' | 'reject';
+  }
+
+  export namespace Casebook {
+    /**
+     * The topic the closest matching case is filed under, or null when it has not been
+     * grouped into one yet.
+     */
+    export interface Topic {
+      id: string;
+
+      label: string;
     }
   }
 
@@ -461,6 +530,7 @@ export namespace ContentSubmitResponse {
       | 'rule_default'
       | 'rule_fallback'
       | 'client_override'
+      | 'casebook_match'
       | (string & {})
     >;
 
