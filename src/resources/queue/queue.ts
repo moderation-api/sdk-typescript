@@ -3666,6 +3666,8 @@ export namespace QueueRetrieveResponse {
 
       beforeDate?: string;
 
+      casebookHandled?: 'ALL' | 'HANDLED' | 'WOULD_HAVE_HANDLED';
+
       checkStatus?: 'all' | 'checked' | 'unchecked' | null;
 
       clearDateWindow?: boolean;
