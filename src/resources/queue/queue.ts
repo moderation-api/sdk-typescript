@@ -3696,6 +3696,8 @@ export namespace QueueRetrieveResponse {
 
       mediaTypes?: Array<'text' | 'image' | 'video' | 'object' | 'audio'>;
 
+      metadataFilters?: Array<Filter.MetadataFilter>;
+
       minSeverity?: number;
 
       recommendationActions?: Array<'review' | 'allow' | 'reject'>;
@@ -3716,6 +3718,12 @@ export namespace QueueRetrieveResponse {
         maxThreshold?: number | null;
 
         minThreshold?: number | null;
+      }
+
+      export interface MetadataFilter {
+        key: string;
+
+        value: string;
       }
     }
   }
