@@ -3666,7 +3666,7 @@ export namespace QueueRetrieveResponse {
 
       beforeDate?: string;
 
-      casebookHandled?: 'ALL' | 'HANDLED' | 'WOULD_HAVE_HANDLED';
+      casebookHandled?: 'ALL' | 'HANDLED' | 'OVERRULED';
 
       checkStatus?: 'all' | 'checked' | 'unchecked' | null;
 
