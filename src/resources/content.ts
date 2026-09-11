@@ -634,6 +634,7 @@ export interface ContentSubmitParams {
     | ContentSubmitParams.Adult
     | ContentSubmitParams.Crypto
     | ContentSubmitParams.Sexual
+    | ContentSubmitParams.SexualMinors
     | ContentSubmitParams.Flirtation
     | ContentSubmitParams.Profanity
     | ContentSubmitParams.Violence
@@ -916,6 +917,14 @@ export namespace ContentSubmitParams {
 
   export interface Sexual {
     id: 'sexual';
+
+    flag: boolean;
+
+    threshold?: number;
+  }
+
+  export interface SexualMinors {
+    id: 'sexual_minors';
 
     flag: boolean;
 
