@@ -40,7 +40,9 @@ export class Authors extends APIResource {
   }
 
   /**
-   * Delete a specific author
+   * Delete a specific author. This resets the author: status, blocks, trust level,
+   * metrics and action history are removed. The author is created again with a clean
+   * record the next time content is moderated for the same ID.
    */
   delete(id: string, options?: RequestOptions): APIPromise<AuthorDeleteResponse> {
     return this._client.delete(path`/authors/${id}`, options);
