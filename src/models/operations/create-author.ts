@@ -28,7 +28,7 @@ export type CreateAuthorMetadata = {
   [additionalProperties: string]: unknown;
 };
 
-export type CreateAuthorRequest = {
+export type CreateAuthorRequestBody = {
   /**
    * URL of the author's profile picture
    */
@@ -66,6 +66,14 @@ export type CreateAuthorRequest = {
    * External ID of the user, typically the ID of the author in your database.
    */
   externalId: string;
+};
+
+export type CreateAuthorRequest = {
+  /**
+   * The project to act on, when you call with an organization key. Optional when the organization has one project. A project key acts on its own project: naming another one is an error.
+   */
+  projectId?: string | undefined;
+  body: CreateAuthorRequestBody;
 };
 
 /** @internal */
@@ -112,7 +120,7 @@ export function createAuthorMetadataToJSON(
 }
 
 /** @internal */
-export type CreateAuthorRequest$Outbound = {
+export type CreateAuthorRequestBody$Outbound = {
   profile_picture?: string | null | undefined;
   external_link?: string | null | undefined;
   name?: string | null | undefined;
@@ -126,9 +134,9 @@ export type CreateAuthorRequest$Outbound = {
 };
 
 /** @internal */
-export const CreateAuthorRequest$outboundSchema: z.ZodMiniType<
-  CreateAuthorRequest$Outbound,
-  CreateAuthorRequest
+export const CreateAuthorRequestBody$outboundSchema: z.ZodMiniType<
+  CreateAuthorRequestBody$Outbound,
+  CreateAuthorRequestBody
 > = z.pipe(
   z.object({
     profilePicture: z.optional(z.nullable(z.string())),
@@ -153,6 +161,29 @@ export const CreateAuthorRequest$outboundSchema: z.ZodMiniType<
     });
   }),
 );
+
+export function createAuthorRequestBodyToJSON(
+  createAuthorRequestBody: CreateAuthorRequestBody,
+): string {
+  return JSON.stringify(
+    CreateAuthorRequestBody$outboundSchema.parse(createAuthorRequestBody),
+  );
+}
+
+/** @internal */
+export type CreateAuthorRequest$Outbound = {
+  projectId?: string | undefined;
+  body: CreateAuthorRequestBody$Outbound;
+};
+
+/** @internal */
+export const CreateAuthorRequest$outboundSchema: z.ZodMiniType<
+  CreateAuthorRequest$Outbound,
+  CreateAuthorRequest
+> = z.object({
+  projectId: z.optional(z.string()),
+  body: z.lazy(() => CreateAuthorRequestBody$outboundSchema),
+});
 
 export function createAuthorRequestToJSON(
   createAuthorRequest: CreateAuthorRequest,

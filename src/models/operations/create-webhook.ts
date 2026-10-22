@@ -27,7 +27,7 @@ export type CreateWebhookEventTypeRequest = ClosedEnum<
   typeof CreateWebhookEventTypeRequest
 >;
 
-export type CreateWebhookRequest = {
+export type CreateWebhookRequestBody = {
   /**
    * The webhook's name, used to identify it in the dashboard
    */
@@ -44,6 +44,14 @@ export type CreateWebhookRequest = {
    * Event types this webhook subscribes to. One webhook URL receives all events you list here.
    */
   eventTypes: Array<CreateWebhookEventTypeRequest>;
+};
+
+export type CreateWebhookRequest = {
+  /**
+   * The project to act on, when you call with an organization key. Optional when the organization has one project. A project key acts on its own project: naming another one is an error.
+   */
+  projectId?: string | undefined;
+  body: CreateWebhookRequestBody;
 };
 
 export const CreateWebhookEventTypeResponse = {
@@ -117,7 +125,7 @@ export const CreateWebhookEventTypeRequest$outboundSchema: z.ZodMiniEnum<
 > = z.enum(CreateWebhookEventTypeRequest);
 
 /** @internal */
-export type CreateWebhookRequest$Outbound = {
+export type CreateWebhookRequestBody$Outbound = {
   name: string;
   description?: string | null | undefined;
   url: string;
@@ -125,14 +133,37 @@ export type CreateWebhookRequest$Outbound = {
 };
 
 /** @internal */
-export const CreateWebhookRequest$outboundSchema: z.ZodMiniType<
-  CreateWebhookRequest$Outbound,
-  CreateWebhookRequest
+export const CreateWebhookRequestBody$outboundSchema: z.ZodMiniType<
+  CreateWebhookRequestBody$Outbound,
+  CreateWebhookRequestBody
 > = z.object({
   name: z.string(),
   description: z.optional(z.nullable(z.string())),
   url: z.string(),
   eventTypes: z.array(CreateWebhookEventTypeRequest$outboundSchema),
+});
+
+export function createWebhookRequestBodyToJSON(
+  createWebhookRequestBody: CreateWebhookRequestBody,
+): string {
+  return JSON.stringify(
+    CreateWebhookRequestBody$outboundSchema.parse(createWebhookRequestBody),
+  );
+}
+
+/** @internal */
+export type CreateWebhookRequest$Outbound = {
+  projectId?: string | undefined;
+  body: CreateWebhookRequestBody$Outbound;
+};
+
+/** @internal */
+export const CreateWebhookRequest$outboundSchema: z.ZodMiniType<
+  CreateWebhookRequest$Outbound,
+  CreateWebhookRequest
+> = z.object({
+  projectId: z.optional(z.string()),
+  body: z.lazy(() => CreateWebhookRequestBody$outboundSchema),
 });
 
 export function createWebhookRequestToJSON(

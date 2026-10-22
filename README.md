@@ -370,7 +370,7 @@ Create the organization client only where you manage projects and channels, for 
 
 ### [Content](docs/sdks/content/README.md)
 
-* [submit](docs/sdks/content/README.md#submit)
+* [submit](docs/sdks/content/README.md#submit) - Submit content
 
 ### [Projects](docs/sdks/projects/README.md)
 
@@ -452,7 +452,7 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`channelsList`](docs/sdks/channels/README.md#list) - List channels
 - [`channelsRetrieve`](docs/sdks/channels/README.md#retrieve) - Get a channel
 - [`channelsUpdate`](docs/sdks/channels/README.md#update) - Update a channel
-- [`contentSubmit`](docs/sdks/content/README.md#submit)
+- [`contentSubmit`](docs/sdks/content/README.md#submit) - Submit content
 - [`projectsCreate`](docs/sdks/projects/README.md#create) - Create a project
 - [`projectsDelete`](docs/sdks/projects/README.md#delete) - Delete a project
 - [`projectsDuplicate`](docs/sdks/projects/README.md#duplicate) - Duplicate a project

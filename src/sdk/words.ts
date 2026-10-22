@@ -18,12 +18,14 @@ export class Words extends ClientSDK {
   async add(
     id: string,
     body: operations.AddWordlistWordsRequestBody,
+    projectId?: string | undefined,
     options?: RequestOptions,
   ): Promise<operations.AddWordlistWordsResponse> {
     return unwrapAsync(wordlistWordsAdd(
       this,
       id,
       body,
+      projectId,
       options,
     ));
   }
@@ -37,12 +39,14 @@ export class Words extends ClientSDK {
   async remove(
     id: string,
     words: Array<string>,
+    projectId?: string | undefined,
     options?: RequestOptions,
   ): Promise<operations.RemoveWordlistWordsResponse> {
     return unwrapAsync(wordlistWordsRemove(
       this,
       id,
       words,
+      projectId,
       options,
     ));
   }

@@ -4,7 +4,7 @@
 
 import * as z from "zod/v4-mini";
 import { ModerationApiCore } from "../core.js";
-import { encodeJSON } from "../lib/encodings.js";
+import { encodeJSON, encodeSimple } from "../lib/encodings.js";
 import { matchStatusCode } from "../lib/http.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
@@ -27,9 +27,13 @@ import * as operations from "../models/operations/index.js";
 import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
+/**
+ * Submit content
+ */
 export function contentSubmit(
   client: ModerationApiCore,
-  request: operations.SubmitContentRequest,
+  body: operations.SubmitContentRequestBody,
+  projectId?: string | undefined,
   options?: RequestOptions,
 ): APIPromise<
   Result<
@@ -51,14 +55,16 @@ export function contentSubmit(
 > {
   return new APIPromise($do(
     client,
-    request,
+    body,
+    projectId,
     options,
   ));
 }
 
 async function $do(
   client: ModerationApiCore,
-  request: operations.SubmitContentRequest,
+  body: operations.SubmitContentRequestBody,
+  projectId?: string | undefined,
   options?: RequestOptions,
 ): Promise<
   [
@@ -81,8 +87,13 @@ async function $do(
     APICall,
   ]
 > {
+  const input: operations.SubmitContentRequest = {
+    body: body,
+    projectId: projectId,
+  };
+
   const parsed = safeParse(
-    request,
+    input,
     (value) => z.parse(operations.SubmitContentRequest$outboundSchema, value),
     "Input validation failed",
   );
@@ -90,13 +101,17 @@ async function $do(
     return [parsed, { status: "invalid" }];
   }
   const payload = parsed.value;
-  const body = encodeJSON("body", payload, { explode: true });
+  const body$ = encodeJSON("body", payload.body, { explode: true });
 
   const path = pathToFunc("/moderate")();
 
   const headers = new Headers(compactMap({
     "Content-Type": "application/json",
     Accept: "application/json",
+    "Project-Id": encodeSimple("Project-Id", payload.projectId, {
+      explode: false,
+      charEncoding: "none",
+    }),
   }));
 
   const secConfig = await extractSecurity(client._options.secretKey);
@@ -124,7 +139,7 @@ async function $do(
     baseURL: options?.serverURL,
     path: path,
     headers: headers,
-    body: body,
+    body: body$,
     userAgent: client._options.userAgent,
     timeoutMs: options?.timeoutMs || client._options.timeoutMs || -1,
   }, options);

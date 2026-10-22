@@ -136,6 +136,10 @@ async function $do(
 
   const headers = new Headers(compactMap({
     Accept: "application/json",
+    "Project-Id": encodeSimple("Project-Id", payload.projectId, {
+      explode: false,
+      charEncoding: "none",
+    }),
   }));
 
   const secConfig = await extractSecurity(client._options.secretKey);

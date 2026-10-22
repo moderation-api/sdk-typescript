@@ -24,6 +24,10 @@ export type UnresolveQueueItemRequest = {
    * The item ID to unresolve
    */
   itemId: string;
+  /**
+   * The project to act on, when you call with an organization key. Optional when the organization has one project. A project key acts on its own project: naming another one is an error.
+   */
+  projectId?: string | undefined;
   body: UnresolveQueueItemRequestBody;
 };
 
@@ -69,6 +73,7 @@ export function unresolveQueueItemRequestBodyToJSON(
 export type UnresolveQueueItemRequest$Outbound = {
   id: string;
   itemId: string;
+  projectId?: string | undefined;
   body: UnresolveQueueItemRequestBody$Outbound;
 };
 
@@ -79,6 +84,7 @@ export const UnresolveQueueItemRequest$outboundSchema: z.ZodMiniType<
 > = z.object({
   id: z.string(),
   itemId: z.string(),
+  projectId: z.optional(z.string()),
   body: z.lazy(() => UnresolveQueueItemRequestBody$outboundSchema),
 });
 

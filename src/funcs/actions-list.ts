@@ -4,7 +4,7 @@
 
 import * as z from "zod/v4-mini";
 import { ModerationApiCore } from "../core.js";
-import { encodeFormQuery } from "../lib/encodings.js";
+import { encodeFormQuery, encodeSimple } from "../lib/encodings.js";
 import { matchStatusCode } from "../lib/http.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
@@ -44,6 +44,7 @@ export function actionsList(
   queueId?: string | undefined,
   page?: number | undefined,
   pageSize?: number | undefined,
+  projectId?: string | undefined,
   options?: RequestOptions,
 ): APIPromise<
   PageIterator<
@@ -72,6 +73,7 @@ export function actionsList(
     queueId,
     page,
     pageSize,
+    projectId,
     options,
   ));
 }
@@ -81,6 +83,7 @@ async function $do(
   queueId?: string | undefined,
   page?: number | undefined,
   pageSize?: number | undefined,
+  projectId?: string | undefined,
   options?: RequestOptions,
 ): Promise<
   [
@@ -111,6 +114,7 @@ async function $do(
     queueId: queueId,
     page: page,
     pageSize: pageSize,
+    projectId: projectId,
   };
 
   const parsed = safeParse(
@@ -135,6 +139,10 @@ async function $do(
 
   const headers = new Headers(compactMap({
     Accept: "application/json",
+    "Project-Id": encodeSimple("Project-Id", payload?.projectId, {
+      explode: false,
+      charEncoding: "none",
+    }),
   }));
 
   const secConfig = await extractSecurity(client._options.secretKey);
@@ -276,6 +284,7 @@ async function $do(
         queueId,
         nextPage,
         pageSize,
+        projectId,
         options,
       );
 

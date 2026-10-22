@@ -15,6 +15,10 @@ export type GetWebhookRequest = {
    * The ID of the webhook to get.
    */
   id: string;
+  /**
+   * The project to act on, when you call with an organization key. Optional when the organization has one project. A project key acts on its own project: naming another one is an error.
+   */
+  projectId?: string | undefined;
 };
 
 export const GetWebhookEventType = {
@@ -83,6 +87,7 @@ export type GetWebhookResponse = {
 /** @internal */
 export type GetWebhookRequest$Outbound = {
   id: string;
+  projectId?: string | undefined;
 };
 
 /** @internal */
@@ -91,6 +96,7 @@ export const GetWebhookRequest$outboundSchema: z.ZodMiniType<
   GetWebhookRequest
 > = z.object({
   id: z.string(),
+  projectId: z.optional(z.string()),
 });
 
 export function getWebhookRequestToJSON(

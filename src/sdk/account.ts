@@ -15,10 +15,12 @@ export class Account extends ClientSDK {
    * Get account details
    */
   async retrieve(
+    projectId?: string | undefined,
     options?: RequestOptions,
   ): Promise<operations.GetAccountResponse> {
     return unwrapAsync(accountRetrieve(
       this,
+      projectId,
       options,
     ));
   }

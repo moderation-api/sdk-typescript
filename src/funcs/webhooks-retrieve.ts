@@ -36,6 +36,7 @@ import { Result } from "../types/fp.js";
 export function webhooksRetrieve(
   client: ModerationApiCore,
   id: string,
+  projectId?: string | undefined,
   options?: RequestOptions,
 ): APIPromise<
   Result<
@@ -56,6 +57,7 @@ export function webhooksRetrieve(
   return new APIPromise($do(
     client,
     id,
+    projectId,
     options,
   ));
 }
@@ -63,6 +65,7 @@ export function webhooksRetrieve(
 async function $do(
   client: ModerationApiCore,
   id: string,
+  projectId?: string | undefined,
   options?: RequestOptions,
 ): Promise<
   [
@@ -85,6 +88,7 @@ async function $do(
 > {
   const input: operations.GetWebhookRequest = {
     id: id,
+    projectId: projectId,
   };
 
   const parsed = safeParse(
@@ -108,6 +112,10 @@ async function $do(
 
   const headers = new Headers(compactMap({
     Accept: "application/json",
+    "Project-Id": encodeSimple("Project-Id", payload.projectId, {
+      explode: false,
+      charEncoding: "none",
+    }),
   }));
 
   const secConfig = await extractSecurity(client._options.secretKey);

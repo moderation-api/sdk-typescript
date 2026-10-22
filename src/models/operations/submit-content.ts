@@ -541,7 +541,7 @@ export type PolicyRequest =
   | URLRisk
   | Guideline;
 
-export type SubmitContentRequest = {
+export type SubmitContentRequestBody = {
   /**
    * The content sent for moderation
    */
@@ -629,6 +629,14 @@ export type SubmitContentRequest = {
       | Guideline
     >
     | undefined;
+};
+
+export type SubmitContentRequest = {
+  /**
+   * The project to act on, when you call with an organization key. Optional when the organization has one project. A project key acts on its own project: naming another one is an error.
+   */
+  projectId?: string | undefined;
+  body: SubmitContentRequestBody;
 };
 
 /**
@@ -2486,7 +2494,7 @@ export function policyRequestToJSON(policyRequest: PolicyRequest): string {
 }
 
 /** @internal */
-export type SubmitContentRequest$Outbound = {
+export type SubmitContentRequestBody$Outbound = {
   content:
     | TextRequest$Outbound
     | ImageRequest$Outbound
@@ -2549,9 +2557,9 @@ export type SubmitContentRequest$Outbound = {
 };
 
 /** @internal */
-export const SubmitContentRequest$outboundSchema: z.ZodMiniType<
-  SubmitContentRequest$Outbound,
-  SubmitContentRequest
+export const SubmitContentRequestBody$outboundSchema: z.ZodMiniType<
+  SubmitContentRequestBody$Outbound,
+  SubmitContentRequestBody
 > = z.object({
   content: z.union([
     z.lazy(() => TextRequest$outboundSchema),
@@ -2615,6 +2623,29 @@ export const SubmitContentRequest$outboundSchema: z.ZodMiniType<
       z.lazy(() => Guideline$outboundSchema),
     ])),
   ),
+});
+
+export function submitContentRequestBodyToJSON(
+  submitContentRequestBody: SubmitContentRequestBody,
+): string {
+  return JSON.stringify(
+    SubmitContentRequestBody$outboundSchema.parse(submitContentRequestBody),
+  );
+}
+
+/** @internal */
+export type SubmitContentRequest$Outbound = {
+  projectId?: string | undefined;
+  body: SubmitContentRequestBody$Outbound;
+};
+
+/** @internal */
+export const SubmitContentRequest$outboundSchema: z.ZodMiniType<
+  SubmitContentRequest$Outbound,
+  SubmitContentRequest
+> = z.object({
+  projectId: z.optional(z.string()),
+  body: z.lazy(() => SubmitContentRequestBody$outboundSchema),
 });
 
 export function submitContentRequestToJSON(

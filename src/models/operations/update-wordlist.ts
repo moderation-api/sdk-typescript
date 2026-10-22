@@ -36,6 +36,10 @@ export type UpdateWordlistRequest = {
    * ID of the wordlist to update
    */
   id: string;
+  /**
+   * The project to act on, when you call with an organization key. Optional when the organization has one project. A project key acts on its own project: naming another one is an error.
+   */
+  projectId?: string | undefined;
   body: UpdateWordlistRequestBody;
 };
 
@@ -99,6 +103,7 @@ export function updateWordlistRequestBodyToJSON(
 /** @internal */
 export type UpdateWordlistRequest$Outbound = {
   id: string;
+  projectId?: string | undefined;
   body: UpdateWordlistRequestBody$Outbound;
 };
 
@@ -108,6 +113,7 @@ export const UpdateWordlistRequest$outboundSchema: z.ZodMiniType<
   UpdateWordlistRequest
 > = z.object({
   id: z.string(),
+  projectId: z.optional(z.string()),
   body: z.lazy(() => UpdateWordlistRequestBody$outboundSchema),
 });
 

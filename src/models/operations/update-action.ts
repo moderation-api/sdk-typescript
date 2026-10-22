@@ -115,6 +115,10 @@ export type UpdateActionRequest = {
    * The ID of the action to update.
    */
   id: string;
+  /**
+   * The project to act on, when you call with an organization key. Optional when the organization has one project. A project key acts on its own project: naming another one is an error.
+   */
+  projectId?: string | undefined;
   body: UpdateActionRequestBody;
 };
 
@@ -319,6 +323,7 @@ export function updateActionRequestBodyToJSON(
 /** @internal */
 export type UpdateActionRequest$Outbound = {
   id: string;
+  projectId?: string | undefined;
   body: UpdateActionRequestBody$Outbound;
 };
 
@@ -328,6 +333,7 @@ export const UpdateActionRequest$outboundSchema: z.ZodMiniType<
   UpdateActionRequest
 > = z.object({
   id: z.string(),
+  projectId: z.optional(z.string()),
   body: z.lazy(() => UpdateActionRequestBody$outboundSchema),
 });
 

@@ -23,11 +23,13 @@ export class Queue extends ClientSDK {
    */
   async retrieve(
     id: string,
+    projectId?: string | undefined,
     options?: RequestOptions,
   ): Promise<operations.GetQueueResponse> {
     return unwrapAsync(queueRetrieve(
       this,
       id,
+      projectId,
       options,
     ));
   }
@@ -41,12 +43,14 @@ export class Queue extends ClientSDK {
   async getStats(
     id: string,
     withinDays?: number | undefined,
+    projectId?: string | undefined,
     options?: RequestOptions,
   ): Promise<operations.GetQueueStatsResponse> {
     return unwrapAsync(queueGetStats(
       this,
       id,
       withinDays,
+      projectId,
       options,
     ));
   }

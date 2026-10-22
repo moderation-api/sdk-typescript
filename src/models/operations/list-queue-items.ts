@@ -52,6 +52,10 @@ export type ListQueueItemsRequest = {
   includeResolved?: boolean | undefined;
   authorId?: string | undefined;
   filteredActionIds?: Array<string> | undefined;
+  /**
+   * The project to act on, when you call with an organization key. Optional when the organization has one project. A project key acts on its own project: naming another one is an error.
+   */
+  projectId?: string | undefined;
 };
 
 export type ListQueueItemsLabel = {
@@ -190,6 +194,7 @@ export type ListQueueItemsRequest$Outbound = {
   includeResolved?: boolean | undefined;
   authorId?: string | undefined;
   filteredActionIds?: Array<string> | undefined;
+  projectId?: string | undefined;
 };
 
 /** @internal */
@@ -209,6 +214,7 @@ export const ListQueueItemsRequest$outboundSchema: z.ZodMiniType<
   includeResolved: z.optional(z.boolean()),
   authorId: z.optional(z.string()),
   filteredActionIds: z.optional(z.array(z.string())),
+  projectId: z.optional(z.string()),
 });
 
 export function listQueueItemsRequestToJSON(

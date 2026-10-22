@@ -15,6 +15,10 @@ import * as models from "../index.js";
 export type ListWebhooksRequest = {
   page?: number | undefined;
   pageSize?: number | undefined;
+  /**
+   * The project to act on, when you call with an organization key. Optional when the organization has one project. A project key acts on its own project: naming another one is an error.
+   */
+  projectId?: string | undefined;
 };
 
 export const ListWebhooksEventType = {
@@ -99,6 +103,7 @@ export type ListWebhooksResponse = {
 export type ListWebhooksRequest$Outbound = {
   page: number;
   pageSize: number;
+  projectId?: string | undefined;
 };
 
 /** @internal */
@@ -108,6 +113,7 @@ export const ListWebhooksRequest$outboundSchema: z.ZodMiniType<
 > = z.object({
   page: z._default(z.int(), 1),
   pageSize: z._default(z.int(), 20),
+  projectId: z.optional(z.string()),
 });
 
 export function listWebhooksRequestToJSON(
