@@ -1,13 +1,18 @@
 # Maintained in moderation-api/sdk-generator (custom/typescript). Edits here are overwritten.
-# Publishes with npm trusted publishing (OIDC), configured on npmjs.com for this workflow file.
+# Every push to main whose package version has no release tag yet publishes
+# that version and creates the GitHub release (notes: .github/release-notes/vX.Y.Z.md
+# if present, otherwise generated from the merged pull requests).
+# npm trusted publishing is configured on npmjs.com for this file name.
 name: Publish NPM
 on:
-  release:
-    types: [published]
+  push:
+    branches: [main]
   workflow_dispatch:
 
+concurrency: release
+
 permissions:
-  contents: read
+  contents: write
   id-token: write
 
 jobs:
@@ -15,18 +20,37 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - name: Read the version
+        run: echo "VERSION=$(node -p "require('./package.json').version")" >> "$GITHUB_ENV"
+      - name: Check for an unreleased version
+        id: version
+        run: |
+          echo "VERSION=${VERSION}" >> "$GITHUB_ENV"
+          if git ls-remote --exit-code --tags origin "refs/tags/v${VERSION}" >/dev/null; then
+            echo "v${VERSION} is already released."
+            echo "release=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "release=true" >> "$GITHUB_OUTPUT"
+          fi
       - uses: actions/setup-node@v4
+        if: steps.version.outputs.release == 'true'
         with:
           node-version: "24"
           registry-url: https://registry.npmjs.org
-      - name: Check the release tag matches package.json
-        if: github.event_name == 'release'
+      - if: steps.version.outputs.release == 'true'
+        run: npm install --no-audit --no-fund
+      - if: steps.version.outputs.release == 'true'
+        run: npm run build
+      - if: steps.version.outputs.release == 'true'
+        run: npm publish --access public --provenance
+      - name: Create the GitHub release
+        if: steps.version.outputs.release == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
-          version=$(node -p "require('./package.json').version")
-          if [ "${GITHUB_REF_NAME#v}" != "$version" ]; then
-            echo "::error::Release tag $GITHUB_REF_NAME does not match package.json version $version"
-            exit 1
+          notes=".github/release-notes/v${VERSION}.md"
+          if [ -f "$notes" ]; then
+            gh release create "v${VERSION}" --target "$GITHUB_SHA" --title "v${VERSION}" --notes-file "$notes"
+          else
+            gh release create "v${VERSION}" --target "$GITHUB_SHA" --title "v${VERSION}" --generate-notes
           fi
-      - run: npm install --no-audit --no-fund
-      - run: npm run build
-      - run: npm publish --access public --provenance
