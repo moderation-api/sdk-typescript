@@ -9,29 +9,12 @@
  * generated.
  */
 
+import type { WebhookEvent } from "./webhook-events.js";
+
+export * from "./webhook-events.js";
+
 export const WEBHOOK_SIGNATURE_HEADER = "modapi-signature";
 export const WEBHOOK_SECRET_ENV_VAR = "MODAPI_WEBHOOK_SECRET";
-
-export type WebhookEventType =
-  | "author.action"
-  | "author.blocked"
-  | "author.suspended"
-  | "author.trust_level_changed"
-  | "author.unblocked"
-  | "author.updated"
-  | "queue_item.action"
-  | "queue_item.allowed"
-  | "queue_item.rejected"
-  | "queue_item.resolved";
-
-/** A webhook event as delivered: the parsed JSON body. */
-export type WebhookEvent = {
-  id: string;
-  type: WebhookEventType;
-  api_version: string;
-  created: string;
-  data: { object: Record<string, unknown> } & Record<string, unknown>;
-};
 
 /** The signature is missing or does not match the payload. */
 export class WebhookSignatureError extends Error {
@@ -57,6 +40,9 @@ const encoder = new TextEncoder();
  * Verify a delivery and return the event. `secret` defaults to the
  * MODAPI_WEBHOOK_SECRET environment variable. Throws `WebhookSignatureError`
  * if the signature does not match.
+ *
+ * The payload is not validated against a schema: an event type or field added
+ * to the API later is returned as delivered, never rejected.
  */
 export async function validateWebhook({
   request,

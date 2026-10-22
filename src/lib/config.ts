@@ -11,7 +11,7 @@ import { Params, pathToFunc } from "./url.js";
  * Contains the list of servers available to the SDK
  */
 export const ServerList = [
-  "https://moderationapi.com/api/v1",
+  "https://api.moderationapi.com/v1",
 ] as const;
 
 export type SDKOptions = {
@@ -58,8 +58,8 @@ export function serverURLFromOptions(options: SDKOptions): URL | null {
 export const SDK_METADATA = {
   language: "typescript",
   openapiDocVersion: "1.1.0",
-  sdkVersion: "5.1.0",
+  sdkVersion: "5.1.1",
   genVersion: "internal",
   userAgent:
-    "speakeasy-sdk/typescript 5.1.0 internal 1.1.0 @moderation-api/sdk",
+    "speakeasy-sdk/typescript 5.1.1 internal 1.1.0 @moderation-api/sdk",
 } as const;

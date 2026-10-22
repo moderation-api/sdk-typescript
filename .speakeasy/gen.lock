@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 2331670b-5789-4489-85ed-fb316d2d6d7e
 management:
-  docChecksum: c27787b45fc5b72aafff31ba945a9e61
+  docChecksum: 38730339aa1da77855e86c169896f12f
   docVersion: 1.1.0
   speakeasyVersion: internal
   generationVersion: internal
-  releaseVersion: 5.1.0
-  configChecksum: 0fc8e088f19e83ce192d82bee6690fae
+  releaseVersion: 5.1.1
+  configChecksum: 6cbac05d92e51b9e4f0b80ec196fa8ef
   repoURL: https://github.com/moderation-api/sdk-typescript
   installationURL: https://github.com/moderation-api/sdk-typescript
   published: true
@@ -690,9 +690,9 @@ trackedFiles:
   examples/package.json:
     last_write_checksum: sha1:72d702bad23c84698d27164ca08d5f0ff931af65
   jsr.json:
-    last_write_checksum: sha1:b23ce6c990b2ad0091b304725048ea11b9fc9738
+    last_write_checksum: sha1:d9f5d71a49c0d43a9668b8caa46a1526aacba781
   package.json:
-    last_write_checksum: sha1:8fe6185a672bc6314cb6caa2982f4bab802022a0
+    last_write_checksum: sha1:f8d16c8a36dbd37faf95aa8e2987a3057a82df41
   src/core.ts:
     last_write_checksum: sha1:72b4c09e9228c63a9cc3335baa0ae5be47c2bc9c
   src/funcs/account-retrieve.ts:
@@ -790,7 +790,7 @@ trackedFiles:
   src/lib/base64.ts:
     last_write_checksum: sha1:8c94164f2f78e6041c853186fa01f659591f5913
   src/lib/config.ts:
-    last_write_checksum: sha1:5073bebb0237180a976797fb24284028ae846208
+    last_write_checksum: sha1:16d4a4e113b0da24d571561048a490241f7d38b7
   src/lib/encodings.ts:
     last_write_checksum: sha1:4481b2a380f8a16856ef92c66fb370299f56d135
   src/lib/env.ts:
