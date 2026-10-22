@@ -1,551 +1,828 @@
-# Moderation API TypeScript Library
+<!-- Start Custom [intro] -->
+# Moderation API TypeScript SDK
 
-[![NPM version](<https://img.shields.io/npm/v/@moderation-api/sdk.svg?label=npm%20(stable)>)](https://npmjs.org/package/@moderation-api/sdk) ![npm bundle size](https://img.shields.io/bundlephobia/minzip/@moderation-api/sdk)
+[![npm](https://img.shields.io/npm/v/@moderation-api/sdk.svg)](https://www.npmjs.com/package/@moderation-api/sdk)
 
-This library provides convenient access to the Moderation API REST API from server-side TypeScript or JavaScript.
+The official TypeScript and JavaScript library for [Moderation API](https://moderationapi.com). Use it on the server to moderate text, images, video and audio, manage authors, review queues, actions and wordlists, and verify webhooks.
 
-The REST API documentation can be found on [docs.moderationapi.com](https://docs.moderationapi.com). The full API of this library can be found in [api.md](api.md).
+- Get an API key in the [dashboard](https://dash.moderationapi.com).
+- Read the [documentation](https://docs.moderationapi.com) and the [API reference](https://docs.moderationapi.com/api-reference/introduction).
 
-Use the Moderation API to analyze text and images for offensive content, profanity, toxicity, discrimination, sentiment, language and more - or detect, hide, and extract data entities like emails, phone numbers, addresses and more.
+> [!WARNING]
+> Keep your API key secret. Use this SDK on your server, not in a browser or mobile app, where users can read the key.
+<!-- End Custom [intro] -->
 
-## Installation
+<!-- Start Summary [summary] -->
+## Summary
 
-```sh
-npm install @moderation-api/sdk
-# or
+Moderation API: Moderate text, images, video and audio in real time, manage authors, review queues and actions, and receive webhooks.
+
+More information about the API can be found at https://docs.moderationapi.com
+<!-- End Summary [summary] -->
+
+<!-- Start Table of Contents [toc] -->
+## Table of Contents
+<!-- $toc-max-depth=2 -->
+* [Moderation API TypeScript SDK](#moderation-api-typescript-sdk)
+  * [SDK Installation](#sdk-installation)
+  * [Requirements](#requirements)
+  * [SDK Example Usage](#sdk-example-usage)
+  * [Moderating content](#moderating-content)
+  * [Verifying webhooks](#verifying-webhooks)
+  * [Authentication](#authentication)
+  * [Available Resources and Operations](#available-resources-and-operations)
+  * [Standalone functions](#standalone-functions)
+  * [Pagination](#pagination)
+  * [Retries](#retries)
+  * [Error Handling](#error-handling)
+  * [Server Selection](#server-selection)
+  * [Custom HTTP Client](#custom-http-client)
+  * [Debugging](#debugging)
+  * [Imports and types](#imports-and-types)
+  * [Timeouts](#timeouts)
+  * [Supported runtimes](#supported-runtimes)
+  * [Support](#support)
+* [Development](#development)
+  * [Maturity](#maturity)
+  * [Contributions](#contributions)
+
+<!-- End Table of Contents [toc] -->
+
+<!-- Start SDK Installation [installation] -->
+## SDK Installation
+
+The SDK can be installed with either [npm](https://www.npmjs.com/), [pnpm](https://pnpm.io/), [bun](https://bun.sh/) or [yarn](https://classic.yarnpkg.com/en/) package managers.
+
+### NPM
+
+```bash
+npm add @moderation-api/sdk
+```
+
+### PNPM
+
+```bash
 pnpm add @moderation-api/sdk
 ```
 
-## Usage
+### Bun
 
-> The full API of this library can be found in [api.md](api.md).
-
-The package needs to be configured with your project's API key, which is
-available in your [Project Dashboard](https://dash.moderationapi.com).
-
-The API key can be provided in two ways:
-
-1. (Recommended) Set the `MODAPI_SECRET_KEY` environment variable
-2. Pass it explicitly when instantiating the client
-
-```js
-import ModerationAPI from '@moderation-api/sdk';
-
-// Option 1: Use environment variable MODAPI_SECRET_KEY
-const moderationApi = new ModerationAPI();
-
-// Option 2: Pass key explicitly (overrides environment variable)
-const moderationApi = new ModerationAPI({
-  secretKey: 'proj_...',
-});
+```bash
+bun add @moderation-api/sdk
 ```
 
-const response = await client.content.submit({ content: { text: 'text', type: 'text' } });
+### Yarn
 
-### Content Moderation
+```bash
+yarn add @moderation-api/sdk
+```
 
-Use `content.submit` to moderate text, images, video, audio, or complex objects:
+> [!NOTE]
+> This package is published with CommonJS and ES Modules (ESM) support.
+<!-- End SDK Installation [installation] -->
 
-```js
-// Text moderation
-const result = await moderationApi.content.submit({
-  content: {
-    type: 'text',
-    text: 'Your text here',
-  },
-  contentId: 'message-123', // optional
-  authorId: 'user-123', // optional
-  conversationId: 'room-123', // optional
-  metaType: 'message', // optional
-  metadata: { custom: 'data' }, // optional
+<!-- Start Requirements [requirements] -->
+## Requirements
+
+For supported JavaScript runtimes, please consult [RUNTIMES.md](RUNTIMES.md).
+<!-- End Requirements [requirements] -->
+
+<!-- Start SDK Example Usage [usage] -->
+## SDK Example Usage
+
+### Example
+
+```typescript
+import { ModerationApi } from "@moderation-api/sdk";
+
+const moderationApi = new ModerationApi({
+  secretKey: process.env["MODAPI_SECRET_KEY"] ?? "",
 });
 
-// Image moderation
-const result = await moderationApi.content.submit({
-  content: {
-    type: 'image',
-    url: 'https://example.com/image.jpg',
-  },
+async function run() {
+  const result = await moderationApi.content.submit({
+    content: {
+      type: "text",
+      text: "Hey, check out my profile for a deal!",
+    },
+    contentId: "message-48213",
+    authorId: "user-1092",
+    conversationId: "room-general",
+    metadata: {
+      "platform": "ios",
+    },
+  });
+
+  console.log(result);
+}
+
+run();
+
+```
+<!-- End SDK Example Usage [usage] -->
+<!-- Start Custom [guide] -->
+## Moderating content
+
+Use `content.submit` to moderate text, images, video, audio, or objects with several fields. All parameters except `content` are optional.
+
+The client reads your API key from the `MODAPI_SECRET_KEY` environment variable. To set it in code, pass `secretKey`.
+
+```typescript
+import { ModerationApi } from "@moderation-api/sdk";
+
+const moderationApi = new ModerationApi(); // reads MODAPI_SECRET_KEY
+
+// Text
+await moderationApi.content.submit({
+  content: { type: "text", text: "Your text here" },
+  contentId: "message-123", // your ID for the content
+  authorId: "user-123", // your ID for the user who wrote it
+  conversationId: "room-123", // groups related content
+  metadata: { platform: "ios" },
 });
 
-// Video moderation
-const result = await moderationApi.content.submit({
-  content: {
-    type: 'video',
-    url: 'https://example.com/video.mp4',
-  },
+// Image, video and audio: send a URL
+await moderationApi.content.submit({
+  content: { type: "image", url: "https://example.com/image.jpg" },
+});
+await moderationApi.content.submit({
+  content: { type: "video", url: "https://example.com/video.mp4" },
+});
+await moderationApi.content.submit({
+  content: { type: "audio", url: "https://example.com/audio.mp3" },
 });
 
-// Audio moderation
-const result = await moderationApi.content.submit({
+// An object with several fields, moderated together
+await moderationApi.content.submit({
   content: {
-    type: 'audio',
-    url: 'https://example.com/audio.mp3',
-  },
-});
-
-// Object moderation (for complex data with multiple fields)
-const result = await moderationApi.content.submit({
-  content: {
-    type: 'object',
+    type: "object",
     data: {
-      title: { type: 'text', text: 'Post title' },
-      body: { type: 'text', text: 'Post content' },
-      thumbnail: { type: 'image', url: 'https://example.com/thumb.jpg' },
+      title: { type: "text", text: "Post title" },
+      body: { type: "text", text: "Post content" },
+      thumbnail: { type: "image", url: "https://example.com/thumb.jpg" },
     },
   },
 });
 ```
 
-#### Using the Response
+### Using the result
 
-The response includes both a `flagged` field and a `recommendation` with the API's suggested action:
+`evaluation.flagged` tells you if any policy flagged the content. `recommendation.action` is the action the API recommends after it applies your thresholds and rules: `allow`, `review` or `reject`.
 
-```js
+```typescript
 const result = await moderationApi.content.submit({
-  content: { type: 'text', text: 'Some content' },
+  content: { type: "text", text: "Some content" },
 });
 
-// Simple boolean check
 if (result.evaluation.flagged) {
-  console.log('Content was flagged by policies');
+  console.log("A policy flagged the content");
 }
 
-// Use the API's recommendation (considers severity, thresholds, and more)
 switch (result.recommendation.action) {
-  case 'reject':
-    // Block the content completely
-    console.log('Content should be rejected');
+  case "reject":
+    // Block the content
     break;
-  case 'review':
-    // Send to moderation queue for human review
-    console.log('Content needs manual review');
+  case "review":
+    // Publish or hold it, and send it to a review queue
     break;
-  case 'allow':
-    // Content is safe to publish
-    console.log('Content is approved');
+  case "allow":
+    // Publish the content
     break;
 }
 
-// Access detailed policy results
-result.policies.forEach((policy) => {
-  console.log(`Policy ${policy.id}: flagged=${policy.flagged}, probability=${policy.probability}`);
-});
+for (const policy of result.policies) {
+  console.log(`${policy.id}: flagged=${policy.flagged}`);
+}
 ```
 
-### Queue Management
+## Verifying webhooks
 
-```js
-// Get queue stats
-const stats = await moderationApi.queueView.getStats();
+Moderation API signs every webhook delivery with your project's webhook signing secret. The signature is in the `modapi-signature` header.
 
-// Get queue items
-const items = await moderationApi.queueView.getItems();
+### Webhook signing secret
 
-// Resolve/unresolve items
-await moderationApi.queueView.resolveItem('item_id');
-await moderationApi.queueView.unresolveItem('item_id');
+Find the secret on the [API keys page in the dashboard](https://dash.moderationapi.com/project/latest/configure/api-keys), or get it with `await moderationApi.webhookSecret.retrieve()`. Store it in the `MODAPI_WEBHOOK_SECRET` environment variable. It is not your API key. Get it once, for example in a setup script, and do not call `retrieve` for each delivery, so verification does not depend on a call to the API. Keep it as secret as your API key: anyone with it can sign webhooks.
+
+### Verify a delivery
+
+`validateWebhook` checks the signature against the raw body and returns the event. It does not need a client. It reads the secret from `MODAPI_WEBHOOK_SECRET`; to set it in code, pass `secret`. It throws `WebhookSignatureError` if the signature does not match.
+
+Verification needs the raw body, byte for byte. If your framework parses the JSON body first and you serialize it again, the bytes can change and the check fails.
+
+**Fetch API** (Next.js App Router, Hono, Bun, Cloudflare Workers):
+
+```typescript
+import { validateWebhook } from "@moderation-api/sdk";
+
+export async function POST(request: Request) {
+  try {
+    const event = await validateWebhook({ request });
+    console.log(event.type);
+  } catch {
+    return new Response("Invalid signature", { status: 400 });
+  }
+  return new Response(null, { status: 200 });
+}
 ```
 
-### Wordlist Management
+**Express**: use `express.raw` on the webhook route, so `req.body` is the raw body.
 
-```js
-// Get wordlists
-const wordlists = await moderationApi.wordlist.list();
+```typescript
+import express from "express";
+import { validateWebhook } from "@moderation-api/sdk";
 
-// Add words to wordlist
-await moderationApi.wordlist.addWords('wordlist_id', {
-  words: ['word1', 'word2'],
-});
+const app = express();
 
-// Remove words from wordlist
-await moderationApi.wordlist.removeWords('wordlist_id', {
-  words: ['word1'],
-});
-```
-
-### Author Management
-
-```js
-// Create an author
-const author = await moderationApi.author.create({
-  authorId: 'user_123',
-  username: 'john_doe',
-  email: 'john@example.com',
-});
-
-// List authors
-const authors = await moderationApi.author.list();
-
-// Get author details
-const authorDetails = await moderationApi.author.get('author_id');
-
-// Update author
-await moderationApi.author.update('author_id', {
-  username: 'jane_doe',
-  email: 'jane@example.com',
-});
-
-// Delete author
-await moderationApi.author.delete('author_id');
-```
-
-### Request & Response types
-
-This library includes TypeScript definitions for all request params and response fields. You may import and use them like so:
-
-<!-- prettier-ignore -->
-```ts
-import ModerationAPI from '@moderation-api/sdk';
-
-const client = new ModerationAPI();
-
-const params: ModerationAPI.ContentSubmitParams = { content: { text: 'text', type: 'text' } };
-const response: ModerationAPI.ContentSubmitResponse = await client.content.submit(params);
-```
-
-Documentation for each method, request param, and response field are available in docstrings and will appear on hover in most modern editors.
-
-## Handling errors
-
-When the library is unable to connect to the API,
-or if the API returns a non-success status code (i.e., 4xx or 5xx response),
-a subclass of `APIError` will be thrown:
-
-<!-- prettier-ignore -->
-```ts
-const response = await client.content
-  .submit({ content: { text: 'text', type: 'text' } })
-  .catch(async (err) => {
-    if (err instanceof ModerationAPI.APIError) {
-      console.log(err.status); // 400
-      console.log(err.name); // BadRequestError
-      console.log(err.headers); // {server: 'nginx', ...}
-    } else {
-      throw err;
+app.post(
+  "/webhooks/moderation",
+  express.raw({ type: "application/json" }),
+  async (req, res) => {
+    try {
+      const event = await validateWebhook({ request: req });
+      console.log(event.type);
+      res.sendStatus(200);
+    } catch {
+      res.sendStatus(400);
     }
+  },
+);
+```
+
+**Next.js Pages Router**: turn off the body parser for the route. `validateWebhook` then reads the raw body from the request.
+
+```typescript
+import type { NextApiRequest, NextApiResponse } from "next";
+import { validateWebhook } from "@moderation-api/sdk";
+
+export const config = { api: { bodyParser: false } };
+
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  try {
+    const event = await validateWebhook({ request: req });
+    console.log(event.type);
+    res.status(200).end();
+  } catch {
+    res.status(400).end();
+  }
+}
+```
+<!-- End Custom [guide] -->
+
+
+<!-- Start Authentication [security] -->
+## Authentication
+
+### Per-Client Security Schemes
+
+This SDK supports the following security scheme globally:
+
+| Name        | Type | Scheme      | Environment Variable |
+| ----------- | ---- | ----------- | -------------------- |
+| `secretKey` | http | HTTP Bearer | `MODAPI_SECRET_KEY`  |
+
+To authenticate with the API the `secretKey` parameter must be set when initializing the SDK client instance. For example:
+```typescript
+import { ModerationApi } from "@moderation-api/sdk";
+
+const moderationApi = new ModerationApi({
+  secretKey: process.env["MODAPI_SECRET_KEY"] ?? "",
+});
+
+async function run() {
+  const result = await moderationApi.authors.list({});
+
+  for await (const page of result) {
+    console.log(page);
+  }
+}
+
+run();
+
+```
+<!-- End Authentication [security] -->
+<!-- Start Custom [auth] -->
+### Project and organization keys
+
+Moderation API has two kinds of API keys:
+
+- A **project key** works with one project: content, authors, review queues, actions, wordlists, webhooks and the account. Most integrations need only this key.
+- An **organization key** works with the [management API](https://docs.moderationapi.com/api-reference/management-api): projects and channels. The management API is available on Enterprise plans.
+
+Each key works only with its own endpoints. With the wrong key the API returns `403` with the code `project_key_required` or `organization_key_required`. If you use both, create one client for each key:
+
+```typescript
+import { ModerationApi } from "@moderation-api/sdk";
+
+// Project key, from MODAPI_SECRET_KEY
+const moderationApi = new ModerationApi();
+
+// Organization key
+const managementApi = new ModerationApi({
+  secretKey: process.env["MODAPI_ORGANIZATION_KEY"] ?? "",
+});
+
+for await (const page of await managementApi.projects.list()) {
+  for (const project of page.result.data) {
+    console.log(project.id, project.name);
+  }
+}
+```
+
+Create the organization client only where you manage projects and channels, for example in a setup script, and keep the organization key out of the code that moderates content.
+<!-- End Custom [auth] -->
+
+
+<!-- Start Available Resources and Operations [operations] -->
+## Available Resources and Operations
+
+<details open>
+<summary>Available methods</summary>
+
+### [Account](docs/sdks/account/README.md)
+
+* [retrieve](docs/sdks/account/README.md#retrieve) - Get account details
+
+### [Actions](docs/sdks/actions/README.md)
+
+* [list](docs/sdks/actions/README.md#list) - List moderation actions
+* [create](docs/sdks/actions/README.md#create) - Create an action
+* [retrieve](docs/sdks/actions/README.md#retrieve) - Get an action
+* [update](docs/sdks/actions/README.md#update) - Update an action
+* [delete](docs/sdks/actions/README.md#delete) - Delete an action
+* [execute](docs/sdks/actions/README.md#execute) - Execute moderation action
+
+### [Authors](docs/sdks/authors/README.md)
+
+* [list](docs/sdks/authors/README.md#list) - List authors
+* [create](docs/sdks/authors/README.md#create) - Create a new author
+* [retrieve](docs/sdks/authors/README.md#retrieve) - Get author details
+* [update](docs/sdks/authors/README.md#update) - Update author details
+* [delete](docs/sdks/authors/README.md#delete) - Delete an author
+
+### [Channels](docs/sdks/channels/README.md)
+
+* [list](docs/sdks/channels/README.md#list) - List channels
+* [create](docs/sdks/channels/README.md#create) - Create a channel
+* [retrieve](docs/sdks/channels/README.md#retrieve) - Get a channel
+* [update](docs/sdks/channels/README.md#update) - Update a channel
+* [delete](docs/sdks/channels/README.md#delete) - Delete a channel
+* [duplicate](docs/sdks/channels/README.md#duplicate) - Duplicate a channel
+
+### [Content](docs/sdks/content/README.md)
+
+* [submit](docs/sdks/content/README.md#submit)
+
+### [Projects](docs/sdks/projects/README.md)
+
+* [list](docs/sdks/projects/README.md#list) - List projects
+* [create](docs/sdks/projects/README.md#create) - Create a project
+* [retrieve](docs/sdks/projects/README.md#retrieve) - Get a project
+* [update](docs/sdks/projects/README.md#update) - Update a project
+* [delete](docs/sdks/projects/README.md#delete) - Delete a project
+* [duplicate](docs/sdks/projects/README.md#duplicate) - Duplicate a project
+
+### [Queue](docs/sdks/queue/README.md)
+
+* [retrieve](docs/sdks/queue/README.md#retrieve) - Get a queue
+* [getStats](docs/sdks/queue/README.md#getstats) - Get queue statistics
+
+#### [Queue.Items](docs/sdks/items/README.md)
+
+* [list](docs/sdks/items/README.md#list) - Get queue items
+* [resolve](docs/sdks/items/README.md#resolve) - Resolve a queue item
+* [unresolve](docs/sdks/items/README.md#unresolve) - Unresolve a queue item
+
+### [Webhooks](docs/sdks/webhooks/README.md)
+
+* [list](docs/sdks/webhooks/README.md#list) - List webhooks
+* [create](docs/sdks/webhooks/README.md#create) - Create a webhook
+* [retrieve](docs/sdks/webhooks/README.md#retrieve) - Get a webhook
+* [update](docs/sdks/webhooks/README.md#update) - Update a webhook
+* [delete](docs/sdks/webhooks/README.md#delete) - Delete a webhook
+
+### [WebhookSecret](docs/sdks/webhooksecret/README.md)
+
+* [retrieve](docs/sdks/webhooksecret/README.md#retrieve) - Get the webhook signing secret
+
+### [Wordlist](docs/sdks/wordlist/README.md)
+
+* [list](docs/sdks/wordlist/README.md#list) - List wordlists
+* [retrieve](docs/sdks/wordlist/README.md#retrieve) - Get wordlist
+* [update](docs/sdks/wordlist/README.md#update) - Update wordlist
+* [getEmbeddingStatus](docs/sdks/wordlist/README.md#getembeddingstatus) - Get embedding status
+
+#### [Wordlist.Words](docs/sdks/words/README.md)
+
+* [add](docs/sdks/words/README.md#add) - Add words to wordlist
+* [remove](docs/sdks/words/README.md#remove) - Remove words from wordlist
+
+</details>
+<!-- End Available Resources and Operations [operations] -->
+
+<!-- Start Standalone functions [standalone-funcs] -->
+## Standalone functions
+
+All the methods listed above are available as standalone functions. These
+functions are ideal for use in applications running in the browser, serverless
+runtimes or other environments where application bundle size is a primary
+concern. When using a bundler to build your application, all unused
+functionality will be either excluded from the final bundle or tree-shaken away.
+
+To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
+
+<details>
+
+<summary>Available standalone functions</summary>
+
+- [`accountRetrieve`](docs/sdks/account/README.md#retrieve) - Get account details
+- [`actionsCreate`](docs/sdks/actions/README.md#create) - Create an action
+- [`actionsDelete`](docs/sdks/actions/README.md#delete) - Delete an action
+- [`actionsExecute`](docs/sdks/actions/README.md#execute) - Execute moderation action
+- [`actionsList`](docs/sdks/actions/README.md#list) - List moderation actions
+- [`actionsRetrieve`](docs/sdks/actions/README.md#retrieve) - Get an action
+- [`actionsUpdate`](docs/sdks/actions/README.md#update) - Update an action
+- [`authorsCreate`](docs/sdks/authors/README.md#create) - Create a new author
+- [`authorsDelete`](docs/sdks/authors/README.md#delete) - Delete an author
+- [`authorsList`](docs/sdks/authors/README.md#list) - List authors
+- [`authorsRetrieve`](docs/sdks/authors/README.md#retrieve) - Get author details
+- [`authorsUpdate`](docs/sdks/authors/README.md#update) - Update author details
+- [`channelsCreate`](docs/sdks/channels/README.md#create) - Create a channel
+- [`channelsDelete`](docs/sdks/channels/README.md#delete) - Delete a channel
+- [`channelsDuplicate`](docs/sdks/channels/README.md#duplicate) - Duplicate a channel
+- [`channelsList`](docs/sdks/channels/README.md#list) - List channels
+- [`channelsRetrieve`](docs/sdks/channels/README.md#retrieve) - Get a channel
+- [`channelsUpdate`](docs/sdks/channels/README.md#update) - Update a channel
+- [`contentSubmit`](docs/sdks/content/README.md#submit)
+- [`projectsCreate`](docs/sdks/projects/README.md#create) - Create a project
+- [`projectsDelete`](docs/sdks/projects/README.md#delete) - Delete a project
+- [`projectsDuplicate`](docs/sdks/projects/README.md#duplicate) - Duplicate a project
+- [`projectsList`](docs/sdks/projects/README.md#list) - List projects
+- [`projectsRetrieve`](docs/sdks/projects/README.md#retrieve) - Get a project
+- [`projectsUpdate`](docs/sdks/projects/README.md#update) - Update a project
+- [`queueGetStats`](docs/sdks/queue/README.md#getstats) - Get queue statistics
+- [`queueItemsList`](docs/sdks/items/README.md#list) - Get queue items
+- [`queueItemsResolve`](docs/sdks/items/README.md#resolve) - Resolve a queue item
+- [`queueItemsUnresolve`](docs/sdks/items/README.md#unresolve) - Unresolve a queue item
+- [`queueRetrieve`](docs/sdks/queue/README.md#retrieve) - Get a queue
+- [`webhooksCreate`](docs/sdks/webhooks/README.md#create) - Create a webhook
+- [`webhooksDelete`](docs/sdks/webhooks/README.md#delete) - Delete a webhook
+- [`webhookSecretRetrieve`](docs/sdks/webhooksecret/README.md#retrieve) - Get the webhook signing secret
+- [`webhooksList`](docs/sdks/webhooks/README.md#list) - List webhooks
+- [`webhooksRetrieve`](docs/sdks/webhooks/README.md#retrieve) - Get a webhook
+- [`webhooksUpdate`](docs/sdks/webhooks/README.md#update) - Update a webhook
+- [`wordlistGetEmbeddingStatus`](docs/sdks/wordlist/README.md#getembeddingstatus) - Get embedding status
+- [`wordlistList`](docs/sdks/wordlist/README.md#list) - List wordlists
+- [`wordlistRetrieve`](docs/sdks/wordlist/README.md#retrieve) - Get wordlist
+- [`wordlistUpdate`](docs/sdks/wordlist/README.md#update) - Update wordlist
+- [`wordlistWordsAdd`](docs/sdks/words/README.md#add) - Add words to wordlist
+- [`wordlistWordsRemove`](docs/sdks/words/README.md#remove) - Remove words from wordlist
+
+</details>
+<!-- End Standalone functions [standalone-funcs] -->
+
+<!-- Start Pagination [pagination] -->
+## Pagination
+
+Some of the endpoints in this SDK support pagination. To use pagination, you
+make your SDK calls as usual, but the returned response object will also be an
+async iterable that can be consumed using the [`for await...of`][for-await-of]
+syntax.
+
+[for-await-of]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for-await...of
+
+Here's an example of one such pagination call:
+
+```typescript
+import { ModerationApi } from "@moderation-api/sdk";
+
+const moderationApi = new ModerationApi({
+  secretKey: process.env["MODAPI_SECRET_KEY"] ?? "",
+});
+
+async function run() {
+  const result = await moderationApi.authors.list({});
+
+  for await (const page of result) {
+    console.log(page);
+  }
+}
+
+run();
+
+```
+<!-- End Pagination [pagination] -->
+
+<!-- Start Retries [retries] -->
+## Retries
+
+Some of the endpoints in this SDK support retries.  If you use the SDK without any configuration, it will fall back to the default retry strategy provided by the API.  However, the default retry strategy can be overridden on a per-operation basis, or across the entire SDK.
+
+To change the default retry strategy for a single API call, simply provide a retryConfig object to the call:
+```typescript
+import { ModerationApi } from "@moderation-api/sdk";
+
+const moderationApi = new ModerationApi({
+  secretKey: process.env["MODAPI_SECRET_KEY"] ?? "",
+});
+
+async function run() {
+  const result = await moderationApi.authors.list({}, {
+    retries: {
+      strategy: "backoff",
+      backoff: {
+        initialInterval: 1,
+        maxInterval: 50,
+        exponent: 1.1,
+        maxElapsedTime: 100,
+      },
+      retryConnectionErrors: false,
+    },
   });
+
+  for await (const page of result) {
+    console.log(page);
+  }
+}
+
+run();
+
 ```
 
-Error codes are as follows:
+If you'd like to override the default retry strategy for all operations that support retries, you can provide a retryConfig at SDK initialization:
+```typescript
+import { ModerationApi } from "@moderation-api/sdk";
 
-| Status Code | Error Type                 |
-| ----------- | -------------------------- |
-| 400         | `BadRequestError`          |
-| 401         | `AuthenticationError`      |
-| 403         | `PermissionDeniedError`    |
-| 404         | `NotFoundError`            |
-| 422         | `UnprocessableEntityError` |
-| 429         | `RateLimitError`           |
-| >=500       | `InternalServerError`      |
-| N/A         | `APIConnectionError`       |
-
-### Retries
-
-Certain errors will be automatically retried 2 times by default, with a short exponential backoff.
-Connection errors (for example, due to a network connectivity problem), 408 Request Timeout, 409 Conflict,
-429 Rate Limit, and >=500 Internal errors will all be retried by default.
-
-You can use the `maxRetries` option to configure or disable this:
-
-<!-- prettier-ignore -->
-```js
-// Configure the default for all requests:
-const client = new ModerationAPI({
-  maxRetries: 0, // default is 2
-});
-
-// Or, configure per-request:
-await client.content.submit({ content: { text: 'text', type: 'text' } }, {
-  maxRetries: 5,
-});
-```
-
-### Timeouts
-
-Requests time out after 1 minute by default. You can configure this with a `timeout` option:
-
-<!-- prettier-ignore -->
-```ts
-// Configure the default for all requests:
-const client = new ModerationAPI({
-  timeout: 20 * 1000, // 20 seconds (default is 1 minute)
-});
-
-// Override per-request:
-await client.content.submit({ content: { text: 'text', type: 'text' } }, {
-  timeout: 5 * 1000,
-});
-```
-
-On timeout, an `APIConnectionTimeoutError` is thrown.
-
-Note that requests which time out will be [retried twice by default](#retries).
-
-## Advanced Usage
-
-### Accessing raw Response data (e.g., headers)
-
-The "raw" `Response` returned by `fetch()` can be accessed through the `.asResponse()` method on the `APIPromise` type that all methods return.
-This method returns as soon as the headers for a successful response are received and does not consume the response body, so you are free to write custom parsing or streaming logic.
-
-You can also use the `.withResponse()` method to get the raw `Response` along with the parsed data.
-Unlike `.asResponse()` this method consumes the body, returning once it is parsed.
-
-<!-- prettier-ignore -->
-```ts
-const client = new ModerationAPI();
-
-const response = await client.content
-  .submit({ content: { text: 'text', type: 'text' } })
-  .asResponse();
-console.log(response.headers.get('X-My-Header'));
-console.log(response.statusText); // access the underlying Response object
-
-const { data: response, response: raw } = await client.content
-  .submit({ content: { text: 'text', type: 'text' } })
-  .withResponse();
-console.log(raw.headers.get('X-My-Header'));
-console.log(response.recommendation);
-```
-
-### Logging
-
-> [!IMPORTANT]
-> All log messages are intended for debugging only. The format and content of log messages
-> may change between releases.
-
-#### Log levels
-
-The log level can be configured in two ways:
-
-1. Via the `MODERATION_API_LOG` environment variable
-2. Using the `logLevel` client option (overrides the environment variable if set)
-
-```ts
-import ModerationAPI from '@moderation-api/sdk';
-
-const client = new ModerationAPI({
-  logLevel: 'debug', // Show all log messages
-});
-```
-
-Available log levels, from most to least verbose:
-
-- `'debug'` - Show debug messages, info, warnings, and errors
-- `'info'` - Show info messages, warnings, and errors
-- `'warn'` - Show warnings and errors (default)
-- `'error'` - Show only errors
-- `'off'` - Disable all logging
-
-At the `'debug'` level, all HTTP requests and responses are logged, including headers and bodies.
-Some authentication-related headers are redacted, but sensitive data in request and response bodies
-may still be visible.
-
-#### Custom logger
-
-By default, this library logs to `globalThis.console`. You can also provide a custom logger.
-Most logging libraries are supported, including [pino](https://www.npmjs.com/package/pino), [winston](https://www.npmjs.com/package/winston), [bunyan](https://www.npmjs.com/package/bunyan), [consola](https://www.npmjs.com/package/consola), [signale](https://www.npmjs.com/package/signale), and [@std/log](https://jsr.io/@std/log). If your logger doesn't work, please open an issue.
-
-When providing a custom logger, the `logLevel` option still controls which messages are emitted, messages
-below the configured level will not be sent to your logger.
-
-```ts
-import ModerationAPI from '@moderation-api/sdk';
-import pino from 'pino';
-
-const logger = pino();
-
-const client = new ModerationAPI({
-  logger: logger.child({ name: 'ModerationAPI' }),
-  logLevel: 'debug', // Send all messages to pino, allowing it to filter
-});
-```
-
-### Making custom/undocumented requests
-
-This library is typed for convenient access to the documented API. If you need to access undocumented
-endpoints, params, or response properties, the library can still be used.
-
-#### Undocumented endpoints
-
-To make requests to undocumented endpoints, you can use `client.get`, `client.post`, and other HTTP verbs.
-Options on the client, such as retries, will be respected when making these requests.
-
-```ts
-await client.post('/some/path', {
-  body: { some_prop: 'foo' },
-  query: { some_query_arg: 'bar' },
-});
-```
-
-#### Undocumented request params
-
-To make requests using undocumented parameters, you may use `// @ts-expect-error` on the undocumented
-parameter. This library doesn't validate at runtime that the request matches the type, so any extra values you
-send will be sent as-is.
-
-```ts
-client.content.submit({
-  // ...
-  // @ts-expect-error baz is not yet public
-  baz: 'undocumented option',
-});
-```
-
-For requests with the `GET` verb, any extra params will be in the query, all other requests will send the
-extra param in the body.
-
-If you want to explicitly send an extra argument, you can do so with the `query`, `body`, and `headers` request
-options.
-
-#### Undocumented response properties
-
-To access undocumented response properties, you may access the response object with `// @ts-expect-error` on
-the response object, or cast the response object to the requisite type. Like the request params, we do not
-validate or strip extra properties from the response from the API.
-
-### Customizing the fetch client
-
-By default, this library expects a global `fetch` function is defined.
-
-If you want to use a different `fetch` function, you can either polyfill the global:
-
-```ts
-import fetch from 'my-fetch';
-
-globalThis.fetch = fetch;
-```
-
-Or pass it to the client:
-
-```ts
-import ModerationAPI from '@moderation-api/sdk';
-import fetch from 'my-fetch';
-
-const client = new ModerationAPI({ fetch });
-```
-
-### Fetch options
-
-If you want to set custom `fetch` options without overriding the `fetch` function, you can provide a `fetchOptions` object when instantiating the client or making a request. (Request-specific options override client options.)
-
-```ts
-import ModerationAPI from '@moderation-api/sdk';
-
-const client = new ModerationAPI({
-  fetchOptions: {
-    // `RequestInit` options
+const moderationApi = new ModerationApi({
+  retryConfig: {
+    strategy: "backoff",
+    backoff: {
+      initialInterval: 1,
+      maxInterval: 50,
+      exponent: 1.1,
+      maxElapsedTime: 100,
+    },
+    retryConnectionErrors: false,
   },
+  secretKey: process.env["MODAPI_SECRET_KEY"] ?? "",
 });
+
+async function run() {
+  const result = await moderationApi.authors.list({});
+
+  for await (const page of result) {
+    console.log(page);
+  }
+}
+
+run();
+
+```
+<!-- End Retries [retries] -->
+
+<!-- Start Error Handling [errors] -->
+## Error Handling
+
+[`ModerationAPIError`](./src/models/errors/moderation-api-error.ts) is the base class for all HTTP error responses. It has the following properties:
+
+| Property            | Type       | Description                                                                             |
+| ------------------- | ---------- | --------------------------------------------------------------------------------------- |
+| `error.message`     | `string`   | Error message                                                                           |
+| `error.statusCode`  | `number`   | HTTP response status code eg `404`                                                      |
+| `error.headers`     | `Headers`  | HTTP response headers                                                                   |
+| `error.body`        | `string`   | HTTP body. Can be empty string if no body is returned.                                  |
+| `error.rawResponse` | `Response` | Raw HTTP response                                                                       |
+| `error.data$`       |            | Optional. Some errors may contain structured data. [See Error Classes](#error-classes). |
+
+### Example
+```typescript
+import { ModerationApi } from "@moderation-api/sdk";
+import * as errors from "@moderation-api/sdk/models/errors";
+
+const moderationApi = new ModerationApi({
+  secretKey: process.env["MODAPI_SECRET_KEY"] ?? "",
+});
+
+async function run() {
+  try {
+    const result = await moderationApi.authors.list({});
+
+    for await (const page of result) {
+      console.log(page);
+    }
+  } catch (error) {
+    // The base class for HTTP error responses
+    if (error instanceof errors.ModerationAPIError) {
+      console.log(error.message);
+      console.log(error.statusCode);
+      console.log(error.body);
+      console.log(error.headers);
+
+      // Depending on the method different errors may be thrown
+      if (error instanceof errors.BadRequestError) {
+        console.log(error.data$.type); // string
+        console.log(error.data$.code); // models.BadRequestErrorCode
+        console.log(error.data$.message); // string
+        console.log(error.data$.issues); // ErrorIssue[]
+        console.log(error.data$.requestId); // string
+      }
+    }
+  }
+}
+
+run();
+
 ```
 
-#### Configuring proxies
+### Error Classes
+**Primary errors:**
+* [`ModerationAPIError`](./src/models/errors/moderation-api-error.ts): The base class for HTTP error responses.
+  * [`AuthenticationError`](./src/models/errors/authentication-error.ts): The API key is missing, invalid or revoked. Status code `401`.
+  * [`RateLimitError`](./src/models/errors/rate-limit-error.ts): Too many requests. Retry after the number of seconds in the `Retry-After` header. Status code `429`.
 
-To modify proxy behavior, you can provide custom `fetchOptions` that add runtime-specific proxy
-options to requests:
+<details><summary>Less common errors (11)</summary>
 
-<img src="https://raw.githubusercontent.com/stainless-api/sdk-assets/refs/heads/main/node.svg" align="top" width="18" height="21"> **Node** <sup>[[docs](https://github.com/nodejs/undici/blob/main/docs/docs/api/ProxyAgent.md#example---proxyagent-with-fetch)]</sup>
+<br />
 
-```ts
-import ModerationAPI from '@moderation-api/sdk';
-import * as undici from 'undici';
+**Network errors:**
+* [`ConnectionError`](./src/models/errors/http-client-errors.ts): HTTP client was unable to make a request to a server.
+* [`RequestTimeoutError`](./src/models/errors/http-client-errors.ts): HTTP request timed out due to an AbortSignal signal.
+* [`RequestAbortedError`](./src/models/errors/http-client-errors.ts): HTTP request was aborted by the client.
+* [`InvalidRequestError`](./src/models/errors/http-client-errors.ts): Any input used to create a request is invalid.
+* [`UnexpectedClientError`](./src/models/errors/http-client-errors.ts): Unrecognised or unexpected error.
 
-const proxyAgent = new undici.ProxyAgent('http://localhost:8888');
-const client = new ModerationAPI({
-  fetchOptions: {
-    dispatcher: proxyAgent,
-  },
-});
-```
 
-<img src="https://raw.githubusercontent.com/stainless-api/sdk-assets/refs/heads/main/bun.svg" align="top" width="18" height="21"> **Bun** <sup>[[docs](https://bun.sh/guides/http/proxy)]</sup>
-
-```ts
-import ModerationAPI from '@moderation-api/sdk';
-
-const client = new ModerationAPI({
-  fetchOptions: {
-    proxy: 'http://localhost:8888',
-  },
-});
-```
-
-<img src="https://raw.githubusercontent.com/stainless-api/sdk-assets/refs/heads/main/deno.svg" align="top" width="18" height="21"> **Deno** <sup>[[docs](https://docs.deno.com/api/deno/~/Deno.createHttpClient)]</sup>
-
-```ts
-import ModerationAPI from 'npm:@moderation-api/sdk';
-
-const httpClient = Deno.createHttpClient({ proxy: { url: 'http://localhost:8888' } });
-const client = new ModerationAPI({
-  fetchOptions: {
-    client: httpClient,
-  },
-});
-```
-
-## Frequently Asked Questions
-
-## Semantic versioning
-
-This package generally follows [SemVer](https://semver.org/spec/v2.0.0.html) conventions, though certain backwards-incompatible changes may be released as minor versions:
-
-1. Changes that only affect static types, without breaking runtime behavior.
-2. Changes to library internals which are technically public but not intended or documented for external use. _(Please open a GitHub issue to let us know if you are relying on such internals.)_
-3. Changes that we do not expect to impact the vast majority of users in practice.
-
-We take backwards-compatibility seriously and work hard to ensure you can rely on a smooth upgrade experience.
-
-We are keen for your feedback; please open an [issue](https://www.github.com/moderation-api/sdk-typescript/issues) with questions, bugs, or suggestions, or reach out at [support@moderationapi.com](mailto:support@moderationapi.com).
-
-## Requirements
-
-TypeScript >= 4.9 is supported.
-
-The following runtimes are supported:
-
-- Node.js 20 LTS or later ([non-EOL](https://endoflife.date/nodejs)) versions.
-- Deno v1.28.0 or higher.
-- Bun 1.0 or later.
-- Cloudflare Workers.
-- Vercel Edge Runtime.
-- Jest 28 or greater with the `"node"` environment (`"jsdom"` is not supported at this time).
-- Nitro v2.6 or greater.
-- Web browsers: disabled by default to avoid exposing your secret API credentials. Enable browser support by explicitly setting `dangerouslyAllowBrowser` to true'.
-  <details>
-    <summary>More explanation</summary>
-
-  ### Why is this dangerous?
-
-  Enabling the `dangerouslyAllowBrowser` option can be dangerous because it exposes your secret API credentials in the client-side code. Web browsers are inherently less secure than server environments,
-  any user with access to the browser can potentially inspect, extract, and misuse these credentials. This could lead to unauthorized access using your credentials and potentially compromise sensitive data or functionality.
-
-  ### When might this not be dangerous?
-
-  In certain scenarios where enabling browser support might not pose significant risks:
-
-  - Internal Tools: If the application is used solely within a controlled internal environment where the users are trusted, the risk of credential exposure can be mitigated.
-  - Public APIs with Limited Scope: If your API has very limited scope and the exposed credentials do not grant access to sensitive data or critical operations, the potential impact of exposure is reduced.
-  - Development or debugging purpose: Enabling this feature temporarily might be acceptable, provided the credentials are short-lived, aren't also used in production environments, or are frequently rotated.
+**Inherit from [`ModerationAPIError`](./src/models/errors/moderation-api-error.ts)**:
+* [`BadRequestError`](./src/models/errors/bad-request-error.ts): The request is malformed or a parameter is invalid. Status code `400`. Applicable to 32 of 42 methods.*
+* [`NotFoundError`](./src/models/errors/not-found-error.ts): The resource does not exist or the key cannot see it. Status code `404`. Applicable to 31 of 42 methods.*
+* [`PermissionDeniedError`](./src/models/errors/permission-denied-error.ts): The API key cannot do this, or the plan limit for this resource is reached. Status code `403`. Applicable to 27 of 42 methods.*
+* [`InternalServerError`](./src/models/errors/internal-server-error.ts): Something went wrong on our side. Retry with backoff. Status code `500`. Applicable to 15 of 42 methods.*
+* [`ConflictError`](./src/models/errors/conflict-error.ts): The request conflicts with the current state of a resource. Status code `409`. Applicable to 2 of 42 methods.*
+* [`ResponseValidationError`](./src/models/errors/response-validation-error.ts): Type mismatch between the data returned from the server and the structure expected by the SDK. See `error.rawValue` for the raw value and `error.pretty()` for a nicely formatted multi-line string.
 
 </details>
 
-Note that React Native is not supported at this time.
+\* Check [the method documentation](#available-resources-and-operations) to see if the error is applicable.
+<!-- End Error Handling [errors] -->
 
-If you are interested in other runtime environments, please open or upvote an issue on GitHub.
+<!-- Start Server Selection [server] -->
+## Server Selection
 
-## Contributing
+### Override Server URL Per-Client
 
-See [the contributing documentation](./CONTRIBUTING.md).
+The default server can be overridden globally by passing a URL to the `serverURL: string` optional parameter when initializing the SDK client instance. For example:
+```typescript
+import { ModerationApi } from "@moderation-api/sdk";
 
-## Email support
+const moderationApi = new ModerationApi({
+  serverURL: "https://moderationapi.com/api/v1",
+  secretKey: process.env["MODAPI_SECRET_KEY"] ?? "",
+});
 
-Reach out at [support@moderationapi.com](mailto:support@moderationapi.com)
+async function run() {
+  const result = await moderationApi.authors.list({});
 
-## More Information
+  for await (const page of result) {
+    console.log(page);
+  }
+}
 
-- [REST API Reference](https://docs.moderationapi.com/api-reference/introduction)
+run();
+
+```
+<!-- End Server Selection [server] -->
+
+<!-- Start Custom HTTP Client [http-client] -->
+## Custom HTTP Client
+
+The TypeScript SDK makes API calls using an `HTTPClient` that wraps the native
+[Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API). This
+client is a thin wrapper around `fetch` and provides the ability to attach hooks
+around the request lifecycle that can be used to modify the request or handle
+errors and response.
+
+The `HTTPClient` constructor takes an optional `fetcher` argument that can be
+used to integrate a third-party HTTP client or when writing tests to mock out
+the HTTP client and feed in fixtures.
+
+The following example shows how to:
+- route requests through a proxy server using [undici](https://www.npmjs.com/package/undici)'s ProxyAgent
+- use the `"beforeRequest"` hook to add a custom header and a timeout to requests
+- use the `"requestError"` hook to log errors
+
+```typescript
+import { ModerationApi } from "@moderation-api/sdk";
+import { ProxyAgent } from "undici";
+import { HTTPClient } from "@moderation-api/sdk/lib/http";
+
+const dispatcher = new ProxyAgent("http://proxy.example.com:8080");
+
+const httpClient = new HTTPClient({
+  // 'fetcher' takes a function that has the same signature as native 'fetch'.
+  fetcher: (input, init) =>
+    // 'dispatcher' is specific to undici and not part of the standard Fetch API.
+    fetch(input, { ...init, dispatcher } as RequestInit),
+});
+
+httpClient.addHook("beforeRequest", (request) => {
+  const nextRequest = new Request(request, {
+    signal: request.signal || AbortSignal.timeout(5000)
+  });
+
+  nextRequest.headers.set("x-custom-header", "custom value");
+
+  return nextRequest;
+});
+
+httpClient.addHook("requestError", (error, request) => {
+  console.group("Request Error");
+  console.log("Reason:", `${error}`);
+  console.log("Endpoint:", `${request.method} ${request.url}`);
+  console.groupEnd();
+});
+
+const sdk = new ModerationApi({ httpClient: httpClient });
+```
+<!-- End Custom HTTP Client [http-client] -->
+
+<!-- Start Debugging [debug] -->
+## Debugging
+
+You can setup your SDK to emit debug logs for SDK requests and responses.
+
+You can pass a logger that matches `console`'s interface as an SDK option.
+
+> [!WARNING]
+> Beware that debug logging will reveal secrets, like API tokens in headers, in log messages printed to a console or files. It's recommended to use this feature only during local development and not in production.
+
+```typescript
+import { ModerationApi } from "@moderation-api/sdk";
+
+const sdk = new ModerationApi({ debugLogger: console });
+```
+
+You can also enable a default debug logger by setting an environment variable `MODAPI_DEBUG` to true.
+<!-- End Debugging [debug] -->
+
+<!-- Placeholder for Future Speakeasy SDK Sections -->
+
+<!-- Start Custom [more] -->
+## Imports and types
+
+The client is both the default and a named export:
+
+```typescript
+import ModerationApi from "@moderation-api/sdk";
+// or
+import { ModerationApi } from "@moderation-api/sdk";
+```
+
+Request and response types are in `@moderation-api/sdk/models/operations`, shared types in `@moderation-api/sdk/models`, error classes in `@moderation-api/sdk/models/errors` and webhook events in `@moderation-api/sdk/models/webhooks`:
+
+```typescript
+import type { SubmitContentRequest, SubmitContentResponse } from "@moderation-api/sdk/models/operations";
+import { PermissionDeniedError } from "@moderation-api/sdk/models/errors";
+```
+
+## Timeouts
+
+Set a timeout in milliseconds for all requests on the client, or for one request:
+
+```typescript
+const moderationApi = new ModerationApi({ timeoutMs: 10_000 });
+
+await moderationApi.content.submit(
+  { content: { type: "text", text: "Hello" } },
+  { timeoutMs: 5_000 },
+);
+```
+
+## Supported runtimes
+
+Node.js 18 or later, Bun 1 or later, Deno, Cloudflare Workers and other runtimes with the Fetch API. See [RUNTIMES.md](RUNTIMES.md) for the full list and the recommended TypeScript compiler options.
+
+
+## Support
+
+- [API reference](https://docs.moderationapi.com/api-reference/introduction)
+- [Errors and error codes](https://docs.moderationapi.com/api-reference/errors)
 - [Rate limits](https://docs.moderationapi.com/api-reference/rate-limits)
-- [Error Handling](https://docs.moderationapi.com/api-reference/errors)
-- [Documentation](https://docs.moderationapi.com/get-started/introduction)
-- [Test your API key](https://docs.moderationapi.com/api-reference/authentication)
+- [Guides](https://docs.moderationapi.com/get-started/introduction)
+- Email [support@moderationapi.com](mailto:support@moderationapi.com)
+
+Found a bug? Open an issue in this repository. This package is generated from the [Moderation API OpenAPI spec](https://api.moderationapi.com/v1/openapi.json), so pull requests to the generated code can't be merged as they are, but we use them to fix the generator.
+<!-- End Custom [more] -->
+
+# Development
+
+## Maturity
+
+This SDK is in beta, and there may be breaking changes between versions without a major version update. Therefore, we recommend pinning usage
+to a specific package version. This way, you can install the same version each time without breaking changes unless you are intentionally
+looking for the latest version.
+
+## Contributions
+
+While we value open-source contributions to this SDK, this library is generated programmatically. Any manual changes added to internal files will be overwritten on the next generation. 
+We look forward to hearing your feedback. Feel free to open a PR or an issue with a proof of concept and we'll do our best to include it in a future release. 
+
+### SDK Created by [Speakeasy](https://www.speakeasy.com/?utm_source=@moderation-api/sdk&utm_campaign=typescript)

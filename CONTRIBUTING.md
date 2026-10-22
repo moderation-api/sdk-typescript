@@ -1,101 +1,26 @@
-## Setting up the environment
+# Contributing to This Repository
 
-This repository uses [`pnpm`](https://pnpm.io/).
-Other package managers may work but are not officially supported for development.
+Thank you for your interest in contributing to this repository. Please note that this repository contains generated code. As such, we do not accept direct changes or pull requests. Instead, we encourage you to follow the guidelines below to report issues and suggest improvements.
 
-To set up the repository, run:
+## How to Report Issues
 
-```sh
-$ pnpm install
-$ pnpm build
-```
+If you encounter any bugs or have suggestions for improvements, please open an issue on GitHub. When reporting an issue, please provide as much detail as possible to help us reproduce the problem. This includes:
 
-This will install all the required dependencies and build output files to `dist/`.
+- A clear and descriptive title
+- Steps to reproduce the issue
+- Expected and actual behavior
+- Any relevant logs, screenshots, or error messages
+- Information about your environment (e.g., operating system, software versions)
+    - For example can be collected using the `npx envinfo` command from your terminal if you have Node.js installed
 
-## Modifying/Adding code
+## Issue Triage and Upstream Fixes
 
-Most of the SDK is generated code. Modifications to code will be persisted between generations, but may
-result in merge conflicts between manual patches and changes from the generator. The generator will never
-modify the contents of the `src/lib/` and `examples/` directories.
+We will review and triage issues as quickly as possible. Our goal is to address bugs and incorporate improvements in the upstream source code. Fixes will be included in the next generation of the generated code.
 
-## Adding and running examples
+## Contact
 
-All files in the `examples/` directory are not modified by the generator and can be freely edited or added to.
+If you have any questions or need further assistance, please feel free to reach out by opening an issue.
 
-```ts
-// add an example to examples/<your-example>.ts
+Thank you for your understanding and cooperation!
 
-#!/usr/bin/env -S npm run tsn -T
-…
-```
-
-```sh
-$ chmod +x examples/<your-example>.ts
-# run the example against your api
-$ pnpm tsn -T examples/<your-example>.ts
-```
-
-## Using the repository from source
-
-If you’d like to use the repository from source, you can either install from git or link to a cloned repository:
-
-To install via git:
-
-```sh
-$ npm install git+ssh://git@github.com:moderation-api/sdk-typescript.git
-```
-
-Alternatively, to link a local copy of the repo:
-
-```sh
-# Clone
-$ git clone https://www.github.com/moderation-api/sdk-typescript
-$ cd sdk-typescript
-
-# With yarn
-$ yarn link
-$ cd ../my-package
-$ yarn link @moderation-api/sdk
-
-# With pnpm
-$ pnpm link --global
-$ cd ../my-package
-$ pnpm link --global @moderation-api/sdk
-```
-
-## Running tests
-
-```sh
-$ pnpm run test
-```
-
-## Linting and formatting
-
-This repository uses [prettier](https://www.npmjs.com/package/prettier) and
-[eslint](https://www.npmjs.com/package/eslint) to format the code in the repository.
-
-To lint:
-
-```sh
-$ pnpm lint
-```
-
-To format and fix all lint issues automatically:
-
-```sh
-$ pnpm fix
-```
-
-## Publishing and releases
-
-Changes made to this repository via the automated release PR pipeline should publish to npm automatically. If
-the changes aren't made through the automated pipeline, you may want to make releases manually.
-
-### Publish with a GitHub workflow
-
-You can release to package managers by using [the `Publish NPM` GitHub action](https://www.github.com/moderation-api/sdk-typescript/actions/workflows/publish-npm.yml). This requires a setup organization or repository secret to be set up.
-
-### Publish manually
-
-If you need to manually release a package, you can run the `bin/publish-npm` script with an `NPM_TOKEN` set on
-the environment.
+The Maintainers

@@ -1,0 +1,41 @@
+# CreateActionResponse
+
+Action created successfully
+
+## Example Usage
+
+```typescript
+import { CreateActionResponse } from "@moderation-api/sdk/models/operations";
+
+let value: CreateActionResponse = {
+  id: "<id>",
+  createdAt: "1720017933683",
+  name: "<value>",
+  filterInQueueIds: [
+    "<value 1>",
+  ],
+  possibleValues: [
+    {
+      value: "<value>",
+    },
+  ],
+};
+```
+
+## Fields
+
+| Field                                                                                                                           | Type                                                                                                                            | Required                                                                                                                        | Description                                                                                                                     |
+| ------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| `id`                                                                                                                            | *string*                                                                                                                        | :heavy_check_mark:                                                                                                              | The ID of the action.                                                                                                           |
+| `key`                                                                                                                           | *string*                                                                                                                        | :heavy_minus_sign:                                                                                                              | User defined key of the action.                                                                                                 |
+| `createdAt`                                                                                                                     | *string*                                                                                                                        | :heavy_check_mark:                                                                                                              | The date the action was created.                                                                                                |
+| `name`                                                                                                                          | *string*                                                                                                                        | :heavy_check_mark:                                                                                                              | The name of the action.                                                                                                         |
+| `description`                                                                                                                   | *string*                                                                                                                        | :heavy_minus_sign:                                                                                                              | The description of the action.                                                                                                  |
+| `type`                                                                                                                          | [operations.CreateActionTypeResponse](../../models/operations/create-action-type-response.md)                                   | :heavy_minus_sign:                                                                                                              | The type of the action.                                                                                                         |
+| `builtIn`                                                                                                                       | *boolean*                                                                                                                       | :heavy_minus_sign:                                                                                                              | Whether the action is a built-in action or a custom one.                                                                        |
+| `queueBehaviour`                                                                                                                | [operations.CreateActionQueueBehaviourResponse](../../models/operations/create-action-queue-behaviour-response.md)              | :heavy_minus_sign:                                                                                                              | Whether the action resolves and removes the item, unresolves and re-add it to the queue, or does not change the resolve status. |
+| `filterInQueueIds`                                                                                                              | *string*[]                                                                                                                      | :heavy_check_mark:                                                                                                              | The IDs of the queues the action is available in.                                                                               |
+| `position`                                                                                                                      | [operations.CreateActionPositionResponse](../../models/operations/create-action-position-response.md)                           | :heavy_minus_sign:                                                                                                              | Show the action in all queues, selected queues or no queues (to use via API only).                                              |
+| `possibleValues`                                                                                                                | [operations.CreateActionPossibleValueResponse](../../models/operations/create-action-possible-value-response.md)[]              | :heavy_check_mark:                                                                                                              | The possible values of the action. The user will be prompted to select one of these values when executing the action.           |
+| `valueRequired`                                                                                                                 | *boolean*                                                                                                                       | :heavy_minus_sign:                                                                                                              | Whether the action requires a value to be executed.                                                                             |
+| `freeText`                                                                                                                      | *boolean*                                                                                                                       | :heavy_minus_sign:                                                                                                              | Whether the action allows any text to be entered as a value or if it must be one of the possible values.                        |

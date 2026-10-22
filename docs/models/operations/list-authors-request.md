@@ -1,0 +1,21 @@
+# ListAuthorsRequest
+
+## Example Usage
+
+```typescript
+import { ListAuthorsRequest } from "@moderation-api/sdk/models/operations";
+
+let value: ListAuthorsRequest = {};
+```
+
+## Fields
+
+| Field                                                                                         | Type                                                                                          | Required                                                                                      | Description                                                                                   |
+| --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- |
+| `page`                                                                                        | *number*                                                                                      | :heavy_minus_sign:                                                                            | N/A                                                                                           |
+| `pageSize`                                                                                    | *number*                                                                                      | :heavy_minus_sign:                                                                            | N/A                                                                                           |
+| `sortBy`                                                                                      | [operations.SortBy](../../models/operations/sort-by.md)                                       | :heavy_minus_sign:                                                                            | N/A                                                                                           |
+| `sortDirection`                                                                               | [operations.ListAuthorsSortDirection](../../models/operations/list-authors-sort-direction.md) | :heavy_minus_sign:                                                                            | Sort direction                                                                                |
+| `memberSinceDate`                                                                             | *string*                                                                                      | :heavy_minus_sign:                                                                            | N/A                                                                                           |
+| `lastActiveDate`                                                                              | *string*                                                                                      | :heavy_minus_sign:                                                                            | N/A                                                                                           |
+| `contentTypes`                                                                                | *string*[]                                                                                    | :heavy_minus_sign:                                                                            | N/A                                                                                           |
