@@ -182,18 +182,27 @@ switch (result.recommendation.action) {
   case "reject":
     // Block the content
     break;
-  case "review":
-    // Publish or hold it, and send it to a review queue
-    break;
   case "allow":
     // Publish the content
+    break;
+  case "review":
+  default:
+    // Publish or hold it, and send it to a review queue.
+    // `default` also catches actions added to the API later.
     break;
 }
 
 for (const policy of result.policies) {
   console.log(`${policy.id}: flagged=${policy.flagged}`);
 }
+
+// For object content: the fields that any flagging policy flagged
+console.log(result.evaluation.flaggedFields);
 ```
+
+### Values added later
+
+Some fields are open enums, for example `recommendation.action` and the error `code`. The API can add a value, and an older SDK version then returns it as a plain string. It does not throw. Always handle unknown values: for `recommendation.action`, treat an unknown value as `review`, as the `default` branch above does.
 
 ## Verifying webhooks
 
@@ -263,6 +272,36 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     res.status(200).end();
   } catch {
     res.status(400).end();
+  }
+}
+```
+
+### Handle an event
+
+`validateWebhook` returns a `WebhookEvent`, a union of the event types. Switch on `event.type` and TypeScript knows the shape of `event.data.object`. Each event also has its own type, for example `QueueItemRejectedEvent` or `AuthorBlockedEvent`.
+
+Webhook payloads use the API's field names, in snake_case (`flagged_fields`, `external_id`). The request and response objects of the client methods use camelCase (`flaggedFields`, `externalId`).
+
+The payload is not validated against a schema, so a field or an event type added to the API later never fails a delivery. An event type that this SDK version does not know reaches the `default` branch. Read it as `UnknownWebhookEvent`.
+
+```typescript
+import { validateWebhook, type UnknownWebhookEvent } from "@moderation-api/sdk";
+
+const event = await validateWebhook({ request });
+
+switch (event.type) {
+  case "queue_item.rejected": {
+    const { item, author } = event.data.object;
+    console.log(item?.id, item?.flagged_fields, author?.external_id);
+    break;
+  }
+  case "author.blocked": {
+    console.log(event.data.object.author.external_id);
+    break;
+  }
+  default: {
+    const unknown = event as UnknownWebhookEvent;
+    console.log(`Unhandled event ${unknown.type}`);
   }
 }
 ```
@@ -776,12 +815,15 @@ import ModerationApi from "@moderation-api/sdk";
 import { ModerationApi } from "@moderation-api/sdk";
 ```
 
-Request and response types are in `@moderation-api/sdk/models/operations`, shared types in `@moderation-api/sdk/models`, error classes in `@moderation-api/sdk/models/errors` and webhook events in `@moderation-api/sdk/models/webhooks`:
+Request and response types are in `@moderation-api/sdk/models/operations`, shared types in `@moderation-api/sdk/models`, error classes in `@moderation-api/sdk/models/errors`. Webhook event types (`WebhookEvent`, `QueueItemRejectedEvent`, ...) are exported from the package root, next to `validateWebhook`:
 
 ```typescript
 import type { SubmitContentRequest, SubmitContentResponse } from "@moderation-api/sdk/models/operations";
 import { PermissionDeniedError } from "@moderation-api/sdk/models/errors";
+import type { WebhookEvent } from "@moderation-api/sdk";
 ```
+
+Upgrading from 4.x? Read [MIGRATION.md](MIGRATION.md).
 
 ## Timeouts
 
