@@ -22,12 +22,14 @@ export class Webhooks extends ClientSDK {
   async list(
     page?: number | undefined,
     pageSize?: number | undefined,
+    projectId?: string | undefined,
     options?: RequestOptions,
   ): Promise<PageIterator<operations.ListWebhooksResponse, { page: number }>> {
     return unwrapResultIterator(webhooksList(
       this,
       page,
       pageSize,
+      projectId,
       options,
     ));
   }
@@ -39,12 +41,14 @@ export class Webhooks extends ClientSDK {
    * Create a webhook subscribed to one or more event types. Deliveries use the v2 envelope and are signed with the project signing secret (see the signing secret endpoint).
    */
   async create(
-    request: operations.CreateWebhookRequest,
+    body: operations.CreateWebhookRequestBody,
+    projectId?: string | undefined,
     options?: RequestOptions,
   ): Promise<operations.CreateWebhookResponse> {
     return unwrapAsync(webhooksCreate(
       this,
-      request,
+      body,
+      projectId,
       options,
     ));
   }
@@ -57,11 +61,13 @@ export class Webhooks extends ClientSDK {
    */
   async retrieve(
     id: string,
+    projectId?: string | undefined,
     options?: RequestOptions,
   ): Promise<operations.GetWebhookResponse> {
     return unwrapAsync(webhooksRetrieve(
       this,
       id,
+      projectId,
       options,
     ));
   }
@@ -75,12 +81,14 @@ export class Webhooks extends ClientSDK {
   async update(
     id: string,
     body: operations.UpdateWebhookRequestBody,
+    projectId?: string | undefined,
     options?: RequestOptions,
   ): Promise<operations.UpdateWebhookResponse> {
     return unwrapAsync(webhooksUpdate(
       this,
       id,
       body,
+      projectId,
       options,
     ));
   }
@@ -93,11 +101,13 @@ export class Webhooks extends ClientSDK {
    */
   async delete(
     id: string,
+    projectId?: string | undefined,
     options?: RequestOptions,
   ): Promise<operations.DeleteWebhookResponse> {
     return unwrapAsync(webhooksDelete(
       this,
       id,
+      projectId,
       options,
     ));
   }

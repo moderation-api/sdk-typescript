@@ -38,12 +38,14 @@ export class Authors extends ClientSDK {
    * Create a new author. Typically not needed as authors are created automatically when content is moderated.
    */
   async create(
-    request: operations.CreateAuthorRequest,
+    body: operations.CreateAuthorRequestBody,
+    projectId?: string | undefined,
     options?: RequestOptions,
   ): Promise<models.PublicAuthor> {
     return unwrapAsync(authorsCreate(
       this,
-      request,
+      body,
+      projectId,
       options,
     ));
   }
@@ -56,11 +58,13 @@ export class Authors extends ClientSDK {
    */
   async retrieve(
     id: string,
+    projectId?: string | undefined,
     options?: RequestOptions,
   ): Promise<models.PublicAuthor> {
     return unwrapAsync(authorsRetrieve(
       this,
       id,
+      projectId,
       options,
     ));
   }
@@ -74,12 +78,14 @@ export class Authors extends ClientSDK {
   async update(
     id: string,
     body: operations.UpdateAuthorRequestBody,
+    projectId?: string | undefined,
     options?: RequestOptions,
   ): Promise<models.PublicAuthor> {
     return unwrapAsync(authorsUpdate(
       this,
       id,
       body,
+      projectId,
       options,
     ));
   }
@@ -92,11 +98,13 @@ export class Authors extends ClientSDK {
    */
   async delete(
     id: string,
+    projectId?: string | undefined,
     options?: RequestOptions,
   ): Promise<operations.DeleteAuthorResponse> {
     return unwrapAsync(authorsDelete(
       this,
       id,
+      projectId,
       options,
     ));
   }

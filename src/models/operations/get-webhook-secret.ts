@@ -8,6 +8,13 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import * as types from "../../types/primitives.js";
 import { SDKValidationError } from "../errors/sdk-validation-error.js";
 
+export type GetWebhookSecretRequest = {
+  /**
+   * The project to act on, when you call with an organization key. Optional when the organization has one project. A project key acts on its own project: naming another one is an error.
+   */
+  projectId?: string | undefined;
+};
+
 /**
  * Signing secret retrieved successfully
  */
@@ -17,6 +24,27 @@ export type GetWebhookSecretResponse = {
    */
   secret: string;
 };
+
+/** @internal */
+export type GetWebhookSecretRequest$Outbound = {
+  projectId?: string | undefined;
+};
+
+/** @internal */
+export const GetWebhookSecretRequest$outboundSchema: z.ZodMiniType<
+  GetWebhookSecretRequest$Outbound,
+  GetWebhookSecretRequest
+> = z.object({
+  projectId: z.optional(z.string()),
+});
+
+export function getWebhookSecretRequestToJSON(
+  getWebhookSecretRequest: GetWebhookSecretRequest,
+): string {
+  return JSON.stringify(
+    GetWebhookSecretRequest$outboundSchema.parse(getWebhookSecretRequest),
+  );
+}
 
 /** @internal */
 export const GetWebhookSecretResponse$inboundSchema: z.ZodMiniType<

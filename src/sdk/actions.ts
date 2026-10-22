@@ -24,6 +24,7 @@ export class Actions extends ClientSDK {
     queueId?: string | undefined,
     page?: number | undefined,
     pageSize?: number | undefined,
+    projectId?: string | undefined,
     options?: RequestOptions,
   ): Promise<PageIterator<operations.ListActionsResponse, { page: number }>> {
     return unwrapResultIterator(actionsList(
@@ -31,6 +32,7 @@ export class Actions extends ClientSDK {
       queueId,
       page,
       pageSize,
+      projectId,
       options,
     ));
   }
@@ -42,12 +44,14 @@ export class Actions extends ClientSDK {
    * Create an action.
    */
   async create(
-    request: operations.CreateActionRequest,
+    body: operations.CreateActionRequestBody,
+    projectId?: string | undefined,
     options?: RequestOptions,
   ): Promise<operations.CreateActionResponse> {
     return unwrapAsync(actionsCreate(
       this,
-      request,
+      body,
+      projectId,
       options,
     ));
   }
@@ -60,11 +64,13 @@ export class Actions extends ClientSDK {
    */
   async retrieve(
     id: string,
+    projectId?: string | undefined,
     options?: RequestOptions,
   ): Promise<operations.GetActionResponse> {
     return unwrapAsync(actionsRetrieve(
       this,
       id,
+      projectId,
       options,
     ));
   }
@@ -78,12 +84,14 @@ export class Actions extends ClientSDK {
   async update(
     id: string,
     body: operations.UpdateActionRequestBody,
+    projectId?: string | undefined,
     options?: RequestOptions,
   ): Promise<operations.UpdateActionResponse> {
     return unwrapAsync(actionsUpdate(
       this,
       id,
       body,
+      projectId,
       options,
     ));
   }
@@ -96,11 +104,13 @@ export class Actions extends ClientSDK {
    */
   async delete(
     id: string,
+    projectId?: string | undefined,
     options?: RequestOptions,
   ): Promise<operations.DeleteActionResponse> {
     return unwrapAsync(actionsDelete(
       this,
       id,
+      projectId,
       options,
     ));
   }
@@ -112,12 +122,14 @@ export class Actions extends ClientSDK {
    * Execute a moderation action on one or more content items.
    */
   async execute(
-    request: operations.ExecuteActionRequest,
+    body: operations.ExecuteActionRequestBody,
+    projectId?: string | undefined,
     options?: RequestOptions,
   ): Promise<operations.ExecuteActionResponse> {
     return unwrapAsync(actionsExecute(
       this,
-      request,
+      body,
+      projectId,
       options,
     ));
   }

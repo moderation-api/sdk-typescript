@@ -11,7 +11,7 @@ import { SDKValidationError } from "../errors/sdk-validation-error.js";
 /**
  * Input parameters
  */
-export type ExecuteActionRequest = {
+export type ExecuteActionRequestBody = {
   /**
    * ID or key of the action to execute
    */
@@ -38,6 +38,14 @@ export type ExecuteActionRequest = {
   duration?: number | undefined;
 };
 
+export type ExecuteActionRequest = {
+  /**
+   * The project to act on, when you call with an organization key. Optional when the organization has one project. A project key acts on its own project: naming another one is an error.
+   */
+  projectId?: string | undefined;
+  body: ExecuteActionRequestBody;
+};
+
 /**
  * Execution result
  */
@@ -49,7 +57,7 @@ export type ExecuteActionResponse = {
 };
 
 /** @internal */
-export type ExecuteActionRequest$Outbound = {
+export type ExecuteActionRequestBody$Outbound = {
   actionKey: string;
   contentIds?: Array<string> | undefined;
   authorIds?: Array<string> | undefined;
@@ -59,9 +67,9 @@ export type ExecuteActionRequest$Outbound = {
 };
 
 /** @internal */
-export const ExecuteActionRequest$outboundSchema: z.ZodMiniType<
-  ExecuteActionRequest$Outbound,
-  ExecuteActionRequest
+export const ExecuteActionRequestBody$outboundSchema: z.ZodMiniType<
+  ExecuteActionRequestBody$Outbound,
+  ExecuteActionRequestBody
 > = z.object({
   actionKey: z.string(),
   contentIds: z.optional(z.array(z.string())),
@@ -69,6 +77,29 @@ export const ExecuteActionRequest$outboundSchema: z.ZodMiniType<
   value: z.optional(z.string()),
   queueId: z.optional(z.string()),
   duration: z.optional(z.number()),
+});
+
+export function executeActionRequestBodyToJSON(
+  executeActionRequestBody: ExecuteActionRequestBody,
+): string {
+  return JSON.stringify(
+    ExecuteActionRequestBody$outboundSchema.parse(executeActionRequestBody),
+  );
+}
+
+/** @internal */
+export type ExecuteActionRequest$Outbound = {
+  projectId?: string | undefined;
+  body: ExecuteActionRequestBody$Outbound;
+};
+
+/** @internal */
+export const ExecuteActionRequest$outboundSchema: z.ZodMiniType<
+  ExecuteActionRequest$Outbound,
+  ExecuteActionRequest
+> = z.object({
+  projectId: z.optional(z.string()),
+  body: z.lazy(() => ExecuteActionRequestBody$outboundSchema),
 });
 
 export function executeActionRequestToJSON(

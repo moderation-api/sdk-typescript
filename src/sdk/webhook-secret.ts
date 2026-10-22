@@ -15,10 +15,12 @@ export class WebhookSecret extends ClientSDK {
    * Get the signing secret used to sign webhook deliveries for this project, creating one if none exists yet. Verify deliveries by comparing the `modapi-signature` header to HMAC-SHA256(raw request body, secret) hex-encoded.
    */
   async retrieve(
+    projectId?: string | undefined,
     options?: RequestOptions,
   ): Promise<operations.GetWebhookSecretResponse> {
     return unwrapAsync(webhookSecretRetrieve(
       this,
+      projectId,
       options,
     ));
   }

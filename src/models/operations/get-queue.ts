@@ -15,6 +15,10 @@ export type GetQueueRequest = {
    * The queue ID
    */
   id: string;
+  /**
+   * The project to act on, when you call with an organization key. Optional when the organization has one project. A project key acts on its own project: naming another one is an error.
+   */
+  projectId?: string | undefined;
 };
 
 export const IsFlagged = {
@@ -156,6 +160,7 @@ export type GetQueueResponse = {
 /** @internal */
 export type GetQueueRequest$Outbound = {
   id: string;
+  projectId?: string | undefined;
 };
 
 /** @internal */
@@ -164,6 +169,7 @@ export const GetQueueRequest$outboundSchema: z.ZodMiniType<
   GetQueueRequest
 > = z.object({
   id: z.string(),
+  projectId: z.optional(z.string()),
 });
 
 export function getQueueRequestToJSON(

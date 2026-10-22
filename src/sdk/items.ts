@@ -40,6 +40,7 @@ export class Items extends ClientSDK {
     id: string,
     itemId: string,
     body: operations.ResolveQueueItemRequestBody,
+    projectId?: string | undefined,
     options?: RequestOptions,
   ): Promise<operations.ResolveQueueItemResponse> {
     return unwrapAsync(queueItemsResolve(
@@ -47,6 +48,7 @@ export class Items extends ClientSDK {
       id,
       itemId,
       body,
+      projectId,
       options,
     ));
   }
@@ -61,6 +63,7 @@ export class Items extends ClientSDK {
     id: string,
     itemId: string,
     body: operations.UnresolveQueueItemRequestBody,
+    projectId?: string | undefined,
     options?: RequestOptions,
   ): Promise<operations.UnresolveQueueItemResponse> {
     return unwrapAsync(queueItemsUnresolve(
@@ -68,6 +71,7 @@ export class Items extends ClientSDK {
       id,
       itemId,
       body,
+      projectId,
       options,
     ));
   }

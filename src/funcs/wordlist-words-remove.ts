@@ -37,6 +37,7 @@ export function wordlistWordsRemove(
   client: ModerationApiCore,
   id: string,
   words: Array<string>,
+  projectId?: string | undefined,
   options?: RequestOptions,
 ): APIPromise<
   Result<
@@ -59,6 +60,7 @@ export function wordlistWordsRemove(
     client,
     id,
     words,
+    projectId,
     options,
   ));
 }
@@ -67,6 +69,7 @@ async function $do(
   client: ModerationApiCore,
   id: string,
   words: Array<string>,
+  projectId?: string | undefined,
   options?: RequestOptions,
 ): Promise<
   [
@@ -91,6 +94,7 @@ async function $do(
   const input: operations.RemoveWordlistWordsRequest = {
     id: id,
     words: words,
+    projectId: projectId,
   };
 
   const parsed = safeParse(
@@ -119,6 +123,10 @@ async function $do(
 
   const headers = new Headers(compactMap({
     Accept: "application/json",
+    "Project-Id": encodeSimple("Project-Id", payload.projectId, {
+      explode: false,
+      charEncoding: "none",
+    }),
   }));
 
   const secConfig = await extractSecurity(client._options.secretKey);

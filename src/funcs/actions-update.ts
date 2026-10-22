@@ -37,6 +37,7 @@ export function actionsUpdate(
   client: ModerationApiCore,
   id: string,
   body: operations.UpdateActionRequestBody,
+  projectId?: string | undefined,
   options?: RequestOptions,
 ): APIPromise<
   Result<
@@ -60,6 +61,7 @@ export function actionsUpdate(
     client,
     id,
     body,
+    projectId,
     options,
   ));
 }
@@ -68,6 +70,7 @@ async function $do(
   client: ModerationApiCore,
   id: string,
   body: operations.UpdateActionRequestBody,
+  projectId?: string | undefined,
   options?: RequestOptions,
 ): Promise<
   [
@@ -93,6 +96,7 @@ async function $do(
   const input: operations.UpdateActionRequest = {
     id: id,
     body: body,
+    projectId: projectId,
   };
 
   const parsed = safeParse(
@@ -117,6 +121,10 @@ async function $do(
   const headers = new Headers(compactMap({
     "Content-Type": "application/json",
     Accept: "application/json",
+    "Project-Id": encodeSimple("Project-Id", payload.projectId, {
+      explode: false,
+      charEncoding: "none",
+    }),
   }));
 
   const secConfig = await extractSecurity(client._options.secretKey);

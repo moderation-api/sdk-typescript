@@ -38,6 +38,7 @@ export function queueItemsResolve(
   id: string,
   itemId: string,
   body: operations.ResolveQueueItemRequestBody,
+  projectId?: string | undefined,
   options?: RequestOptions,
 ): APIPromise<
   Result<
@@ -62,6 +63,7 @@ export function queueItemsResolve(
     id,
     itemId,
     body,
+    projectId,
     options,
   ));
 }
@@ -71,6 +73,7 @@ async function $do(
   id: string,
   itemId: string,
   body: operations.ResolveQueueItemRequestBody,
+  projectId?: string | undefined,
   options?: RequestOptions,
 ): Promise<
   [
@@ -97,6 +100,7 @@ async function $do(
     id: id,
     itemId: itemId,
     body: body,
+    projectId: projectId,
   };
 
   const parsed = safeParse(
@@ -126,6 +130,10 @@ async function $do(
   const headers = new Headers(compactMap({
     "Content-Type": "application/json",
     Accept: "application/json",
+    "Project-Id": encodeSimple("Project-Id", payload.projectId, {
+      explode: false,
+      charEncoding: "none",
+    }),
   }));
 
   const secConfig = await extractSecurity(client._options.secretKey);

@@ -27,12 +27,14 @@ export class Wordlist extends ClientSDK {
   async list(
     page?: number | undefined,
     pageSize?: number | undefined,
+    projectId?: string | undefined,
     options?: RequestOptions,
   ): Promise<PageIterator<operations.ListWordlistsResponse, { page: number }>> {
     return unwrapResultIterator(wordlistList(
       this,
       page,
       pageSize,
+      projectId,
       options,
     ));
   }
@@ -45,11 +47,13 @@ export class Wordlist extends ClientSDK {
    */
   async retrieve(
     id: string,
+    projectId?: string | undefined,
     options?: RequestOptions,
   ): Promise<operations.GetWordlistResponse> {
     return unwrapAsync(wordlistRetrieve(
       this,
       id,
+      projectId,
       options,
     ));
   }
@@ -63,12 +67,14 @@ export class Wordlist extends ClientSDK {
   async update(
     id: string,
     body: operations.UpdateWordlistRequestBody,
+    projectId?: string | undefined,
     options?: RequestOptions,
   ): Promise<operations.UpdateWordlistResponse> {
     return unwrapAsync(wordlistUpdate(
       this,
       id,
       body,
+      projectId,
       options,
     ));
   }
@@ -81,11 +87,13 @@ export class Wordlist extends ClientSDK {
    */
   async getEmbeddingStatus(
     id: string,
+    projectId?: string | undefined,
     options?: RequestOptions,
   ): Promise<operations.GetWordlistEmbeddingStatusResponse> {
     return unwrapAsync(wordlistGetEmbeddingStatus(
       this,
       id,
+      projectId,
       options,
     ));
   }

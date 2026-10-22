@@ -51,6 +51,10 @@ export type UpdateWebhookRequest = {
    * The ID of the webhook to update.
    */
   id: string;
+  /**
+   * The project to act on, when you call with an organization key. Optional when the organization has one project. A project key acts on its own project: naming another one is an error.
+   */
+  projectId?: string | undefined;
   body: UpdateWebhookRequestBody;
 };
 
@@ -154,6 +158,7 @@ export function updateWebhookRequestBodyToJSON(
 /** @internal */
 export type UpdateWebhookRequest$Outbound = {
   id: string;
+  projectId?: string | undefined;
   body: UpdateWebhookRequestBody$Outbound;
 };
 
@@ -163,6 +168,7 @@ export const UpdateWebhookRequest$outboundSchema: z.ZodMiniType<
   UpdateWebhookRequest
 > = z.object({
   id: z.string(),
+  projectId: z.optional(z.string()),
   body: z.lazy(() => UpdateWebhookRequestBody$outboundSchema),
 });
 

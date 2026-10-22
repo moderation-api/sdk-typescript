@@ -8,13 +8,18 @@ import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
 export class Content extends ClientSDK {
+  /**
+   * Submit content
+   */
   async submit(
-    request: operations.SubmitContentRequest,
+    body: operations.SubmitContentRequestBody,
+    projectId?: string | undefined,
     options?: RequestOptions,
   ): Promise<operations.SubmitContentResponse> {
     return unwrapAsync(contentSubmit(
       this,
-      request,
+      body,
+      projectId,
       options,
     ));
   }

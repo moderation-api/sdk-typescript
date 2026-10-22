@@ -47,6 +47,10 @@ export type ListAuthorsRequest = {
   memberSinceDate?: string | undefined;
   lastActiveDate?: string | undefined;
   contentTypes?: Array<string> | undefined;
+  /**
+   * The project to act on, when you call with an organization key. Optional when the organization has one project. A project key acts on its own project: naming another one is an error.
+   */
+  projectId?: string | undefined;
 };
 
 /**
@@ -86,6 +90,7 @@ export type ListAuthorsRequest$Outbound = {
   memberSinceDate?: string | undefined;
   lastActiveDate?: string | undefined;
   contentTypes?: Array<string> | undefined;
+  projectId?: string | undefined;
 };
 
 /** @internal */
@@ -100,6 +105,7 @@ export const ListAuthorsRequest$outboundSchema: z.ZodMiniType<
   memberSinceDate: z.optional(z.string()),
   lastActiveDate: z.optional(z.string()),
   contentTypes: z.optional(z.array(z.string())),
+  projectId: z.optional(z.string()),
 });
 
 export function listAuthorsRequestToJSON(

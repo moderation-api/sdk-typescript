@@ -63,7 +63,7 @@ export type CreateActionPossibleValueRequest = {
   value: string;
 };
 
-export type CreateActionRequest = {
+export type CreateActionRequestBody = {
   /**
    * User defined key of the action.
    */
@@ -108,6 +108,14 @@ export type CreateActionRequest = {
    * Whether the action allows any text to be entered as a value or if it must be one of the possible values.
    */
   freeText?: boolean | undefined;
+};
+
+export type CreateActionRequest = {
+  /**
+   * The project to act on, when you call with an organization key. Optional when the organization has one project. A project key acts on its own project: naming another one is an error.
+   */
+  projectId?: string | undefined;
+  body: CreateActionRequestBody;
 };
 
 export const CreateActionTypeResponse = {
@@ -260,7 +268,7 @@ export function createActionPossibleValueRequestToJSON(
 }
 
 /** @internal */
-export type CreateActionRequest$Outbound = {
+export type CreateActionRequestBody$Outbound = {
   key?: string | null | undefined;
   name: string;
   description?: string | null | undefined;
@@ -275,9 +283,9 @@ export type CreateActionRequest$Outbound = {
 };
 
 /** @internal */
-export const CreateActionRequest$outboundSchema: z.ZodMiniType<
-  CreateActionRequest$Outbound,
-  CreateActionRequest
+export const CreateActionRequestBody$outboundSchema: z.ZodMiniType<
+  CreateActionRequestBody$Outbound,
+  CreateActionRequestBody
 > = z.object({
   key: z.optional(z.nullable(z.string())),
   name: z.string(),
@@ -298,6 +306,29 @@ export const CreateActionRequest$outboundSchema: z.ZodMiniType<
   ),
   valueRequired: z._default(z.boolean(), false),
   freeText: z._default(z.boolean(), false),
+});
+
+export function createActionRequestBodyToJSON(
+  createActionRequestBody: CreateActionRequestBody,
+): string {
+  return JSON.stringify(
+    CreateActionRequestBody$outboundSchema.parse(createActionRequestBody),
+  );
+}
+
+/** @internal */
+export type CreateActionRequest$Outbound = {
+  projectId?: string | undefined;
+  body: CreateActionRequestBody$Outbound;
+};
+
+/** @internal */
+export const CreateActionRequest$outboundSchema: z.ZodMiniType<
+  CreateActionRequest$Outbound,
+  CreateActionRequest
+> = z.object({
+  projectId: z.optional(z.string()),
+  body: z.lazy(() => CreateActionRequestBody$outboundSchema),
 });
 
 export function createActionRequestToJSON(

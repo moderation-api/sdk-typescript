@@ -9,6 +9,13 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import * as types from "../../types/primitives.js";
 import { SDKValidationError } from "../errors/sdk-validation-error.js";
 
+export type GetAccountRequest = {
+  /**
+   * The project to act on, when you call with an organization key. Optional when the organization has one project. A project key acts on its own project: naming another one is an error.
+   */
+  projectId?: string | undefined;
+};
+
 export type CurrentProject = {
   /**
    * ID of the current project
@@ -42,6 +49,27 @@ export type GetAccountResponse = {
   remainingQuota: number;
   currentProject?: CurrentProject | undefined;
 };
+
+/** @internal */
+export type GetAccountRequest$Outbound = {
+  projectId?: string | undefined;
+};
+
+/** @internal */
+export const GetAccountRequest$outboundSchema: z.ZodMiniType<
+  GetAccountRequest$Outbound,
+  GetAccountRequest
+> = z.object({
+  projectId: z.optional(z.string()),
+});
+
+export function getAccountRequestToJSON(
+  getAccountRequest: GetAccountRequest,
+): string {
+  return JSON.stringify(
+    GetAccountRequest$outboundSchema.parse(getAccountRequest),
+  );
+}
 
 /** @internal */
 export const CurrentProject$inboundSchema: z.ZodMiniType<

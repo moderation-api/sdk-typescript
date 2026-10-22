@@ -16,6 +16,10 @@ export type ListActionsRequest = {
   queueId?: string | undefined;
   page?: number | undefined;
   pageSize?: number | undefined;
+  /**
+   * The project to act on, when you call with an organization key. Optional when the organization has one project. A project key acts on its own project: naming another one is an error.
+   */
+  projectId?: string | undefined;
 };
 
 export const ListActionsType = {
@@ -145,6 +149,7 @@ export type ListActionsRequest$Outbound = {
   queueId?: string | undefined;
   page: number;
   pageSize: number;
+  projectId?: string | undefined;
 };
 
 /** @internal */
@@ -155,6 +160,7 @@ export const ListActionsRequest$outboundSchema: z.ZodMiniType<
   queueId: z.optional(z.string()),
   page: z._default(z.int(), 1),
   pageSize: z._default(z.int(), 20),
+  projectId: z.optional(z.string()),
 });
 
 export function listActionsRequestToJSON(

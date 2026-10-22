@@ -69,6 +69,10 @@ export type UpdateAuthorRequest = {
    * Either external ID or the ID assigned by moderation API.
    */
   id: string;
+  /**
+   * The project to act on, when you call with an organization key. Optional when the organization has one project. A project key acts on its own project: naming another one is an error.
+   */
+  projectId?: string | undefined;
   body: UpdateAuthorRequestBody;
 };
 
@@ -166,6 +170,7 @@ export function updateAuthorRequestBodyToJSON(
 /** @internal */
 export type UpdateAuthorRequest$Outbound = {
   id: string;
+  projectId?: string | undefined;
   body: UpdateAuthorRequestBody$Outbound;
 };
 
@@ -175,6 +180,7 @@ export const UpdateAuthorRequest$outboundSchema: z.ZodMiniType<
   UpdateAuthorRequest
 > = z.object({
   id: z.string(),
+  projectId: z.optional(z.string()),
   body: z.lazy(() => UpdateAuthorRequestBody$outboundSchema),
 });
 

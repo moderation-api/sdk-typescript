@@ -14,6 +14,10 @@ export type GetQueueStatsRequest = {
    */
   id: string;
   withinDays?: number | undefined;
+  /**
+   * The project to act on, when you call with an organization key. Optional when the organization has one project. A project key acts on its own project: naming another one is an error.
+   */
+  projectId?: string | undefined;
 };
 
 export type ReviewStats = {
@@ -136,6 +140,7 @@ export type GetQueueStatsResponse = {
 export type GetQueueStatsRequest$Outbound = {
   id: string;
   withinDays: number;
+  projectId?: string | undefined;
 };
 
 /** @internal */
@@ -145,6 +150,7 @@ export const GetQueueStatsRequest$outboundSchema: z.ZodMiniType<
 > = z.object({
   id: z.string(),
   withinDays: z._default(z.int(), 30),
+  projectId: z.optional(z.string()),
 });
 
 export function getQueueStatsRequestToJSON(

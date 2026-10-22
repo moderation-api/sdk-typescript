@@ -20,6 +20,10 @@ export type AddWordlistWordsRequest = {
    * ID of the wordlist to add words to
    */
   id: string;
+  /**
+   * The project to act on, when you call with an organization key. Optional when the organization has one project. A project key acts on its own project: naming another one is an error.
+   */
+  projectId?: string | undefined;
   body: AddWordlistWordsRequestBody;
 };
 
@@ -67,6 +71,7 @@ export function addWordlistWordsRequestBodyToJSON(
 /** @internal */
 export type AddWordlistWordsRequest$Outbound = {
   id: string;
+  projectId?: string | undefined;
   body: AddWordlistWordsRequestBody$Outbound;
 };
 
@@ -76,6 +81,7 @@ export const AddWordlistWordsRequest$outboundSchema: z.ZodMiniType<
   AddWordlistWordsRequest
 > = z.object({
   id: z.string(),
+  projectId: z.optional(z.string()),
   body: z.lazy(() => AddWordlistWordsRequestBody$outboundSchema),
 });
 
