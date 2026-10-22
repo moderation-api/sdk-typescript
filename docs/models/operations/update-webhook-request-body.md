@@ -1,0 +1,18 @@
+# UpdateWebhookRequestBody
+
+## Example Usage
+
+```typescript
+import { UpdateWebhookRequestBody } from "@moderation-api/sdk/models/operations";
+
+let value: UpdateWebhookRequestBody = {};
+```
+
+## Fields
+
+| Field                                                                                                      | Type                                                                                                       | Required                                                                                                   | Description                                                                                                |
+| ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| `name`                                                                                                     | *string*                                                                                                   | :heavy_minus_sign:                                                                                         | The webhook's name, used to identify it in the dashboard                                                   |
+| `description`                                                                                              | *string*                                                                                                   | :heavy_minus_sign:                                                                                         | The webhook's description                                                                                  |
+| `url`                                                                                                      | *string*                                                                                                   | :heavy_minus_sign:                                                                                         | The webhook's URL. We'll call this URL when an event occurs.                                               |
+| `eventTypes`                                                                                               | [operations.UpdateWebhookEventTypeRequest](../../models/operations/update-webhook-event-type-request.md)[] | :heavy_minus_sign:                                                                                         | Event types this webhook subscribes to. One webhook URL receives all events you list here.                 |

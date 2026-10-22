@@ -1,0 +1,21 @@
+# UpdateProjectRequestBody
+
+## Example Usage
+
+```typescript
+import { UpdateProjectRequestBody } from "@moderation-api/sdk/models/operations";
+
+let value: UpdateProjectRequestBody = {};
+```
+
+## Fields
+
+| Field                                                                                                     | Type                                                                                                      | Required                                                                                                  | Description                                                                                               |
+| --------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
+| `name`                                                                                                    | *string*                                                                                                  | :heavy_minus_sign:                                                                                        | The project's name.                                                                                       |
+| `description`                                                                                             | *string*                                                                                                  | :heavy_minus_sign:                                                                                        | The project's description.                                                                                |
+| `domain`                                                                                                  | *string*                                                                                                  | :heavy_minus_sign:                                                                                        | The website or app the project moderates content for. Setting it on a project without context writes one. |
+| `context`                                                                                                 | *string*                                                                                                  | :heavy_minus_sign:                                                                                        | What the platform is and who uses it.                                                                     |
+| `globalFlaggingMode`                                                                                      | [operations.GlobalFlaggingMode](../../models/operations/global-flagging-mode.md)                          | :heavy_minus_sign:                                                                                        | `ACTIVE` flags content. `DRY_RUN` evaluates without flagging.                                             |
+| `enableRequestLogging`                                                                                    | *boolean*                                                                                                 | :heavy_minus_sign:                                                                                        | Whether moderated content is stored and shown in the dashboard.                                           |
+| `casebookEnabled`                                                                                         | *boolean*                                                                                                 | :heavy_minus_sign:                                                                                        | Whether review queue decisions are recorded in the casebook.                                              |
