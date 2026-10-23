@@ -11,6 +11,7 @@ export * from "./internal-server-error.js";
 export * from "./not-found-error.js";
 export * from "./pagination.js";
 export * from "./permission-denied-error.js";
+export * from "./project-api-key.js";
 export * from "./project-with-key.js";
 export * from "./project.js";
 export * from "./public-author.js";

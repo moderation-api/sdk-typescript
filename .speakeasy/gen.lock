@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 2331670b-5789-4489-85ed-fb316d2d6d7e
 management:
-  docChecksum: 38730339aa1da77855e86c169896f12f
+  docChecksum: 1f41f7f3f1f9652138167d27f8b4518c
   docVersion: 1.1.0
   speakeasyVersion: internal
   generationVersion: internal
-  releaseVersion: 5.1.1
-  configChecksum: 6cbac05d92e51b9e4f0b80ec196fa8ef
+  releaseVersion: 5.2.0
+  configChecksum: 4dbda5aa25bde9974dca06741a29c5d2
   repoURL: https://github.com/moderation-api/sdk-typescript
   installationURL: https://github.com/moderation-api/sdk-typescript
   published: true
@@ -54,7 +54,7 @@ trackedFiles:
   docs/models/authentication-error-code.md:
     last_write_checksum: sha1:ded523611ede5428ec082227fc531295a34bc352
   docs/models/bad-request-error-code.md:
-    last_write_checksum: sha1:c42953467ceb19d3016430f022801e7534eb225e
+    last_write_checksum: sha1:f92f1bdff63c874995c87b2e2a7478698e28e3db
   docs/models/block.md:
     last_write_checksum: sha1:be375b2175db97656f912eb434592a8c292a26c2
   docs/models/channel.md:
@@ -68,7 +68,7 @@ trackedFiles:
   docs/models/errors/authentication-error.md:
     last_write_checksum: sha1:4cdad20cb9444299f43bc605a5c3c77c70710f37
   docs/models/errors/bad-request-error.md:
-    last_write_checksum: sha1:9b330660c65d9df7df3cbe9f3fbe526586577382
+    last_write_checksum: sha1:13b4e2910b848887815c2eb9bff3d8183abd504f
   docs/models/errors/conflict-error.md:
     last_write_checksum: sha1:dbce58e55529fb66d58147140881b8915ed6f5ad
   docs/models/errors/internal-server-error.md:
@@ -96,7 +96,7 @@ trackedFiles:
   docs/models/operations/add-wordlist-words-request-body.md:
     last_write_checksum: sha1:3fd7ca492410ff345db45fe8b9fe3bdc64953f28
   docs/models/operations/add-wordlist-words-request.md:
-    last_write_checksum: sha1:c347e9285b0378e2f450e84447b107ecd04f547d
+    last_write_checksum: sha1:358d15a050a492bbd5be0c952c89cd0bcd0609b3
   docs/models/operations/add-wordlist-words-response.md:
     last_write_checksum: sha1:cf1267a9dc5c51917004eeb674372308e5a82c6d
   docs/models/operations/adult.md:
@@ -162,7 +162,7 @@ trackedFiles:
   docs/models/operations/create-action-request-body.md:
     last_write_checksum: sha1:5618312af9e159916ed0faa89b6059325c6892b8
   docs/models/operations/create-action-request.md:
-    last_write_checksum: sha1:665b1deb92d23202a149bcdc2fe5ffcc2f71208b
+    last_write_checksum: sha1:b103bcfe486a0663def7c29c20e83f67534ba875
   docs/models/operations/create-action-response.md:
     last_write_checksum: sha1:bbb0d0ac31b00fd6decf12fb2249913e53b2d30d
   docs/models/operations/create-action-type-request.md:
@@ -174,13 +174,17 @@ trackedFiles:
   docs/models/operations/create-author-request-body.md:
     last_write_checksum: sha1:7df7ceed9c42d185ed2b58990deb10019e98e673
   docs/models/operations/create-author-request.md:
-    last_write_checksum: sha1:b68d1ac9f50761a4e14405484a5004a3505699f3
+    last_write_checksum: sha1:beb89486ed96cde9e4972ff54e73a3540e16d32e
   docs/models/operations/create-channel-content-type.md:
     last_write_checksum: sha1:f72f71a57fad0c33b8cb4bdcdd06ae5697cde2ca
   docs/models/operations/create-channel-request-body.md:
     last_write_checksum: sha1:f68d1dd216b064dba8310102961563a6b313227a
   docs/models/operations/create-channel-request.md:
     last_write_checksum: sha1:695c0b721a29cb4e9ce1d20a3ac09097bbe0d136
+  docs/models/operations/create-project-api-key-request-body.md:
+    last_write_checksum: sha1:360f94ec3b8d1016ea5e01d89a21aaff9d72e76d
+  docs/models/operations/create-project-api-key-request.md:
+    last_write_checksum: sha1:5beff99c3d2066e4a3c2827c0b862c84c99d1390
   docs/models/operations/create-project-request.md:
     last_write_checksum: sha1:194ee488422f8f28672c606116cd8a9453809ec2
   docs/models/operations/create-webhook-event-type-request.md:
@@ -192,7 +196,7 @@ trackedFiles:
   docs/models/operations/create-webhook-request-body.md:
     last_write_checksum: sha1:669bd2cfe24389708e54b2f92aa65236807c384e
   docs/models/operations/create-webhook-request.md:
-    last_write_checksum: sha1:8390d5d666dc4560dcb5242b23daaf471a459cdf
+    last_write_checksum: sha1:929905728e0abf050feb4d3c4f1141c58676a93b
   docs/models/operations/create-webhook-response.md:
     last_write_checksum: sha1:6af3559e4f3da8f630519cd54d6d59e138b4b973
   docs/models/operations/crypto.md:
@@ -212,11 +216,11 @@ trackedFiles:
   docs/models/operations/data-video.md:
     last_write_checksum: sha1:207610c44fe94cf119f3cfcdf4471bd26f69b807
   docs/models/operations/delete-action-request.md:
-    last_write_checksum: sha1:f4193a4879d4d2388406d855cc25673307a22cfb
+    last_write_checksum: sha1:ae0e75a1b2e5f13a629ea940520cb28200a02f00
   docs/models/operations/delete-action-response.md:
     last_write_checksum: sha1:21cd2fa0c991db8cec40b50f4f6888f71a205224
   docs/models/operations/delete-author-request.md:
-    last_write_checksum: sha1:c69ddc97f3580f6e6aaa448d234239e5b37eab73
+    last_write_checksum: sha1:307d943174678108b22fa552e0d5f3787138efad
   docs/models/operations/delete-author-response.md:
     last_write_checksum: sha1:c22d767de93db6b894e82418a4defe9e0872f909
   docs/models/operations/delete-channel-request.md:
@@ -228,7 +232,7 @@ trackedFiles:
   docs/models/operations/delete-project-response.md:
     last_write_checksum: sha1:443f2a7cf9042e2c1f0b51e708c5529c2920c44e
   docs/models/operations/delete-webhook-request.md:
-    last_write_checksum: sha1:74dc626c3e0cb958a817386dd8a63bcd7f83e8aa
+    last_write_checksum: sha1:fee7a3d1a2289bf9ab340685711b8ea0a3b20cc8
   docs/models/operations/delete-webhook-response.md:
     last_write_checksum: sha1:3f8bc3d81daac532d4f63bb291139ab5c10c8f89
   docs/models/operations/drugs.md:
@@ -254,7 +258,7 @@ trackedFiles:
   docs/models/operations/execute-action-request-body.md:
     last_write_checksum: sha1:9d7b79817b40f70a62dc09087042d390e14101b3
   docs/models/operations/execute-action-request.md:
-    last_write_checksum: sha1:a9b52afea20cb95aba9c5d993479cdfcd1e7c49a
+    last_write_checksum: sha1:bb82c15d20dffdd3ae7206224f27dcc8cc8a42d5
   docs/models/operations/execute-action-response.md:
     last_write_checksum: sha1:12fce10184bdd16e84f51b1d373bc6723e2e6010
   docs/models/operations/extremism.md:
@@ -272,7 +276,7 @@ trackedFiles:
   docs/models/operations/gambling.md:
     last_write_checksum: sha1:5adc5517572e154a7f084fb5612f8e0c5561ca29
   docs/models/operations/get-account-request.md:
-    last_write_checksum: sha1:24f9d3814ed5deab735ed981f9b2e123cba5414e
+    last_write_checksum: sha1:1ef1ca0d8bccb2e78ddf60ef5693e1a13f0a1a7e
   docs/models/operations/get-account-response.md:
     last_write_checksum: sha1:1a24bc7fe2224e7b7ba178683098868c4778639a
   docs/models/operations/get-action-position.md:
@@ -282,13 +286,13 @@ trackedFiles:
   docs/models/operations/get-action-queue-behaviour.md:
     last_write_checksum: sha1:5d4317a80d04053d1e4fcf18134247cc4c9a8a74
   docs/models/operations/get-action-request.md:
-    last_write_checksum: sha1:fea15cb2796dded792f1b43fc7aa631c4350dfbf
+    last_write_checksum: sha1:31de9c15b36d03ffc6c367c577c5cc8350840601
   docs/models/operations/get-action-response.md:
     last_write_checksum: sha1:63ac4982855e7f06eeea646e25d87ba91d91b5ff
   docs/models/operations/get-action-type.md:
     last_write_checksum: sha1:d4716096df59c144490f7b4cc6d58a06f191962d
   docs/models/operations/get-author-request.md:
-    last_write_checksum: sha1:961a5a53eacb473e3450dadbc7a9d00d061b13a7
+    last_write_checksum: sha1:c40893bc0ef54213fdc7d2f5edb12e81504244bd
   docs/models/operations/get-channel-request.md:
     last_write_checksum: sha1:707bf453a85565b21625b1e66753cd6e8f6dc8fc
   docs/models/operations/get-project-request.md:
@@ -298,11 +302,11 @@ trackedFiles:
   docs/models/operations/get-queue-recommendation-action.md:
     last_write_checksum: sha1:bdf2011f8cdf34284d9748e7620b783b16c62070
   docs/models/operations/get-queue-request.md:
-    last_write_checksum: sha1:3be9c63068a132fa53c1a421baac82290b33bba9
+    last_write_checksum: sha1:3fbe6533af092e86302b2796858a59c02d4c51f3
   docs/models/operations/get-queue-response.md:
     last_write_checksum: sha1:fb935318459b57d7da6645a22b00782674a79cf2
   docs/models/operations/get-queue-stats-request.md:
-    last_write_checksum: sha1:e660366fb8873bbc016cbadccafa9f3e6abed1ef
+    last_write_checksum: sha1:cd89bcc3d17e4e8c3a1bc4571310abef415c03ab
   docs/models/operations/get-queue-stats-response.md:
     last_write_checksum: sha1:a95741c07cf693575f6a90ba1981c694658f0a44
   docs/models/operations/get-queue-type.md:
@@ -312,19 +316,19 @@ trackedFiles:
   docs/models/operations/get-webhook-payload-version.md:
     last_write_checksum: sha1:d1b0b75f6b51b2bcdeb8553af6ac8741feae8332
   docs/models/operations/get-webhook-request.md:
-    last_write_checksum: sha1:c9231ec12af924747548244c73f965923ee500f8
+    last_write_checksum: sha1:2f7ce405bc690bca958bba3cd449e8ee78821d7d
   docs/models/operations/get-webhook-response.md:
     last_write_checksum: sha1:ff29e0e0ad67e8cc282c47067121995dfade58c9
   docs/models/operations/get-webhook-secret-request.md:
-    last_write_checksum: sha1:5889e9f67aa651f6b8c3b422c15c49408aa9a060
+    last_write_checksum: sha1:befdeaa619aa0a630c184f3bbc8bd9bd10d9e7d9
   docs/models/operations/get-webhook-secret-response.md:
     last_write_checksum: sha1:3f86ae7f31c748d5615acb06659535a8b581764f
   docs/models/operations/get-wordlist-embedding-status-request.md:
-    last_write_checksum: sha1:878dc7b223480b885504702368a8a2439d265583
+    last_write_checksum: sha1:5154eb407ce2b557b5c4871cdc054adada5f15f7
   docs/models/operations/get-wordlist-embedding-status-response.md:
     last_write_checksum: sha1:9116183c49fbdb044bab989a17d6b6d763661d11
   docs/models/operations/get-wordlist-request.md:
-    last_write_checksum: sha1:0a100e48ba26f9d6faf1853167daec6ba8ca13a4
+    last_write_checksum: sha1:ae36359bc69dc2294b9acd124740017e01a7bc4c
   docs/models/operations/get-wordlist-response.md:
     last_write_checksum: sha1:6f0275935b0a9f159c34f8b047af58860649e5f7
   docs/models/operations/global-flagging-mode.md:
@@ -366,7 +370,7 @@ trackedFiles:
   docs/models/operations/list-actions-queue-behaviour.md:
     last_write_checksum: sha1:d9a1752d254d17207c1b252fc51530a4ed724f6d
   docs/models/operations/list-actions-request.md:
-    last_write_checksum: sha1:b21e810e95530e94fd18ac6932479806b7b03227
+    last_write_checksum: sha1:dc05051c44c6c6bcd4dc2b764340461735281dc7
   docs/models/operations/list-actions-response-body.md:
     last_write_checksum: sha1:70db78b9dc061a12bb97c9c60fddc1e53dd638da
   docs/models/operations/list-actions-response.md:
@@ -374,7 +378,7 @@ trackedFiles:
   docs/models/operations/list-actions-type.md:
     last_write_checksum: sha1:e3df5f195fd93649db3ce08ce2fd001dbb29f9ed
   docs/models/operations/list-authors-request.md:
-    last_write_checksum: sha1:f3b3ec693372fb2a77f5c8509cc70bf9932996a4
+    last_write_checksum: sha1:83f136e1cbea2f8646795c257acf95987b66f0fb
   docs/models/operations/list-authors-response-body.md:
     last_write_checksum: sha1:15ba61c20108439a81dde996e9f11b08819f80ae
   docs/models/operations/list-authors-response.md:
@@ -400,7 +404,7 @@ trackedFiles:
   docs/models/operations/list-queue-items-label.md:
     last_write_checksum: sha1:f03b855ca94682df4f46f351156e2be9923173a6
   docs/models/operations/list-queue-items-request.md:
-    last_write_checksum: sha1:b6c6707a379a5635f912c4687a161ad0b8827192
+    last_write_checksum: sha1:e8517aea14be37d2d60c3a0f370e82fe25bb8e31
   docs/models/operations/list-queue-items-response-body.md:
     last_write_checksum: sha1:c5181c6e52d0cfc4a4f99386f2eaef1ffbead3d7
   docs/models/operations/list-queue-items-response.md:
@@ -416,7 +420,7 @@ trackedFiles:
   docs/models/operations/list-webhooks-payload-version.md:
     last_write_checksum: sha1:96ac775d5025e05cd94afa91b7cab7ec6fab076a
   docs/models/operations/list-webhooks-request.md:
-    last_write_checksum: sha1:2ec3733c6fe2e4b4f76404ce51ac5acc418ec123
+    last_write_checksum: sha1:de55562eeb1ef3f1ce25a39ab7975ecc183a500a
   docs/models/operations/list-webhooks-response-body.md:
     last_write_checksum: sha1:1f607ad9e6009ad425af44ef5cc1ebd2b2a82ddf
   docs/models/operations/list-webhooks-response.md:
@@ -424,7 +428,7 @@ trackedFiles:
   docs/models/operations/list-wordlists-data.md:
     last_write_checksum: sha1:0a710da678fb4956280502641ba9756b756e5981
   docs/models/operations/list-wordlists-request.md:
-    last_write_checksum: sha1:fae07bf6f9d9d6e430bace62e1e4bbc02f2f6696
+    last_write_checksum: sha1:47cfd88173bb2aaba698cd6ee75fdaee909adc9c
   docs/models/operations/list-wordlists-response-body.md:
     last_write_checksum: sha1:eb7932e4f58dabf7597c5e5ccb4f50e9af534103
   docs/models/operations/list-wordlists-response.md:
@@ -478,13 +482,13 @@ trackedFiles:
   docs/models/operations/religion.md:
     last_write_checksum: sha1:ebb4d54c6e5080e8cc95379858faba8ad981c8d0
   docs/models/operations/remove-wordlist-words-request.md:
-    last_write_checksum: sha1:eb747ee8460bcd139b97b8cce9d5a12878f20ae9
+    last_write_checksum: sha1:5a765fa96186cf423caf9a48587042722db15494
   docs/models/operations/remove-wordlist-words-response.md:
     last_write_checksum: sha1:e23252b42245e21a8ef0934a68b7cb04de441274
   docs/models/operations/resolve-queue-item-request-body.md:
     last_write_checksum: sha1:eb50a2fdbfc1786137121facf2d7cb7c397509df
   docs/models/operations/resolve-queue-item-request.md:
-    last_write_checksum: sha1:2d7c9e1c95eee1cfc0f3d8e7ed09e691e8ad06c0
+    last_write_checksum: sha1:3245452b03b1e876d9fd7c5095172e1c5bb88a96
   docs/models/operations/resolve-queue-item-response.md:
     last_write_checksum: sha1:2a0cf0a5df0ee5cd0bc10a99d58295a58f2c3aec
   docs/models/operations/respect-insight.md:
@@ -520,9 +524,9 @@ trackedFiles:
   docs/models/operations/submit-content-recommendation-action.md:
     last_write_checksum: sha1:2514acb074b6a84b552457d939fac38caeaff726
   docs/models/operations/submit-content-request-body.md:
-    last_write_checksum: sha1:a4e3f3af74a58590cfb9974632ddc6d4efc6786b
+    last_write_checksum: sha1:328b2809cdd0546a73abaaa9eb6f8a3f368a4338
   docs/models/operations/submit-content-request.md:
-    last_write_checksum: sha1:4a3d8248a9cee74c3435f8454c7521fd419a552c
+    last_write_checksum: sha1:618ad532892eacee33fb6764913f6108b5130d98
   docs/models/operations/submit-content-response.md:
     last_write_checksum: sha1:bc242c48c0b2d816c144783c7d19545e09626d59
   docs/models/operations/text-request.md:
@@ -552,7 +556,7 @@ trackedFiles:
   docs/models/operations/unresolve-queue-item-request-body.md:
     last_write_checksum: sha1:befb3650deba6f87ae978ff6a020705d022e3d15
   docs/models/operations/unresolve-queue-item-request.md:
-    last_write_checksum: sha1:2e170734b0d8b0e16fa13fa0c3036d8998a05b2d
+    last_write_checksum: sha1:d66f0d75a1da22eb93f621bd8946eb883506fe14
   docs/models/operations/unresolve-queue-item-response.md:
     last_write_checksum: sha1:914a833cb3fe2c7be241e1811b320a53f7617343
   docs/models/operations/update-action-position-request.md:
@@ -570,7 +574,7 @@ trackedFiles:
   docs/models/operations/update-action-request-body.md:
     last_write_checksum: sha1:d6db2adee9cef0d7baf847844de5580fb10e8ca9
   docs/models/operations/update-action-request.md:
-    last_write_checksum: sha1:a4b16210e48a1bf783ff6b78a190a8db66e8ac09
+    last_write_checksum: sha1:d43cf9730f97a2ec7bc2e125b1a811ab91abc027
   docs/models/operations/update-action-response.md:
     last_write_checksum: sha1:c26128748689722552d4db4c7a27e94b71a27d45
   docs/models/operations/update-action-type-request.md:
@@ -582,7 +586,7 @@ trackedFiles:
   docs/models/operations/update-author-request-body.md:
     last_write_checksum: sha1:fd1591a0367da42fe5b6f34e64c8d8bbb584b84b
   docs/models/operations/update-author-request.md:
-    last_write_checksum: sha1:d03e75866f856aad5a31ce1b554ba100bf7a9149
+    last_write_checksum: sha1:646b76d1aba1f1a2ca8167b746925f837fef32c1
   docs/models/operations/update-channel-content-type.md:
     last_write_checksum: sha1:93f08aceb660f34d40fc6bafe973725b7fcf3b08
   docs/models/operations/update-channel-request-body.md:
@@ -602,13 +606,13 @@ trackedFiles:
   docs/models/operations/update-webhook-request-body.md:
     last_write_checksum: sha1:da06b19a591b9f3644401bc459f1e54e19dc7e16
   docs/models/operations/update-webhook-request.md:
-    last_write_checksum: sha1:849f4669e91ae80666783175806005a892e8c2bd
+    last_write_checksum: sha1:56af8249d8cd6d4dfb38cbe06f45d589b00c57ae
   docs/models/operations/update-webhook-response.md:
     last_write_checksum: sha1:7a4027d284b8b754474eeafbefe720c1f5405415
   docs/models/operations/update-wordlist-request-body.md:
     last_write_checksum: sha1:a10650e6b0e045034bc1c366867f66bb4c0cc791
   docs/models/operations/update-wordlist-request.md:
-    last_write_checksum: sha1:bf0836f660c81547a17bed9d5e5e91d2934d5a39
+    last_write_checksum: sha1:fd7bc2114d6672e0549175353e9cd6cb4d5c25cd
   docs/models/operations/update-wordlist-response.md:
     last_write_checksum: sha1:d1bcfa842e01f00e817271692c356bbb61aabca8
   docs/models/operations/url-masking.md:
@@ -635,6 +639,8 @@ trackedFiles:
     last_write_checksum: sha1:000f66a8cdd02ed7c05e8e80aa1fd09a1ed2d2ee
   docs/models/permission-denied-error-code.md:
     last_write_checksum: sha1:a0c3b391ec07d6a0632478a2042f111f92dc5663
+  docs/models/project-api-key.md:
+    last_write_checksum: sha1:23176c3f51465d917f0686b903657cd21062bbf7
   docs/models/project-global-flagging-mode.md:
     last_write_checksum: sha1:d2c5e7e20fe2c4128e5a954355381bb0ad2eb9fd
   docs/models/project-with-key-global-flagging-mode.md:
@@ -658,29 +664,31 @@ trackedFiles:
   docs/models/trust-level.md:
     last_write_checksum: sha1:fbd2f87580c0a6f92a88899ab764c9aa97d562a8
   docs/sdks/account/README.md:
-    last_write_checksum: sha1:c362f326561e234bfd195d45d6aa4f653de7ab7a
+    last_write_checksum: sha1:059fed03cb41253ac7d36f0683b67d68d584c974
   docs/sdks/actions/README.md:
-    last_write_checksum: sha1:fc74c894b10d3ed4f5f04effdbc261d223618fc0
+    last_write_checksum: sha1:efb3e4aaa786d2f6f8f9b9496685c04c1db3af48
+  docs/sdks/apikeys/README.md:
+    last_write_checksum: sha1:a092ea30162aba4182557f85a1332122c79cfaac
   docs/sdks/authors/README.md:
-    last_write_checksum: sha1:bb82e264379aa8169ccfc97f6ff879567e49aee0
+    last_write_checksum: sha1:d0e0481d4d2b2d047690bbb5e91575d402b6c5ec
   docs/sdks/channels/README.md:
     last_write_checksum: sha1:0dc23f6f60598b2cbd22b0437e671cfda686562c
   docs/sdks/content/README.md:
-    last_write_checksum: sha1:f99c782a1bab737590c4795949b9aaaacbf2afd8
+    last_write_checksum: sha1:25b36c70c1cab595dd4c193c3069001bb8bb64a6
   docs/sdks/items/README.md:
-    last_write_checksum: sha1:049c5c291a257599b7c93cab133dea4e12a53df0
+    last_write_checksum: sha1:613c75a2acbc8b94ce109a4091b3c63896c9d2a4
   docs/sdks/projects/README.md:
     last_write_checksum: sha1:5099f84c9c94c5588cc8c8b646ae74054d4be863
   docs/sdks/queue/README.md:
-    last_write_checksum: sha1:ff03507002d7ec54bb21e2e9dd4418434b273856
+    last_write_checksum: sha1:0582f2f27a359edc3c6c5238c22fb2c1081bf4c4
   docs/sdks/webhooks/README.md:
-    last_write_checksum: sha1:e51d6d77e2ce0e07dc0f58703bed11e3a1ea9a09
+    last_write_checksum: sha1:1e7ca844fb547c0f06e0b40b30685a1c956d6e08
   docs/sdks/webhooksecret/README.md:
-    last_write_checksum: sha1:55f458a9214267e58990b23823c7944b1f3ef83f
+    last_write_checksum: sha1:cab757440af86a7d567f79312b737d9845e0d6a2
   docs/sdks/wordlist/README.md:
-    last_write_checksum: sha1:cfb69280acc8ae3adaeb1d567c0ae15b40af6b66
+    last_write_checksum: sha1:532194adaa99e1e27d02372521476c0974cbc545
   docs/sdks/words/README.md:
-    last_write_checksum: sha1:2feb2b2b8f5e2060ba638cb7e8fbea64afaf846a
+    last_write_checksum: sha1:04f7705c5f43e60d149f5a4d1f519bfbe728c4bd
   examples/.env.template:
     last_write_checksum: sha1:b9b5c0aa9e791535de9c5f1c75634faef4b4b030
   examples/README.md:
@@ -690,9 +698,9 @@ trackedFiles:
   examples/package.json:
     last_write_checksum: sha1:72d702bad23c84698d27164ca08d5f0ff931af65
   jsr.json:
-    last_write_checksum: sha1:d9f5d71a49c0d43a9668b8caa46a1526aacba781
+    last_write_checksum: sha1:06dd576f267b7cd04041eba64710d91e07f1b7e9
   package.json:
-    last_write_checksum: sha1:f8d16c8a36dbd37faf95aa8e2987a3057a82df41
+    last_write_checksum: sha1:e317ca7d796fde818116327831b8246a129b5d41
   src/core.ts:
     last_write_checksum: sha1:72b4c09e9228c63a9cc3335baa0ae5be47c2bc9c
   src/funcs/account-retrieve.ts:
@@ -733,6 +741,8 @@ trackedFiles:
     last_write_checksum: sha1:d28482419848661dc8a626a089112e73d1f8134e
   src/funcs/content-submit.ts:
     last_write_checksum: sha1:fdca5b9045341128939058fb21071d48d2c01eb0
+  src/funcs/projects-api-keys-create.ts:
+    last_write_checksum: sha1:25afc3031255ddbba47e2671d268374f180665ca
   src/funcs/projects-create.ts:
     last_write_checksum: sha1:1d5128fe44c57de6e610339e681d17dece464c8c
   src/funcs/projects-delete.ts:
@@ -790,7 +800,7 @@ trackedFiles:
   src/lib/base64.ts:
     last_write_checksum: sha1:8c94164f2f78e6041c853186fa01f659591f5913
   src/lib/config.ts:
-    last_write_checksum: sha1:16d4a4e113b0da24d571561048a490241f7d38b7
+    last_write_checksum: sha1:bf890a8476bcdeee22e18f4a132009d36534a226
   src/lib/encodings.ts:
     last_write_checksum: sha1:4481b2a380f8a16856ef92c66fb370299f56d135
   src/lib/env.ts:
@@ -818,7 +828,7 @@ trackedFiles:
   src/models/authentication-error.ts:
     last_write_checksum: sha1:9040431089f953dc7918ac6a919803e6bdcdf1a1
   src/models/bad-request-error.ts:
-    last_write_checksum: sha1:7fab44fcda0f75a44dcb14bd581d1ce3e5479bf2
+    last_write_checksum: sha1:393ef7de99804307f370e0024d025e9e968464a1
   src/models/channel.ts:
     last_write_checksum: sha1:18563c2ea4d555d86e6f3058b869e07d3562cf35
   src/models/conflict-error.ts:
@@ -828,7 +838,7 @@ trackedFiles:
   src/models/errors/authentication-error.ts:
     last_write_checksum: sha1:9eb1e70491b83c8549b9e670c0cd82abe182584d
   src/models/errors/bad-request-error.ts:
-    last_write_checksum: sha1:80f6fca704345fca0b2a5aeb093bdca3c7b0dcbc
+    last_write_checksum: sha1:4627fb65fc0b43c9d5552d81d0e80664087c6976
   src/models/errors/conflict-error.ts:
     last_write_checksum: sha1:31a0683d7e721a3e08e4a0d53e9247b11e621732
   src/models/errors/http-client-errors.ts:
@@ -852,101 +862,105 @@ trackedFiles:
   src/models/errors/sdk-validation-error.ts:
     last_write_checksum: sha1:92771987c251f02fd86cfd824a3be709cd3c2837
   src/models/index.ts:
-    last_write_checksum: sha1:28daf656cb6db17e0ac3792ba5ef6210c7c74da6
+    last_write_checksum: sha1:38dd79886c3ea2de3fd73386399a7d872873a554
   src/models/internal-server-error.ts:
     last_write_checksum: sha1:051d77aea80454b563c750064b121fc814184602
   src/models/not-found-error.ts:
     last_write_checksum: sha1:e529ab165b42ef34e33fb4ebcf5ec244f916d7d5
   src/models/operations/add-wordlist-words.ts:
-    last_write_checksum: sha1:54527ccc2d4491e2718f7dcbdb53055640e0e7a6
+    last_write_checksum: sha1:bca0ce826472d0d4ff7e3bc8034cafc93513c652
   src/models/operations/create-action.ts:
-    last_write_checksum: sha1:54a2c326251775a7089e95328660aad0cbdecb89
+    last_write_checksum: sha1:465b5a649cce0ae44431b729dad38b70d2e70196
   src/models/operations/create-author.ts:
-    last_write_checksum: sha1:28fde3888b923d9434426b731d2c77f283bedfe1
+    last_write_checksum: sha1:c23f0550714142a84d64636f645dad7bb19aa381
   src/models/operations/create-channel.ts:
     last_write_checksum: sha1:cabc482911728dd312e75fb1f3b2ffd0721b45e2
+  src/models/operations/create-project-api-key.ts:
+    last_write_checksum: sha1:606574e5c23a6d5ee707da020a88ec52c2000108
   src/models/operations/create-project.ts:
     last_write_checksum: sha1:147c8396e20ae365554d1bd3a9cf82094b5d6957
   src/models/operations/create-webhook.ts:
-    last_write_checksum: sha1:81d7e3c315e7a79aa76617bf3fb5c86f292a0365
+    last_write_checksum: sha1:76a0b5cbd202f3e78450d90a46214839f7de4eaa
   src/models/operations/delete-action.ts:
-    last_write_checksum: sha1:76e057d379c9f5df4f0e5953fc2aafea71fdfe50
+    last_write_checksum: sha1:e92441531b296ef818372fb39e75e39200aa4135
   src/models/operations/delete-author.ts:
-    last_write_checksum: sha1:2249b7539fb89ff293c69dd17f1f86220daaaa79
+    last_write_checksum: sha1:3af991c73d2f89b907f6be8a2bd87efb7b02c9d4
   src/models/operations/delete-channel.ts:
     last_write_checksum: sha1:152a14565d6146a631789cefc6d4bcaecace08f6
   src/models/operations/delete-project.ts:
     last_write_checksum: sha1:1b89d788b30bda054ddb0832e8099ed31b78a2a0
   src/models/operations/delete-webhook.ts:
-    last_write_checksum: sha1:3f5dc13439e7206673547d5ca77240a7607d536a
+    last_write_checksum: sha1:ec5c079025ca28b92c865f42493fc728a37bb3aa
   src/models/operations/duplicate-channel.ts:
     last_write_checksum: sha1:1992ab1dec599b6c6751fa259119fc6ccf4d2974
   src/models/operations/duplicate-project.ts:
     last_write_checksum: sha1:111826d4d5e53c6622cce8be741c81b39b13d1d7
   src/models/operations/execute-action.ts:
-    last_write_checksum: sha1:8621e5b5565830bbf348a3a071401db8f25fa5bf
+    last_write_checksum: sha1:6cb2505aa4ddd4d5f9b439189f95fd024525c099
   src/models/operations/get-account.ts:
-    last_write_checksum: sha1:dbb94046a69604a6b60e9afb25ef03d8c58632c7
+    last_write_checksum: sha1:45071f887a86c43c4cf29f07ca70be8261aae3e2
   src/models/operations/get-action.ts:
-    last_write_checksum: sha1:c1ae06915429e2c3298043346d3e3b521716887d
+    last_write_checksum: sha1:7fb890d4779237d3ed2fc42b3c057d4dd8429373
   src/models/operations/get-author.ts:
-    last_write_checksum: sha1:38cf61572641cd12bf6a9d1ca329b20e989b8ca8
+    last_write_checksum: sha1:b4a8bdc108b5699eb961a6c9296e7e77c1d89464
   src/models/operations/get-channel.ts:
     last_write_checksum: sha1:2379dbe5480531f8afc81e18f7645e2fb3367b23
   src/models/operations/get-project.ts:
     last_write_checksum: sha1:f2398da115bc20dfd88f8b56cc34ab4744ae09b8
   src/models/operations/get-queue-stats.ts:
-    last_write_checksum: sha1:f8e31d9aaa8f4b09d0c51c70789ac1b1f92071e9
+    last_write_checksum: sha1:f5695fa6514c75445038e6dea1ffdb953b3cf1a7
   src/models/operations/get-queue.ts:
-    last_write_checksum: sha1:cddcd5751e5d5ed4aa849d0d8704e005579f1faf
+    last_write_checksum: sha1:e7d1b9a0830dc74439319394d97387fa07cbcd96
   src/models/operations/get-webhook-secret.ts:
-    last_write_checksum: sha1:b1130791d1fb2cbeca443ae277c702d665f32daa
+    last_write_checksum: sha1:f7e699d5bec632436ea4ab03b71793c534353647
   src/models/operations/get-webhook.ts:
-    last_write_checksum: sha1:a5126442e1520aacfac1469e58a896013ad3244b
+    last_write_checksum: sha1:01ca5b8ccad1258b5583fc42ca074e77604d3fbf
   src/models/operations/get-wordlist-embedding-status.ts:
-    last_write_checksum: sha1:3d49b8496f4f0f1585952ad768addb96c8819c8b
+    last_write_checksum: sha1:55e32cbf1d736b068f7a8d861ae980b3a6bdf727
   src/models/operations/get-wordlist.ts:
-    last_write_checksum: sha1:3dc8da3c97b367a7c6de937cfc4baf5d5b8b9c47
+    last_write_checksum: sha1:0cfd3f20b74b9dafa1c2ab8159bf165bc99ae830
   src/models/operations/index.ts:
-    last_write_checksum: sha1:ea0b8356e80095f33a542d7ca190af965a681c65
+    last_write_checksum: sha1:191fe4b5884584c3fe92f512ba14908f1044d201
   src/models/operations/list-actions.ts:
-    last_write_checksum: sha1:31caed7f3cef0dc36f2a9b53614bb8dd71ff526b
+    last_write_checksum: sha1:2d872ead1fa82d0e580eae92cfcb6593b71972cb
   src/models/operations/list-authors.ts:
-    last_write_checksum: sha1:7ce4521cbd7ccb0e923854d6563f59e9e7eb4ade
+    last_write_checksum: sha1:cb33fe137cef8d17bb27f552c3009906ce201df4
   src/models/operations/list-channels.ts:
     last_write_checksum: sha1:7552a7851b969bea092d45e6db748aa11b2bf18d
   src/models/operations/list-projects.ts:
     last_write_checksum: sha1:0c1cf0e09f7c0ae20c42b1707947474386d11ab9
   src/models/operations/list-queue-items.ts:
-    last_write_checksum: sha1:33b798e8fe1d37ee6fab361d3eb91dca0f0e9703
+    last_write_checksum: sha1:f151b029900555a2330389005a75eeadee715f61
   src/models/operations/list-webhooks.ts:
-    last_write_checksum: sha1:3020f3ae92e40817168a546d2dcc8f19fdeca452
+    last_write_checksum: sha1:f7571c32c6ed72a21fa4d2f9408daf4c614e99d0
   src/models/operations/list-wordlists.ts:
-    last_write_checksum: sha1:b5d9e320705feff178d04ff556f1f835b367eec8
+    last_write_checksum: sha1:9ac9dc22488a6c34c99dcf4180b08406986c8152
   src/models/operations/remove-wordlist-words.ts:
-    last_write_checksum: sha1:c172df18b3e4eb7574f6a0eceb86138c10294641
+    last_write_checksum: sha1:494ac821a6346f6b08e16b57b95b895300c887a1
   src/models/operations/resolve-queue-item.ts:
-    last_write_checksum: sha1:cc0c6b0b26d1b242010592882c054f5a8319bd8d
+    last_write_checksum: sha1:93b75e82bbe6b673742298c0fbaa4a17e9e0f54e
   src/models/operations/submit-content.ts:
-    last_write_checksum: sha1:b21588210b0a83679b1561ab2f73dee1bf909f74
+    last_write_checksum: sha1:bd2bbd2c9ae2d52fcee5a29bc7e4e8baf3142bd8
   src/models/operations/unresolve-queue-item.ts:
-    last_write_checksum: sha1:cfdb1409a28455beb758cb9b7f817eab92635943
+    last_write_checksum: sha1:cdb8502f2082c957a2ff99ffee7436d356af7698
   src/models/operations/update-action.ts:
-    last_write_checksum: sha1:eb850a459c462444caf46e436490cc8af2b14cc1
+    last_write_checksum: sha1:835852cd8092e2ec95ec1ad43071ee792647c49a
   src/models/operations/update-author.ts:
-    last_write_checksum: sha1:a09c8738c241f8aaa9dfd409fbbb59a986303641
+    last_write_checksum: sha1:4ab9677cb73ebd6d92b0ad88bb9d8b40bec8b1a3
   src/models/operations/update-channel.ts:
     last_write_checksum: sha1:19c31967441efd4cc33f2b2d4eb2c93961b4fe5f
   src/models/operations/update-project.ts:
     last_write_checksum: sha1:79d26d42ab8a8220eccb1270ae771bb9922c407a
   src/models/operations/update-webhook.ts:
-    last_write_checksum: sha1:d5be48cddff706c174946272029e55541a2b2e74
+    last_write_checksum: sha1:e4fa6c421e0afcf5d2ba899c820072f806ad7877
   src/models/operations/update-wordlist.ts:
-    last_write_checksum: sha1:768058d8ffaa2e2826496eeede6d0a3a3c141f9c
+    last_write_checksum: sha1:0a67dedb1986df7b33f41cbdae7180ece0237242
   src/models/pagination.ts:
     last_write_checksum: sha1:8652b1b5bd88e5f1505c99836ed9ab906d2de6b6
   src/models/permission-denied-error.ts:
     last_write_checksum: sha1:10b45009baf666d78072f06f0136e229ccd99e75
+  src/models/project-api-key.ts:
+    last_write_checksum: sha1:bedfb27ab7ee77eeb290c4f7ee69b28002720094
   src/models/project-with-key.ts:
     last_write_checksum: sha1:4cfe9bc82338a25ac5f0b9871caa3bfb2968a71d
   src/models/project.ts:
@@ -961,6 +975,8 @@ trackedFiles:
     last_write_checksum: sha1:af45ed201b0dba505aa28dd9669afeb5ad9a9fb9
   src/sdk/actions.ts:
     last_write_checksum: sha1:7533f896c27b4343d8ae84ba15399fda3569abb3
+  src/sdk/api-keys.ts:
+    last_write_checksum: sha1:ce7ee16b0359bab65b9715e0abf84e6a8fff7eb2
   src/sdk/authors.ts:
     last_write_checksum: sha1:ac017c586ca8100b30fe03bfdf04e45e65a054f8
   src/sdk/channels.ts:
@@ -972,7 +988,7 @@ trackedFiles:
   src/sdk/items.ts:
     last_write_checksum: sha1:0f07549211c8c74f8c8fb58d535cf8dc10c132f6
   src/sdk/projects.ts:
-    last_write_checksum: sha1:48a2494349c8196a94d46ff5204485a2c2020e80
+    last_write_checksum: sha1:096e08f34b6f2b9c04001f41fddef32218ebdde5
   src/sdk/queue.ts:
     last_write_checksum: sha1:90f5da61236b0b72552412c512f1d17f34116425
   src/sdk/sdk.ts:
@@ -1765,4 +1781,24 @@ examples:
           application/json: {"type": "not_found_error", "code": "resource_not_found", "message": "Not found", "request_id": "h8fkz6kkzoa446ffve37atys", "doc_url": "https://insecure-premium.com/"}
         "429":
           application/json: {"type": "rate_limit_error", "code": "rate_limit_exceeded", "message": "Rate limit exceeded", "request_id": "h8fkz6kkzoa446ffve37atys", "doc_url": "https://upset-hydrant.info/"}
+  createProjectApiKey:
+    speakeasy-default-create-project-api-key:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: {"name": "API key"}
+      responses:
+        "200":
+          application/json: {"id": "<id>", "name": "<value>", "projectId": "<id>", "createdAt": "1711588645112", "secretKey": "<value>"}
+        "400":
+          application/json: {"type": "invalid_request_error", "code": "invalid_request", "message": "Invalid input data", "request_id": "h8fkz6kkzoa446ffve37atys", "doc_url": "https://rusty-responsibility.com"}
+        "401":
+          application/json: {"type": "authentication_error", "code": "unauthorized", "message": "Authorization not provided", "request_id": "h8fkz6kkzoa446ffve37atys", "doc_url": "https://compassionate-chow.net"}
+        "403":
+          application/json: {"type": "permission_error", "code": "permission_denied", "message": "Insufficient access", "request_id": "h8fkz6kkzoa446ffve37atys", "doc_url": "https://buzzing-convection.com/"}
+        "404":
+          application/json: {"type": "not_found_error", "code": "resource_not_found", "message": "Not found", "request_id": "h8fkz6kkzoa446ffve37atys", "doc_url": "https://impractical-bin.info/"}
+        "429":
+          application/json: {"type": "rate_limit_error", "code": "rate_limit_exceeded", "message": "Rate limit exceeded", "request_id": "h8fkz6kkzoa446ffve37atys", "doc_url": "https://damaged-bandwidth.name"}
 examplesVersion: 1.0.2
