@@ -1,0 +1,25 @@
+# ProjectApiKey
+
+## Example Usage
+
+```typescript
+import { ProjectApiKey } from "@moderation-api/sdk/models";
+
+let value: ProjectApiKey = {
+  id: "<id>",
+  name: "<value>",
+  projectId: "<id>",
+  createdAt: "1719832482347",
+  secretKey: "<value>",
+};
+```
+
+## Fields
+
+| Field                                                                                                           | Type                                                                                                            | Required                                                                                                        | Description                                                                                                     |
+| --------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
+| `id`                                                                                                            | *string*                                                                                                        | :heavy_check_mark:                                                                                              | The ID of the API key.                                                                                          |
+| `name`                                                                                                          | *string*                                                                                                        | :heavy_check_mark:                                                                                              | The key's name.                                                                                                 |
+| `projectId`                                                                                                     | *string*                                                                                                        | :heavy_check_mark:                                                                                              | The ID of the project the key belongs to.                                                                       |
+| `createdAt`                                                                                                     | *string*                                                                                                        | :heavy_check_mark:                                                                                              | When the key was created.                                                                                       |
+| `secretKey`                                                                                                     | *string*                                                                                                        | :heavy_check_mark:                                                                                              | The new secret API key. Use it to moderate content in this project. It is also shown in the project's settings. |

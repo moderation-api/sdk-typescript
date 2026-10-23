@@ -6,6 +6,7 @@ export * from "./add-wordlist-words.js";
 export * from "./create-action.js";
 export * from "./create-author.js";
 export * from "./create-channel.js";
+export * from "./create-project-api-key.js";
 export * from "./create-project.js";
 export * from "./create-webhook.js";
 export * from "./delete-action.js";

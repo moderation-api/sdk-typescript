@@ -344,9 +344,9 @@ run();
 Moderation API has two kinds of API keys:
 
 - A **project key** works with one project: content, authors, review queues, actions, wordlists, webhooks and the account. Most integrations need only this key.
-- An **organization key** works with the [management API](https://docs.moderationapi.com/api-reference/management-api): projects and channels. The management API is available on Enterprise plans.
+- An **organization key** works with the [management API](https://docs.moderationapi.com/api-reference/management-api): projects and channels. It can also use any project's endpoints: name the project with `projectId`.
 
-Each key works only with its own endpoints. With the wrong key the API returns `403` with the code `project_key_required` or `organization_key_required`. If you use both, create one client for each key:
+A project key can't call the management API: the API returns `403` with the code `organization_key_required`. If you use both kinds of key, create one client for each:
 
 ```typescript
 import { ModerationApi } from "@moderation-api/sdk";
@@ -418,6 +418,10 @@ Create the organization client only where you manage projects and channels, for 
 * [update](docs/sdks/projects/README.md#update) - Update a project
 * [delete](docs/sdks/projects/README.md#delete) - Delete a project
 * [duplicate](docs/sdks/projects/README.md#duplicate) - Duplicate a project
+
+#### [Projects.ApiKeys](docs/sdks/apikeys/README.md)
+
+* [create](docs/sdks/apikeys/README.md#create) - Create a project API key
 
 ### [Queue](docs/sdks/queue/README.md)
 
@@ -491,6 +495,7 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`channelsRetrieve`](docs/sdks/channels/README.md#retrieve) - Get a channel
 - [`channelsUpdate`](docs/sdks/channels/README.md#update) - Update a channel
 - [`contentSubmit`](docs/sdks/content/README.md#submit) - Submit content
+- [`projectsApiKeysCreate`](docs/sdks/apikeys/README.md#create) - Create a project API key
 - [`projectsCreate`](docs/sdks/projects/README.md#create) - Create a project
 - [`projectsDelete`](docs/sdks/projects/README.md#delete) - Delete a project
 - [`projectsDuplicate`](docs/sdks/projects/README.md#duplicate) - Duplicate a project
@@ -690,11 +695,11 @@ run();
 
 
 **Inherit from [`ModerationAPIError`](./src/models/errors/moderation-api-error.ts)**:
-* [`BadRequestError`](./src/models/errors/bad-request-error.ts): The request is malformed or a parameter is invalid. Status code `400`. Applicable to 32 of 42 methods.*
-* [`NotFoundError`](./src/models/errors/not-found-error.ts): The resource does not exist or the key cannot see it. Status code `404`. Applicable to 31 of 42 methods.*
-* [`PermissionDeniedError`](./src/models/errors/permission-denied-error.ts): The API key cannot do this, or the plan limit for this resource is reached. Status code `403`. Applicable to 27 of 42 methods.*
-* [`InternalServerError`](./src/models/errors/internal-server-error.ts): Something went wrong on our side. Retry with backoff. Status code `500`. Applicable to 15 of 42 methods.*
-* [`ConflictError`](./src/models/errors/conflict-error.ts): The request conflicts with the current state of a resource. Status code `409`. Applicable to 2 of 42 methods.*
+* [`BadRequestError`](./src/models/errors/bad-request-error.ts): The request is malformed or a parameter is invalid. Status code `400`. Applicable to 33 of 43 methods.*
+* [`NotFoundError`](./src/models/errors/not-found-error.ts): The resource does not exist or the key cannot see it. Status code `404`. Applicable to 32 of 43 methods.*
+* [`PermissionDeniedError`](./src/models/errors/permission-denied-error.ts): The API key cannot do this, or the plan limit for this resource is reached. Status code `403`. Applicable to 28 of 43 methods.*
+* [`InternalServerError`](./src/models/errors/internal-server-error.ts): Something went wrong on our side. Retry with backoff. Status code `500`. Applicable to 15 of 43 methods.*
+* [`ConflictError`](./src/models/errors/conflict-error.ts): The request conflicts with the current state of a resource. Status code `409`. Applicable to 2 of 43 methods.*
 * [`ResponseValidationError`](./src/models/errors/response-validation-error.ts): Type mismatch between the data returned from the server and the structure expected by the SDK. See `error.rawValue` for the raw value and `error.pretty()` for a nicely formatted multi-line string.
 
 </details>
