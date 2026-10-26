@@ -1,0 +1,20 @@
+# CreateWordlistRequest
+
+## Example Usage
+
+```typescript
+import { CreateWordlistRequest } from "@moderation-api/sdk/models/operations";
+
+let value: CreateWordlistRequest = {
+  body: {
+    name: "<value>",
+  },
+};
+```
+
+## Fields
+
+| Field                                                                                                                                                                                                                                        | Type                                                                                                                                                                                                                                         | Required                                                                                                                                                                                                                                     | Description                                                                                                                                                                                                                                  |
+| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `projectId`                                                                                                                                                                                                                                  | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | The project to act on, by ID or name. Required with an organization key unless the key reaches only one project; list projects with GET /projects. A project key acts on its own project and needs no value: naming another one is an error. |
+| `body`                                                                                                                                                                                                                                       | [operations.CreateWordlistRequestBody](../../models/operations/create-wordlist-request-body.md)                                                                                                                                              | :heavy_check_mark:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |

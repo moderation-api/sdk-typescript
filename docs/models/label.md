@@ -1,0 +1,23 @@
+# Label
+
+## Example Usage
+
+```typescript
+import { Label } from "@moderation-api/sdk/models";
+
+let value: Label = {
+  label: "<value>",
+  score: 1430.61,
+};
+```
+
+## Fields
+
+| Field                                                                                                                                | Type                                                                                                                                 | Required                                                                                                                             | Description                                                                                                                          |
+| ------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------ |
+| `label`                                                                                                                              | *string*                                                                                                                             | :heavy_check_mark:                                                                                                                   | The label name                                                                                                                       |
+| `score`                                                                                                                              | *number*                                                                                                                             | :heavy_check_mark:                                                                                                                   | Confidence score between 0 and 1                                                                                                     |
+| `manual`                                                                                                                             | *boolean*                                                                                                                            | :heavy_minus_sign:                                                                                                                   | True if the label was applied manually by a moderator                                                                                |
+| `flagged`                                                                                                                            | *boolean*                                                                                                                            | :heavy_minus_sign:                                                                                                                   | Whether this label crossed its flagging threshold                                                                                    |
+| `shadowFlagged`                                                                                                                      | *boolean*                                                                                                                            | :heavy_minus_sign:                                                                                                                   | Whether this label crossed its threshold under a shadowed policy — reported for visibility, never counted toward a flagging decision |
+| `matches`                                                                                                                            | [models.QueueItemMatch](../models/queue-item-match.md)[]                                                                             | :heavy_minus_sign:                                                                                                                   | N/A                                                                                                                                  |

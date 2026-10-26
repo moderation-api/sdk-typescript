@@ -31,7 +31,7 @@ import { Result } from "../types/fp.js";
  * Update wordlist
  *
  * @remarks
- * Update a wordlist
+ * Update a wordlist. Fields that you do not send stay the same. If you send words, they replace all existing words, and the embeddings are updated in the background.
  */
 export function wordlistUpdate(
   client: ModerationApiCore,

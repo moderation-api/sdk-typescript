@@ -11,5 +11,5 @@ let value: SortBy = "averageSentiment";
 ## Values
 
 ```typescript
-"trustLevel" | "violationCount" | "reportCount" | "memberSince" | "lastActive" | "contentCount" | "flaggedContentRatio" | "averageSentiment"
+"trustLevel" | "violationCount" | "memberSince" | "lastActive" | "contentCount" | "flaggedContentRatio" | "averageSentiment"
 ```

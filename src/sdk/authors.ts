@@ -18,7 +18,7 @@ export class Authors extends ClientSDK {
    * List authors
    *
    * @remarks
-   * List authors with their activity metrics and reputation. The list is paginated.
+   * List the authors of the project, with their status, trust level and content metrics. The list is paginated. By default, the authors that were active most recently come first.
    */
   async list(
     request?: operations.ListAuthorsRequest | undefined,

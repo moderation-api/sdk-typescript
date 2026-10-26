@@ -1,0 +1,15 @@
+# CreateProjectApiKeyRequestBody
+
+## Example Usage
+
+```typescript
+import { CreateProjectApiKeyRequestBody } from "@moderation-api/sdk/models/operations";
+
+let value: CreateProjectApiKeyRequestBody = {};
+```
+
+## Fields
+
+| Field                                                                                                                                      | Type                                                                                                                                       | Required                                                                                                                                   | Description                                                                                                                                |
+| ------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| `name`                                                                                                                                     | *string*                                                                                                                                   | :heavy_minus_sign:                                                                                                                         | A name for the key, shown on the API keys page of the dashboard. Name it after where the key is used, for example the app or the computer. |

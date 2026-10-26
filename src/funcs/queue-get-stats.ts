@@ -31,7 +31,7 @@ import { Result } from "../types/fp.js";
  * Get queue statistics
  *
  * @remarks
- * Get detailed statistics about a moderation queue including review times, action counts, and trends
+ * Get review statistics of a queue for a period: resolved and pending items, the top reviewers and the resolved items per day.
  */
 export function queueGetStats(
   client: ModerationApiCore,

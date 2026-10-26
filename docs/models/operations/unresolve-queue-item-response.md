@@ -9,15 +9,15 @@ import { UnresolveQueueItemResponse } from "@moderation-api/sdk/models/operation
 
 let value: UnresolveQueueItemResponse = {
   success: true,
-  status: "<value>",
+  status: "pending",
   unresolvedAt: "<value>",
 };
 ```
 
 ## Fields
 
-| Field                                  | Type                                   | Required                               | Description                            |
-| -------------------------------------- | -------------------------------------- | -------------------------------------- | -------------------------------------- |
-| `success`                              | *boolean*                              | :heavy_check_mark:                     | N/A                                    |
-| `status`                               | *string*                               | :heavy_check_mark:                     | New status of the item                 |
-| `unresolvedAt`                         | *string*                               | :heavy_check_mark:                     | Timestamp when the item was unresolved |
+| Field                                                                                         | Type                                                                                          | Required                                                                                      | Description                                                                                   |
+| --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- |
+| `success`                                                                                     | *boolean*                                                                                     | :heavy_check_mark:                                                                            | N/A                                                                                           |
+| `status`                                                                                      | [operations.UnresolveQueueItemStatus](../../models/operations/unresolve-queue-item-status.md) | :heavy_check_mark:                                                                            | `pending` waits for review. `resolved` is reviewed.                                           |
+| `unresolvedAt`                                                                                | *string*                                                                                      | :heavy_check_mark:                                                                            | When the item was unresolved (ISO 8601).                                                      |

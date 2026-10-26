@@ -579,7 +579,7 @@ export type SubmitContentRequestBody = {
    */
   clientAction?: ClientAction | undefined;
   /**
-   * Do not store the content. The content won't enter the review queue
+   * Process the content without saving it on our servers. The item is still created and appears in the review queue, analytics and author history with its moderation results, but its content is empty, so reviewers cannot see what was submitted.
    */
   doNotStore?: boolean | undefined;
   /**
@@ -633,7 +633,7 @@ export type SubmitContentRequestBody = {
 
 export type SubmitContentRequest = {
   /**
-   * The project to act on, when you call with an organization key. Optional when the organization has one project. A project key acts on its own project: naming another one is an error.
+   * The project to act on, by ID or name. Required with an organization key unless the key reaches only one project; list projects with GET /projects. A project key acts on its own project and needs no value: naming another one is an error.
    */
   projectId?: string | undefined;
   body: SubmitContentRequestBody;
@@ -771,7 +771,7 @@ export type TrustLevel = {
   manual: boolean;
 };
 
-export type Author = {
+export type SubmitContentAuthor = {
   /**
    * Author ID in Moderation API
    */
@@ -820,7 +820,7 @@ export type Evaluation = {
 /**
  * The action to take based on the recommendation
  */
-export const SubmitContentRecommendationAction = {
+export const ActionResponse = {
   Review: "review",
   Allow: "allow",
   Reject: "reject",
@@ -828,9 +828,7 @@ export const SubmitContentRecommendationAction = {
 /**
  * The action to take based on the recommendation
  */
-export type SubmitContentRecommendationAction = OpenEnum<
-  typeof SubmitContentRecommendationAction
->;
+export type ActionResponse = OpenEnum<typeof ActionResponse>;
 
 export const ReasonCodeEnum = {
   SeverityReject: "severity_reject",
@@ -861,7 +859,7 @@ export type Recommendation = {
   /**
    * The action to take based on the recommendation
    */
-  action: SubmitContentRecommendationAction;
+  action: ActionResponse;
   /**
    * Reason codes for the recommendation. Standard codes plus a `rule:<key>` code identifying the rule that produced the action. Can be used to display a reason to the user.
    */
@@ -972,7 +970,7 @@ export type EntityMatcherOutput = {
   matches: Array<Match>;
 };
 
-export type SubmitContentLabel = {
+export type Label = {
   id: string;
   probability: number;
   flagged: boolean;
@@ -994,7 +992,7 @@ export type ClassifierOutput = {
    * The keys of the flagged fields if submitting an object.
    */
   flaggedFields?: Array<string> | undefined;
-  labels?: Array<SubmitContentLabel> | undefined;
+  labels?: Array<Label> | undefined;
   /**
    * Optional structured data produced by the policy. For face detection: { count, faces: [{ confidence, gender, age }] }.
    */
@@ -1004,7 +1002,7 @@ export type ClassifierOutput = {
 /**
  * Policy output schema.
  */
-export type PolicyResponse =
+export type SubmitContentPolicyResponse =
   | ClassifierOutput
   | EntityMatcherOutput
   | discriminatedUnionTypes.Unknown<"type">;
@@ -1151,7 +1149,7 @@ export type SubmitContentResponse = {
   /**
    * The author of the content if your account has authors enabled. Requires you to send authorId when submitting content.
    */
-  author: Author | null;
+  author: SubmitContentAuthor | null;
   /**
    * The evaluation of the content after running the channel policies.
    */
@@ -2859,7 +2857,10 @@ export function trustLevelFromJSON(
 }
 
 /** @internal */
-export const Author$inboundSchema: z.ZodMiniType<Author, unknown> = z.pipe(
+export const SubmitContentAuthor$inboundSchema: z.ZodMiniType<
+  SubmitContentAuthor,
+  unknown
+> = z.pipe(
   z.object({
     id: types.string(),
     external_id: z.optional(z.nullable(types.string())),
@@ -2875,13 +2876,13 @@ export const Author$inboundSchema: z.ZodMiniType<Author, unknown> = z.pipe(
   }),
 );
 
-export function authorFromJSON(
+export function submitContentAuthorFromJSON(
   jsonString: string,
-): SafeParseResult<Author, SDKValidationError> {
+): SafeParseResult<SubmitContentAuthor, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => Author$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Author' from JSON`,
+    (x) => SubmitContentAuthor$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'SubmitContentAuthor' from JSON`,
   );
 }
 
@@ -2916,10 +2917,10 @@ export function evaluationFromJSON(
 }
 
 /** @internal */
-export const SubmitContentRecommendationAction$inboundSchema: z.ZodMiniType<
-  SubmitContentRecommendationAction,
+export const ActionResponse$inboundSchema: z.ZodMiniType<
+  ActionResponse,
   unknown
-> = openEnums.inboundSchema(SubmitContentRecommendationAction);
+> = openEnums.inboundSchema(ActionResponse);
 
 /** @internal */
 export const ReasonCodeEnum$inboundSchema: z.ZodMiniType<
@@ -2964,7 +2965,7 @@ export const Recommendation$inboundSchema: z.ZodMiniType<
   unknown
 > = z.pipe(
   z.object({
-    action: SubmitContentRecommendationAction$inboundSchema,
+    action: ActionResponse$inboundSchema,
     reason_codes: z.array(
       smartUnion([ReasonCodeEnum$inboundSchema, types.string()]),
     ),
@@ -3161,23 +3162,20 @@ export function entityMatcherOutputFromJSON(
 }
 
 /** @internal */
-export const SubmitContentLabel$inboundSchema: z.ZodMiniType<
-  SubmitContentLabel,
-  unknown
-> = z.object({
+export const Label$inboundSchema: z.ZodMiniType<Label, unknown> = z.object({
   id: types.string(),
   probability: types.number(),
   flagged: types.boolean(),
   shadowFlagged: types.optional(types.boolean()),
 });
 
-export function submitContentLabelFromJSON(
+export function labelFromJSON(
   jsonString: string,
-): SafeParseResult<SubmitContentLabel, SDKValidationError> {
+): SafeParseResult<Label, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => SubmitContentLabel$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'SubmitContentLabel' from JSON`,
+    (x) => Label$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Label' from JSON`,
   );
 }
 
@@ -3192,9 +3190,7 @@ export const ClassifierOutput$inboundSchema: z.ZodMiniType<
     probability: types.number(),
     flagged: types.boolean(),
     flagged_fields: types.optional(z.array(types.string())),
-    labels: types.optional(
-      z.array(z.lazy(() => SubmitContentLabel$inboundSchema)),
-    ),
+    labels: types.optional(z.array(z.lazy(() => Label$inboundSchema))),
     data: types.optional(z.record(z.string(), z.any())),
   }),
   z.transform((v) => {
@@ -3215,21 +3211,21 @@ export function classifierOutputFromJSON(
 }
 
 /** @internal */
-export const PolicyResponse$inboundSchema: z.ZodMiniType<
-  PolicyResponse,
+export const SubmitContentPolicyResponse$inboundSchema: z.ZodMiniType<
+  SubmitContentPolicyResponse,
   unknown
 > = discriminatedUnion("type", {
   classifier: z.lazy(() => ClassifierOutput$inboundSchema),
   entity_matcher: z.lazy(() => EntityMatcherOutput$inboundSchema),
 });
 
-export function policyResponseFromJSON(
+export function submitContentPolicyResponseFromJSON(
   jsonString: string,
-): SafeParseResult<PolicyResponse, SDKValidationError> {
+): SafeParseResult<SubmitContentPolicyResponse, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => PolicyResponse$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PolicyResponse' from JSON`,
+    (x) => SubmitContentPolicyResponse$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'SubmitContentPolicyResponse' from JSON`,
   );
 }
 
@@ -3454,7 +3450,7 @@ export const SubmitContentResponse$inboundSchema: z.ZodMiniType<
   unknown
 > = z.object({
   content: z.lazy(() => ContentResponse$inboundSchema),
-  author: types.nullable(z.lazy(() => Author$inboundSchema)),
+  author: types.nullable(z.lazy(() => SubmitContentAuthor$inboundSchema)),
   evaluation: z.lazy(() => Evaluation$inboundSchema),
   recommendation: z.lazy(() => Recommendation$inboundSchema),
   casebook: types.nullable(z.lazy(() => Casebook$inboundSchema)),

@@ -5,9 +5,11 @@
 import { ClientSDK } from "../lib/sdks.js";
 import { Account } from "./account.js";
 import { Actions } from "./actions.js";
+import { Analytics } from "./analytics.js";
 import { Authors } from "./authors.js";
 import { Channels } from "./channels.js";
 import { Content } from "./content.js";
+import { Feedback } from "./feedback.js";
 import { Projects } from "./projects.js";
 import { Queue } from "./queue.js";
 import { WebhookSecret } from "./webhook-secret.js";
@@ -15,9 +17,19 @@ import { Webhooks } from "./webhooks.js";
 import { Wordlist } from "./wordlist.js";
 
 export class ModerationApi extends ClientSDK {
+  private _analytics?: Analytics;
+  get analytics(): Analytics {
+    return (this._analytics ??= new Analytics(this._options));
+  }
+
   private _authors?: Authors;
   get authors(): Authors {
     return (this._authors ??= new Authors(this._options));
+  }
+
+  private _feedback?: Feedback;
+  get feedback(): Feedback {
+    return (this._feedback ??= new Feedback(this._options));
   }
 
   private _queue?: Queue;

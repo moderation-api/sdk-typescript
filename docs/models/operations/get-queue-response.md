@@ -11,17 +11,17 @@ let value: GetQueueResponse = {
   queue: {
     id: "<id>",
     name: "<value>",
-    description: "until pointed schematise",
-    filter: {},
-    unresolvedItemsCount: 8405.32,
-    resolvedItemsCount: 2502.72,
-    totalItemsCount: 206.32,
+    description: null,
+    isDefault: true,
+    unresolvedItemsCount: 120098,
+    resolvedItemsCount: 340268,
+    totalItemsCount: 340987,
   },
 };
 ```
 
 ## Fields
 
-| Field                                                | Type                                                 | Required                                             | Description                                          |
-| ---------------------------------------------------- | ---------------------------------------------------- | ---------------------------------------------------- | ---------------------------------------------------- |
-| `queue`                                              | [operations.Queue](../../models/operations/queue.md) | :heavy_check_mark:                                   | N/A                                                  |
+| Field                                                       | Type                                                        | Required                                                    | Description                                                 |
+| ----------------------------------------------------------- | ----------------------------------------------------------- | ----------------------------------------------------------- | ----------------------------------------------------------- |
+| `queue`                                                     | [models.QueueWithCounts](../../models/queue-with-counts.md) | :heavy_check_mark:                                          | N/A                                                         |

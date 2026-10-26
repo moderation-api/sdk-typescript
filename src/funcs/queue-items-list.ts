@@ -34,10 +34,10 @@ import {
 } from "../types/operations.js";
 
 /**
- * Get queue items
+ * List queue items
  *
  * @remarks
- * Get paginated list of items in a moderation queue with filtering options
+ * List the items of a review queue, with the filters and the date window of the queue applied. By default only pending items. The list is paginated. Use the item `id` to resolve or unresolve an item.
  */
 export function queueItemsList(
   client: ModerationApiCore,
@@ -130,8 +130,7 @@ async function $do(
     "labels": payload.labels,
     "page": payload.page,
     "pageSize": payload.pageSize,
-    "sortDirection": payload.sortDirection,
-    "sortField": payload.sortField,
+    "sort": payload.sort,
   });
 
   const headers = new Headers(compactMap({

@@ -31,7 +31,7 @@ import { Result } from "../types/fp.js";
  * Get a queue
  *
  * @remarks
- * Get a queue
+ * Get a review queue with its item counts. The counts use the filters and the date window of the queue, the same as the dashboard.
  */
 export function queueRetrieve(
   client: ModerationApiCore,

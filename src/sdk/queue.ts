@@ -3,10 +3,12 @@
  */
 
 import { queueGetStats } from "../funcs/queue-get-stats.js";
+import { queueList } from "../funcs/queue-list.js";
 import { queueRetrieve } from "../funcs/queue-retrieve.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
+import { PageIterator, unwrapResultIterator } from "../types/operations.js";
 import { Items } from "./items.js";
 
 export class Queue extends ClientSDK {
@@ -16,10 +18,31 @@ export class Queue extends ClientSDK {
   }
 
   /**
+   * List queues
+   *
+   * @remarks
+   * List the review queues of the project. The default queue comes first. The list is paginated. To get the item counts of a queue, use `GET /queue/{id}`.
+   */
+  async list(
+    page?: number | undefined,
+    pageSize?: number | undefined,
+    projectId?: string | undefined,
+    options?: RequestOptions,
+  ): Promise<PageIterator<operations.ListQueuesResponse, { page: number }>> {
+    return unwrapResultIterator(queueList(
+      this,
+      page,
+      pageSize,
+      projectId,
+      options,
+    ));
+  }
+
+  /**
    * Get a queue
    *
    * @remarks
-   * Get a queue
+   * Get a review queue with its item counts. The counts use the filters and the date window of the queue, the same as the dashboard.
    */
   async retrieve(
     id: string,
@@ -38,7 +61,7 @@ export class Queue extends ClientSDK {
    * Get queue statistics
    *
    * @remarks
-   * Get detailed statistics about a moderation queue including review times, action counts, and trends
+   * Get review statistics of a queue for a period: resolved and pending items, the top reviewers and the resolved items per day.
    */
   async getStats(
     id: string,

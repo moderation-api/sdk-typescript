@@ -5,151 +5,38 @@
 import * as z from "zod/v4-mini";
 import { remap as remap$ } from "../../lib/primitives.js";
 import { safeParse } from "../../lib/schemas.js";
-import * as openEnums from "../../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../../types/enums.js";
+import { ClosedEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
-import * as types from "../../types/primitives.js";
 import { SDKValidationError } from "../errors/sdk-validation-error.js";
 import * as models from "../index.js";
 
-export const SortField = {
-  CreatedAt: "createdAt",
-  Severity: "severity",
-  ReviewedAt: "reviewedAt",
+export const Sort = {
+  Fifo: "FIFO",
+  Lifo: "LIFO",
+  Random: "RANDOM",
+  SeverityDesc: "SEVERITY_DESC",
 } as const;
-export type SortField = ClosedEnum<typeof SortField>;
-
-/**
- * Sort direction
- */
-export const ListQueueItemsSortDirection = {
-  Asc: "asc",
-  Desc: "desc",
-} as const;
-/**
- * Sort direction
- */
-export type ListQueueItemsSortDirection = ClosedEnum<
-  typeof ListQueueItemsSortDirection
->;
+export type Sort = ClosedEnum<typeof Sort>;
 
 export type ListQueueItemsRequest = {
   /**
-   * The queue ID
+   * The queue ID.
    */
   id: string;
   page?: number | undefined;
   pageSize?: number | undefined;
-  sortField?: SortField | undefined;
-  /**
-   * Sort direction
-   */
-  sortDirection?: ListQueueItemsSortDirection | undefined;
+  sort?: Sort | undefined;
+  includeResolved?: boolean | undefined;
   conversationIds?: Array<string> | undefined;
   labels?: Array<string> | undefined;
-  afterDate?: string | undefined;
-  beforeDate?: string | undefined;
-  includeResolved?: boolean | undefined;
   authorId?: string | undefined;
   filteredActionIds?: Array<string> | undefined;
+  afterDate?: string | undefined;
+  beforeDate?: string | undefined;
   /**
-   * The project to act on, when you call with an organization key. Optional when the organization has one project. A project key acts on its own project: naming another one is an error.
+   * The project to act on, by ID or name. Required with an organization key unless the key reaches only one project; list projects with GET /projects. A project key acts on its own project and needs no value: naming another one is an error.
    */
   projectId?: string | undefined;
-};
-
-export type ListQueueItemsLabel = {
-  /**
-   * Label name
-   */
-  label: string;
-  /**
-   * Confidence score of the label
-   */
-  score: number;
-  /**
-   * Whether this label caused a flag
-   */
-  flagged: boolean;
-};
-
-export type ListQueueItemsAction = {
-  /**
-   * Action ID
-   */
-  id: string;
-  /**
-   * Action name
-   */
-  name: string;
-  /**
-   * Action comment
-   */
-  comment?: string | undefined;
-  /**
-   * Unix timestamp of when the action was taken
-   */
-  timestamp: number;
-  /**
-   * Moderator userID
-   */
-  reviewer?: string | undefined;
-};
-
-/**
- * Status of the item
- */
-export const ListQueueItemsStatus = {
-  Pending: "pending",
-  Resolved: "resolved",
-} as const;
-/**
- * Status of the item
- */
-export type ListQueueItemsStatus = OpenEnum<typeof ListQueueItemsStatus>;
-
-export type ListQueueItemsData = {
-  /**
-   * Content ID
-   */
-  id: string;
-  /**
-   * The content to be moderated
-   */
-  content: string;
-  /**
-   * Content language
-   */
-  language?: string | undefined;
-  labels: Array<ListQueueItemsLabel>;
-  /**
-   * Conversation ID
-   */
-  conversationId?: string | undefined;
-  /**
-   * Author ID
-   */
-  authorId?: string | undefined;
-  /**
-   * Action IDs taken on this item
-   */
-  actions?: Array<ListQueueItemsAction> | undefined;
-  /**
-   * Whether the item is flagged by any label
-   */
-  flagged: boolean;
-  /**
-   * Status of the item
-   */
-  status: ListQueueItemsStatus;
-  /**
-   * Unix timestamp of when the item was created
-   */
-  timestamp: number;
-  /**
-   * Type of the content object
-   */
-  contentType?: string | undefined;
 };
 
 /**
@@ -159,7 +46,7 @@ export type ListQueueItemsResponseBody = {
   /**
    * The items on this page.
    */
-  data: Array<ListQueueItemsData>;
+  data: Array<models.QueueItem>;
   /**
    * Where this page is in the full list.
    */
@@ -171,29 +58,21 @@ export type ListQueueItemsResponse = {
 };
 
 /** @internal */
-export const SortField$outboundSchema: z.ZodMiniEnum<typeof SortField> = z.enum(
-  SortField,
-);
-
-/** @internal */
-export const ListQueueItemsSortDirection$outboundSchema: z.ZodMiniEnum<
-  typeof ListQueueItemsSortDirection
-> = z.enum(ListQueueItemsSortDirection);
+export const Sort$outboundSchema: z.ZodMiniEnum<typeof Sort> = z.enum(Sort);
 
 /** @internal */
 export type ListQueueItemsRequest$Outbound = {
   id: string;
   page: number;
   pageSize: number;
-  sortField?: string | undefined;
-  sortDirection: string;
+  sort?: string | undefined;
+  includeResolved?: boolean | undefined;
   conversationIds?: Array<string> | undefined;
   labels?: Array<string> | undefined;
-  afterDate?: string | undefined;
-  beforeDate?: string | undefined;
-  includeResolved?: boolean | undefined;
   authorId?: string | undefined;
   filteredActionIds?: Array<string> | undefined;
+  afterDate?: string | undefined;
+  beforeDate?: string | undefined;
   projectId?: string | undefined;
 };
 
@@ -205,15 +84,14 @@ export const ListQueueItemsRequest$outboundSchema: z.ZodMiniType<
   id: z.string(),
   page: z._default(z.int(), 1),
   pageSize: z._default(z.int(), 20),
-  sortField: z.optional(SortField$outboundSchema),
-  sortDirection: z._default(ListQueueItemsSortDirection$outboundSchema, "desc"),
+  sort: z.optional(Sort$outboundSchema),
+  includeResolved: z.optional(z.boolean()),
   conversationIds: z.optional(z.array(z.string())),
   labels: z.optional(z.array(z.string())),
-  afterDate: z.optional(z.string()),
-  beforeDate: z.optional(z.string()),
-  includeResolved: z.optional(z.boolean()),
   authorId: z.optional(z.string()),
   filteredActionIds: z.optional(z.array(z.string())),
+  afterDate: z.optional(z.string()),
+  beforeDate: z.optional(z.string()),
   projectId: z.optional(z.string()),
 });
 
@@ -226,89 +104,11 @@ export function listQueueItemsRequestToJSON(
 }
 
 /** @internal */
-export const ListQueueItemsLabel$inboundSchema: z.ZodMiniType<
-  ListQueueItemsLabel,
-  unknown
-> = z.object({
-  label: types.string(),
-  score: types.number(),
-  flagged: types.boolean(),
-});
-
-export function listQueueItemsLabelFromJSON(
-  jsonString: string,
-): SafeParseResult<ListQueueItemsLabel, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ListQueueItemsLabel$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListQueueItemsLabel' from JSON`,
-  );
-}
-
-/** @internal */
-export const ListQueueItemsAction$inboundSchema: z.ZodMiniType<
-  ListQueueItemsAction,
-  unknown
-> = z.object({
-  id: types.string(),
-  name: types.string(),
-  comment: types.optional(types.string()),
-  timestamp: types.number(),
-  reviewer: types.optional(types.string()),
-});
-
-export function listQueueItemsActionFromJSON(
-  jsonString: string,
-): SafeParseResult<ListQueueItemsAction, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ListQueueItemsAction$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListQueueItemsAction' from JSON`,
-  );
-}
-
-/** @internal */
-export const ListQueueItemsStatus$inboundSchema: z.ZodMiniType<
-  ListQueueItemsStatus,
-  unknown
-> = openEnums.inboundSchema(ListQueueItemsStatus);
-
-/** @internal */
-export const ListQueueItemsData$inboundSchema: z.ZodMiniType<
-  ListQueueItemsData,
-  unknown
-> = z.object({
-  id: types.string(),
-  content: types.string(),
-  language: types.optional(types.string()),
-  labels: z.array(z.lazy(() => ListQueueItemsLabel$inboundSchema)),
-  conversationId: types.optional(types.string()),
-  authorId: types.optional(types.string()),
-  actions: types.optional(
-    z.array(z.lazy(() => ListQueueItemsAction$inboundSchema)),
-  ),
-  flagged: types.boolean(),
-  status: ListQueueItemsStatus$inboundSchema,
-  timestamp: types.number(),
-  contentType: types.optional(types.string()),
-});
-
-export function listQueueItemsDataFromJSON(
-  jsonString: string,
-): SafeParseResult<ListQueueItemsData, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ListQueueItemsData$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListQueueItemsData' from JSON`,
-  );
-}
-
-/** @internal */
 export const ListQueueItemsResponseBody$inboundSchema: z.ZodMiniType<
   ListQueueItemsResponseBody,
   unknown
 > = z.object({
-  data: z.array(z.lazy(() => ListQueueItemsData$inboundSchema)),
+  data: z.array(models.QueueItem$inboundSchema),
   pagination: models.Pagination$inboundSchema,
 });
 

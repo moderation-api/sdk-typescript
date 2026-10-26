@@ -13,7 +13,6 @@ import * as models from "../index.js";
 export const SortBy = {
   TrustLevel: "trustLevel",
   ViolationCount: "violationCount",
-  ReportCount: "reportCount",
   MemberSince: "memberSince",
   LastActive: "lastActive",
   ContentCount: "contentCount",
@@ -25,16 +24,14 @@ export type SortBy = ClosedEnum<typeof SortBy>;
 /**
  * Sort direction
  */
-export const ListAuthorsSortDirection = {
+export const SortDirection = {
   Asc: "asc",
   Desc: "desc",
 } as const;
 /**
  * Sort direction
  */
-export type ListAuthorsSortDirection = ClosedEnum<
-  typeof ListAuthorsSortDirection
->;
+export type SortDirection = ClosedEnum<typeof SortDirection>;
 
 export type ListAuthorsRequest = {
   page?: number | undefined;
@@ -43,12 +40,11 @@ export type ListAuthorsRequest = {
   /**
    * Sort direction
    */
-  sortDirection?: ListAuthorsSortDirection | undefined;
+  sortDirection?: SortDirection | undefined;
   memberSinceDate?: string | undefined;
   lastActiveDate?: string | undefined;
-  contentTypes?: Array<string> | undefined;
   /**
-   * The project to act on, when you call with an organization key. Optional when the organization has one project. A project key acts on its own project: naming another one is an error.
+   * The project to act on, by ID or name. Required with an organization key unless the key reaches only one project; list projects with GET /projects. A project key acts on its own project and needs no value: naming another one is an error.
    */
   projectId?: string | undefined;
 };
@@ -77,9 +73,8 @@ export const SortBy$outboundSchema: z.ZodMiniEnum<typeof SortBy> = z.enum(
 );
 
 /** @internal */
-export const ListAuthorsSortDirection$outboundSchema: z.ZodMiniEnum<
-  typeof ListAuthorsSortDirection
-> = z.enum(ListAuthorsSortDirection);
+export const SortDirection$outboundSchema: z.ZodMiniEnum<typeof SortDirection> =
+  z.enum(SortDirection);
 
 /** @internal */
 export type ListAuthorsRequest$Outbound = {
@@ -89,7 +84,6 @@ export type ListAuthorsRequest$Outbound = {
   sortDirection: string;
   memberSinceDate?: string | undefined;
   lastActiveDate?: string | undefined;
-  contentTypes?: Array<string> | undefined;
   projectId?: string | undefined;
 };
 
@@ -101,10 +95,9 @@ export const ListAuthorsRequest$outboundSchema: z.ZodMiniType<
   page: z._default(z.int(), 1),
   pageSize: z._default(z.int(), 20),
   sortBy: z.optional(SortBy$outboundSchema),
-  sortDirection: z._default(ListAuthorsSortDirection$outboundSchema, "desc"),
+  sortDirection: z._default(SortDirection$outboundSchema, "desc"),
   memberSinceDate: z.optional(z.string()),
   lastActiveDate: z.optional(z.string()),
-  contentTypes: z.optional(z.array(z.string())),
   projectId: z.optional(z.string()),
 });
 
