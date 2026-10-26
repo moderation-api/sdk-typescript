@@ -6,16 +6,14 @@
 import { ReviewStats } from "@moderation-api/sdk/models/operations";
 
 let value: ReviewStats = {
-  averageTimeToReview: 5134.09,
-  totalReviewed: 2591.46,
-  totalPending: 9962.95,
+  totalReviewed: 513409,
+  totalPending: 259146,
 };
 ```
 
 ## Fields
 
-| Field                                          | Type                                           | Required                                       | Description                                    |
-| ---------------------------------------------- | ---------------------------------------------- | ---------------------------------------------- | ---------------------------------------------- |
-| `averageTimeToReview`                          | *number*                                       | :heavy_check_mark:                             | Average time in milliseconds to review an item |
-| `totalReviewed`                                | *number*                                       | :heavy_check_mark:                             | Total number of items reviewed                 |
-| `totalPending`                                 | *number*                                       | :heavy_check_mark:                             | Total number of items pending review           |
+| Field                                                             | Type                                                              | Required                                                          | Description                                                       |
+| ----------------------------------------------------------------- | ----------------------------------------------------------------- | ----------------------------------------------------------------- | ----------------------------------------------------------------- |
+| `totalReviewed`                                                   | *number*                                                          | :heavy_check_mark:                                                | Number of items resolved in this queue in the period.             |
+| `totalPending`                                                    | *number*                                                          | :heavy_check_mark:                                                | Number of items submitted in the period that wait for review now. |

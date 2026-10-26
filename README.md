@@ -327,11 +327,9 @@ const moderationApi = new ModerationApi({
 });
 
 async function run() {
-  const result = await moderationApi.authors.list({});
+  const result = await moderationApi.analytics.summary();
 
-  for await (const page of result) {
-    console.log(page);
-  }
+  console.log(result);
 }
 
 run();
@@ -344,9 +342,9 @@ run();
 Moderation API has two kinds of API keys:
 
 - A **project key** works with one project: content, authors, review queues, actions, wordlists, webhooks and the account. Most integrations need only this key.
-- An **organization key** works with the [management API](https://docs.moderationapi.com/api-reference/management-api): projects and channels. The management API is available on Enterprise plans.
+- An **organization key** works with the [management API](https://docs.moderationapi.com/api-reference/management-api): projects and channels. It can also use any project's endpoints: name the project with `projectId`.
 
-Each key works only with its own endpoints. With the wrong key the API returns `403` with the code `project_key_required` or `organization_key_required`. If you use both, create one client for each key:
+A project key can't call the management API: the API returns `403` with the code `organization_key_required`. If you use both kinds of key, create one client for each:
 
 ```typescript
 import { ModerationApi } from "@moderation-api/sdk";
@@ -389,6 +387,15 @@ Create the organization client only where you manage projects and channels, for 
 * [delete](docs/sdks/actions/README.md#delete) - Delete an action
 * [execute](docs/sdks/actions/README.md#execute) - Execute moderation action
 
+### [Analytics](docs/sdks/analytics/README.md)
+
+* [summary](docs/sdks/analytics/README.md#summary) - Get the analytics summary
+* [policies](docs/sdks/analytics/README.md#policies) - Get the most flagged policies
+* [authors](docs/sdks/analytics/README.md#authors) - Get the most flagged authors
+* [channels](docs/sdks/analytics/README.md#channels) - Get analytics per channel
+* [volumes](docs/sdks/analytics/README.md#volumes) - Get volumes over time
+* [automation](docs/sdks/analytics/README.md#automation) - Get the automation breakdown
+
 ### [Authors](docs/sdks/authors/README.md)
 
 * [list](docs/sdks/authors/README.md#list) - List authors
@@ -410,6 +417,10 @@ Create the organization client only where you manage projects and channels, for 
 
 * [submit](docs/sdks/content/README.md#submit) - Submit content
 
+### [Feedback](docs/sdks/feedback/README.md)
+
+* [create](docs/sdks/feedback/README.md#create) - Send feedback
+
 ### [Projects](docs/sdks/projects/README.md)
 
 * [list](docs/sdks/projects/README.md#list) - List projects
@@ -419,15 +430,21 @@ Create the organization client only where you manage projects and channels, for 
 * [delete](docs/sdks/projects/README.md#delete) - Delete a project
 * [duplicate](docs/sdks/projects/README.md#duplicate) - Duplicate a project
 
+#### [Projects.ApiKeys](docs/sdks/apikeys/README.md)
+
+* [create](docs/sdks/apikeys/README.md#create) - Create a project API key
+
 ### [Queue](docs/sdks/queue/README.md)
 
+* [list](docs/sdks/queue/README.md#list) - List queues
 * [retrieve](docs/sdks/queue/README.md#retrieve) - Get a queue
 * [getStats](docs/sdks/queue/README.md#getstats) - Get queue statistics
 
 #### [Queue.Items](docs/sdks/items/README.md)
 
-* [list](docs/sdks/items/README.md#list) - Get queue items
+* [list](docs/sdks/items/README.md#list) - List queue items
 * [resolve](docs/sdks/items/README.md#resolve) - Resolve a queue item
+* [resolveMany](docs/sdks/items/README.md#resolvemany) - Resolve queue items
 * [unresolve](docs/sdks/items/README.md#unresolve) - Unresolve a queue item
 
 ### [Webhooks](docs/sdks/webhooks/README.md)
@@ -445,6 +462,7 @@ Create the organization client only where you manage projects and channels, for 
 ### [Wordlist](docs/sdks/wordlist/README.md)
 
 * [list](docs/sdks/wordlist/README.md#list) - List wordlists
+* [create](docs/sdks/wordlist/README.md#create) - Create wordlist
 * [retrieve](docs/sdks/wordlist/README.md#retrieve) - Get wordlist
 * [update](docs/sdks/wordlist/README.md#update) - Update wordlist
 * [getEmbeddingStatus](docs/sdks/wordlist/README.md#getembeddingstatus) - Get embedding status
@@ -479,6 +497,12 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`actionsList`](docs/sdks/actions/README.md#list) - List moderation actions
 - [`actionsRetrieve`](docs/sdks/actions/README.md#retrieve) - Get an action
 - [`actionsUpdate`](docs/sdks/actions/README.md#update) - Update an action
+- [`analyticsAuthors`](docs/sdks/analytics/README.md#authors) - Get the most flagged authors
+- [`analyticsAutomation`](docs/sdks/analytics/README.md#automation) - Get the automation breakdown
+- [`analyticsChannels`](docs/sdks/analytics/README.md#channels) - Get analytics per channel
+- [`analyticsPolicies`](docs/sdks/analytics/README.md#policies) - Get the most flagged policies
+- [`analyticsSummary`](docs/sdks/analytics/README.md#summary) - Get the analytics summary
+- [`analyticsVolumes`](docs/sdks/analytics/README.md#volumes) - Get volumes over time
 - [`authorsCreate`](docs/sdks/authors/README.md#create) - Create a new author
 - [`authorsDelete`](docs/sdks/authors/README.md#delete) - Delete an author
 - [`authorsList`](docs/sdks/authors/README.md#list) - List authors
@@ -491,6 +515,8 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`channelsRetrieve`](docs/sdks/channels/README.md#retrieve) - Get a channel
 - [`channelsUpdate`](docs/sdks/channels/README.md#update) - Update a channel
 - [`contentSubmit`](docs/sdks/content/README.md#submit) - Submit content
+- [`feedbackCreate`](docs/sdks/feedback/README.md#create) - Send feedback
+- [`projectsApiKeysCreate`](docs/sdks/apikeys/README.md#create) - Create a project API key
 - [`projectsCreate`](docs/sdks/projects/README.md#create) - Create a project
 - [`projectsDelete`](docs/sdks/projects/README.md#delete) - Delete a project
 - [`projectsDuplicate`](docs/sdks/projects/README.md#duplicate) - Duplicate a project
@@ -498,9 +524,11 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`projectsRetrieve`](docs/sdks/projects/README.md#retrieve) - Get a project
 - [`projectsUpdate`](docs/sdks/projects/README.md#update) - Update a project
 - [`queueGetStats`](docs/sdks/queue/README.md#getstats) - Get queue statistics
-- [`queueItemsList`](docs/sdks/items/README.md#list) - Get queue items
+- [`queueItemsList`](docs/sdks/items/README.md#list) - List queue items
 - [`queueItemsResolve`](docs/sdks/items/README.md#resolve) - Resolve a queue item
+- [`queueItemsResolveMany`](docs/sdks/items/README.md#resolvemany) - Resolve queue items
 - [`queueItemsUnresolve`](docs/sdks/items/README.md#unresolve) - Unresolve a queue item
+- [`queueList`](docs/sdks/queue/README.md#list) - List queues
 - [`queueRetrieve`](docs/sdks/queue/README.md#retrieve) - Get a queue
 - [`webhooksCreate`](docs/sdks/webhooks/README.md#create) - Create a webhook
 - [`webhooksDelete`](docs/sdks/webhooks/README.md#delete) - Delete a webhook
@@ -508,6 +536,7 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`webhooksList`](docs/sdks/webhooks/README.md#list) - List webhooks
 - [`webhooksRetrieve`](docs/sdks/webhooks/README.md#retrieve) - Get a webhook
 - [`webhooksUpdate`](docs/sdks/webhooks/README.md#update) - Update a webhook
+- [`wordlistCreate`](docs/sdks/wordlist/README.md#create) - Create wordlist
 - [`wordlistGetEmbeddingStatus`](docs/sdks/wordlist/README.md#getembeddingstatus) - Get embedding status
 - [`wordlistList`](docs/sdks/wordlist/README.md#list) - List wordlists
 - [`wordlistRetrieve`](docs/sdks/wordlist/README.md#retrieve) - Get wordlist
@@ -564,22 +593,25 @@ const moderationApi = new ModerationApi({
 });
 
 async function run() {
-  const result = await moderationApi.authors.list({}, {
-    retries: {
-      strategy: "backoff",
-      backoff: {
-        initialInterval: 1,
-        maxInterval: 50,
-        exponent: 1.1,
-        maxElapsedTime: 100,
+  const result = await moderationApi.analytics.summary(
+    undefined,
+    undefined,
+    undefined,
+    {
+      retries: {
+        strategy: "backoff",
+        backoff: {
+          initialInterval: 1,
+          maxInterval: 50,
+          exponent: 1.1,
+          maxElapsedTime: 100,
+        },
+        retryConnectionErrors: false,
       },
-      retryConnectionErrors: false,
     },
-  });
+  );
 
-  for await (const page of result) {
-    console.log(page);
-  }
+  console.log(result);
 }
 
 run();
@@ -605,11 +637,9 @@ const moderationApi = new ModerationApi({
 });
 
 async function run() {
-  const result = await moderationApi.authors.list({});
+  const result = await moderationApi.analytics.summary();
 
-  for await (const page of result) {
-    console.log(page);
-  }
+  console.log(result);
 }
 
 run();
@@ -642,11 +672,9 @@ const moderationApi = new ModerationApi({
 
 async function run() {
   try {
-    const result = await moderationApi.authors.list({});
+    const result = await moderationApi.analytics.summary();
 
-    for await (const page of result) {
-      console.log(page);
-    }
+    console.log(result);
   } catch (error) {
     // The base class for HTTP error responses
     if (error instanceof errors.ModerationAPIError) {
@@ -676,8 +704,9 @@ run();
 * [`ModerationAPIError`](./src/models/errors/moderation-api-error.ts): The base class for HTTP error responses.
   * [`AuthenticationError`](./src/models/errors/authentication-error.ts): The API key is missing, invalid or revoked. Status code `401`.
   * [`RateLimitError`](./src/models/errors/rate-limit-error.ts): Too many requests. Retry after the number of seconds in the `Retry-After` header. Status code `429`.
+  * [`BadRequestError`](./src/models/errors/bad-request-error.ts): The request is malformed or a parameter is invalid. Status code `400`. *
 
-<details><summary>Less common errors (11)</summary>
+<details><summary>Less common errors (10)</summary>
 
 <br />
 
@@ -690,11 +719,10 @@ run();
 
 
 **Inherit from [`ModerationAPIError`](./src/models/errors/moderation-api-error.ts)**:
-* [`BadRequestError`](./src/models/errors/bad-request-error.ts): The request is malformed or a parameter is invalid. Status code `400`. Applicable to 32 of 42 methods.*
-* [`NotFoundError`](./src/models/errors/not-found-error.ts): The resource does not exist or the key cannot see it. Status code `404`. Applicable to 31 of 42 methods.*
-* [`PermissionDeniedError`](./src/models/errors/permission-denied-error.ts): The API key cannot do this, or the plan limit for this resource is reached. Status code `403`. Applicable to 27 of 42 methods.*
-* [`InternalServerError`](./src/models/errors/internal-server-error.ts): Something went wrong on our side. Retry with backoff. Status code `500`. Applicable to 15 of 42 methods.*
-* [`ConflictError`](./src/models/errors/conflict-error.ts): The request conflicts with the current state of a resource. Status code `409`. Applicable to 2 of 42 methods.*
+* [`NotFoundError`](./src/models/errors/not-found-error.ts): The resource does not exist or the key cannot see it. Status code `404`. Applicable to 39 of 53 methods.*
+* [`PermissionDeniedError`](./src/models/errors/permission-denied-error.ts): The API key cannot do this, or the plan limit for this resource is reached. Status code `403`. Applicable to 36 of 53 methods.*
+* [`InternalServerError`](./src/models/errors/internal-server-error.ts): Something went wrong on our side. Retry with backoff. Status code `500`. Applicable to 23 of 53 methods.*
+* [`ConflictError`](./src/models/errors/conflict-error.ts): The request conflicts with the current state of a resource. Status code `409`. Applicable to 2 of 53 methods.*
 * [`ResponseValidationError`](./src/models/errors/response-validation-error.ts): Type mismatch between the data returned from the server and the structure expected by the SDK. See `error.rawValue` for the raw value and `error.pretty()` for a nicely formatted multi-line string.
 
 </details>
@@ -717,11 +745,9 @@ const moderationApi = new ModerationApi({
 });
 
 async function run() {
-  const result = await moderationApi.authors.list({});
+  const result = await moderationApi.analytics.summary();
 
-  for await (const page of result) {
-    console.log(page);
-  }
+  console.log(result);
 }
 
 run();

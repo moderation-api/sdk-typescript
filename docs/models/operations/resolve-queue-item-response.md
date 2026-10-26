@@ -15,8 +15,7 @@ let value: ResolveQueueItemResponse = {
 
 ## Fields
 
-| Field                                | Type                                 | Required                             | Description                          |
-| ------------------------------------ | ------------------------------------ | ------------------------------------ | ------------------------------------ |
-| `success`                            | *boolean*                            | :heavy_check_mark:                   | N/A                                  |
-| `resolvedAt`                         | *string*                             | :heavy_check_mark:                   | Timestamp when the item was resolved |
-| `comment`                            | *string*                             | :heavy_minus_sign:                   | Optional comment                     |
+| Field                                  | Type                                   | Required                               | Description                            |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| `success`                              | *boolean*                              | :heavy_check_mark:                     | N/A                                    |
+| `resolvedAt`                           | *string*                               | :heavy_check_mark:                     | When the item was resolved (ISO 8601). |

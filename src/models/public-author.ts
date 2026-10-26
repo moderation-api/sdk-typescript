@@ -14,7 +14,7 @@ import { SDKValidationError } from "./errors/sdk-validation-error.js";
 /**
  * Current author status
  */
-export const Status = {
+export const PublicAuthorStatus = {
   Enabled: "enabled",
   Suspended: "suspended",
   Blocked: "blocked",
@@ -22,7 +22,7 @@ export const Status = {
 /**
  * Current author status
  */
-export type Status = OpenEnum<typeof Status>;
+export type PublicAuthorStatus = OpenEnum<typeof PublicAuthorStatus>;
 
 export type TrustLevel = {
   /**
@@ -135,7 +135,7 @@ export type PublicAuthor = {
   /**
    * Current author status
    */
-  status: Status;
+  status: PublicAuthorStatus;
   trustLevel: TrustLevel;
   /**
    * Block or suspension details, if applicable. Null if the author is enabled.
@@ -153,8 +153,10 @@ export type PublicAuthor = {
 };
 
 /** @internal */
-export const Status$inboundSchema: z.ZodMiniType<Status, unknown> = openEnums
-  .inboundSchema(Status);
+export const PublicAuthorStatus$inboundSchema: z.ZodMiniType<
+  PublicAuthorStatus,
+  unknown
+> = openEnums.inboundSchema(PublicAuthorStatus);
 
 /** @internal */
 export const TrustLevel$inboundSchema: z.ZodMiniType<TrustLevel, unknown> = z
@@ -285,7 +287,7 @@ export const PublicAuthor$inboundSchema: z.ZodMiniType<PublicAuthor, unknown> =
       first_seen: types.number(),
       last_seen: types.number(),
       last_incident: z.optional(z.nullable(types.number())),
-      status: Status$inboundSchema,
+      status: PublicAuthorStatus$inboundSchema,
       trust_level: z.lazy(() => TrustLevel$inboundSchema),
       block: types.nullable(z.lazy(() => Block$inboundSchema)),
       risk_evaluation: types.nullable(

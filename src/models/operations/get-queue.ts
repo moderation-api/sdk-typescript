@@ -4,157 +4,26 @@
 
 import * as z from "zod/v4-mini";
 import { safeParse } from "../../lib/schemas.js";
-import * as openEnums from "../../types/enums.js";
-import { OpenEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
-import * as types from "../../types/primitives.js";
 import { SDKValidationError } from "../errors/sdk-validation-error.js";
+import * as models from "../index.js";
 
 export type GetQueueRequest = {
   /**
-   * The queue ID
+   * The queue ID.
    */
   id: string;
   /**
-   * The project to act on, when you call with an organization key. Optional when the organization has one project. A project key acts on its own project: naming another one is an error.
+   * The project to act on, by ID or name. Required with an organization key unless the key reaches only one project; list projects with GET /projects. A project key acts on its own project and needs no value: naming another one is an error.
    */
   projectId?: string | undefined;
-};
-
-export const IsFlagged = {
-  All: "ALL",
-  Flagged: "FLAGGED",
-  NotFlagged: "NOT_FLAGGED",
-  ShadowFlagged: "SHADOW_FLAGGED",
-} as const;
-export type IsFlagged = OpenEnum<typeof IsFlagged>;
-
-export const CasebookAnswer = {
-  All: "ALL",
-  Allowed: "ALLOWED",
-  Rejected: "REJECTED",
-  NoAnswer: "NO_ANSWER",
-} as const;
-export type CasebookAnswer = OpenEnum<typeof CasebookAnswer>;
-
-export const CasebookAgreement = {
-  All: "ALL",
-  Overruled: "OVERRULED",
-  Agreed: "AGREED",
-} as const;
-export type CasebookAgreement = OpenEnum<typeof CasebookAgreement>;
-
-export const GetQueueType = {
-  Flagged: "FLAGGED",
-  NotFlagged: "NOT_FLAGGED",
-  Thresholds: "THRESHOLDS",
-  Matched: "MATCHED",
-} as const;
-export type GetQueueType = OpenEnum<typeof GetQueueType>;
-
-export type FilterLabel = {
-  label: string;
-  type: GetQueueType;
-  minThreshold?: number | null | undefined;
-  maxThreshold?: number | null | undefined;
-};
-
-export type MetadataFilter = {
-  key: string;
-  value: string;
-};
-
-export const GetQueueContentType = {
-  Profile: "profile",
-  Message: "message",
-  Post: "post",
-  Comment: "comment",
-  Event: "event",
-  Product: "product",
-  Review: "review",
-  Voice: "voice",
-  Other: "other",
-} as const;
-export type GetQueueContentType = OpenEnum<typeof GetQueueContentType>;
-
-export const MediaType = {
-  Text: "text",
-  Image: "image",
-  Video: "video",
-  Object: "object",
-  Audio: "audio",
-} as const;
-export type MediaType = OpenEnum<typeof MediaType>;
-
-export const GetQueueRecommendationAction = {
-  Review: "review",
-  Allow: "allow",
-  Reject: "reject",
-} as const;
-export type GetQueueRecommendationAction = OpenEnum<
-  typeof GetQueueRecommendationAction
->;
-
-export const WithinUnit = {
-  Minutes: "MINUTES",
-  Hours: "HOURS",
-  Days: "DAYS",
-  Weeks: "WEEKS",
-  Months: "MONTHS",
-  Years: "YEARS",
-} as const;
-export type WithinUnit = OpenEnum<typeof WithinUnit>;
-
-export const CheckStatus = {
-  All: "all",
-  Checked: "checked",
-  Unchecked: "unchecked",
-} as const;
-export type CheckStatus = OpenEnum<typeof CheckStatus>;
-
-export type Filter = {
-  isFlagged?: IsFlagged | undefined;
-  casebookAnswer?: CasebookAnswer | undefined;
-  casebookAgreement?: CasebookAgreement | undefined;
-  labels?: Array<string> | undefined;
-  filterLabels?: Array<FilterLabel> | undefined;
-  metadataFilters?: Array<MetadataFilter> | undefined;
-  filteredChannelIds?: Array<string> | undefined;
-  filteredActionIds?: Array<string> | undefined;
-  languages?: Array<string> | undefined;
-  contentTypes?: Array<GetQueueContentType> | undefined;
-  mediaTypes?: Array<MediaType> | undefined;
-  authorTrustLevels?: Array<number> | undefined;
-  recommendationActions?: Array<GetQueueRecommendationAction> | undefined;
-  minSeverity?: number | undefined;
-  maxSeverity?: number | undefined;
-  afterDate?: string | undefined;
-  beforeDate?: string | undefined;
-  within?: number | undefined;
-  withinUnit?: WithinUnit | undefined;
-  clearDateWindow?: boolean | undefined;
-  checkStatus?: CheckStatus | null | undefined;
-  authorID?: string | undefined;
-  contentID?: string | undefined;
-  conversationIds?: Array<string | null> | undefined;
-  search?: Array<string> | undefined;
-};
-
-export type Queue = {
-  id: string;
-  name: string;
-  description: string;
-  filter: Filter;
-  unresolvedItemsCount: number;
-  resolvedItemsCount: number;
-  totalItemsCount: number;
 };
 
 /**
  * Successful response
  */
 export type GetQueueResponse = {
-  queue: Queue;
+  queue: models.QueueWithCounts;
 };
 
 /** @internal */
@@ -179,159 +48,11 @@ export function getQueueRequestToJSON(
 }
 
 /** @internal */
-export const IsFlagged$inboundSchema: z.ZodMiniType<IsFlagged, unknown> =
-  openEnums.inboundSchema(IsFlagged);
-
-/** @internal */
-export const CasebookAnswer$inboundSchema: z.ZodMiniType<
-  CasebookAnswer,
-  unknown
-> = openEnums.inboundSchema(CasebookAnswer);
-
-/** @internal */
-export const CasebookAgreement$inboundSchema: z.ZodMiniType<
-  CasebookAgreement,
-  unknown
-> = openEnums.inboundSchema(CasebookAgreement);
-
-/** @internal */
-export const GetQueueType$inboundSchema: z.ZodMiniType<GetQueueType, unknown> =
-  openEnums.inboundSchema(GetQueueType);
-
-/** @internal */
-export const FilterLabel$inboundSchema: z.ZodMiniType<FilterLabel, unknown> = z
-  .object({
-    label: types.string(),
-    type: GetQueueType$inboundSchema,
-    minThreshold: z.optional(z.nullable(types.number())),
-    maxThreshold: z.optional(z.nullable(types.number())),
-  });
-
-export function filterLabelFromJSON(
-  jsonString: string,
-): SafeParseResult<FilterLabel, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => FilterLabel$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'FilterLabel' from JSON`,
-  );
-}
-
-/** @internal */
-export const MetadataFilter$inboundSchema: z.ZodMiniType<
-  MetadataFilter,
-  unknown
-> = z.object({
-  key: types.string(),
-  value: types.string(),
-});
-
-export function metadataFilterFromJSON(
-  jsonString: string,
-): SafeParseResult<MetadataFilter, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => MetadataFilter$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'MetadataFilter' from JSON`,
-  );
-}
-
-/** @internal */
-export const GetQueueContentType$inboundSchema: z.ZodMiniType<
-  GetQueueContentType,
-  unknown
-> = openEnums.inboundSchema(GetQueueContentType);
-
-/** @internal */
-export const MediaType$inboundSchema: z.ZodMiniType<MediaType, unknown> =
-  openEnums.inboundSchema(MediaType);
-
-/** @internal */
-export const GetQueueRecommendationAction$inboundSchema: z.ZodMiniType<
-  GetQueueRecommendationAction,
-  unknown
-> = openEnums.inboundSchema(GetQueueRecommendationAction);
-
-/** @internal */
-export const WithinUnit$inboundSchema: z.ZodMiniType<WithinUnit, unknown> =
-  openEnums.inboundSchema(WithinUnit);
-
-/** @internal */
-export const CheckStatus$inboundSchema: z.ZodMiniType<CheckStatus, unknown> =
-  openEnums.inboundSchema(CheckStatus);
-
-/** @internal */
-export const Filter$inboundSchema: z.ZodMiniType<Filter, unknown> = z.object({
-  isFlagged: types.optional(IsFlagged$inboundSchema),
-  casebookAnswer: types.optional(CasebookAnswer$inboundSchema),
-  casebookAgreement: types.optional(CasebookAgreement$inboundSchema),
-  labels: types.optional(z.array(types.string())),
-  filterLabels: types.optional(
-    z.array(z.lazy(() => FilterLabel$inboundSchema)),
-  ),
-  metadataFilters: types.optional(
-    z.array(z.lazy(() => MetadataFilter$inboundSchema)),
-  ),
-  filteredChannelIds: types.optional(z.array(types.string())),
-  filteredActionIds: types.optional(z.array(types.string())),
-  languages: types.optional(z.array(types.string())),
-  contentTypes: types.optional(z.array(GetQueueContentType$inboundSchema)),
-  mediaTypes: types.optional(z.array(MediaType$inboundSchema)),
-  authorTrustLevels: types.optional(z.array(types.number())),
-  recommendationActions: types.optional(
-    z.array(GetQueueRecommendationAction$inboundSchema),
-  ),
-  minSeverity: types.optional(types.number()),
-  maxSeverity: types.optional(types.number()),
-  afterDate: types.optional(types.string()),
-  beforeDate: types.optional(types.string()),
-  within: types.optional(types.number()),
-  withinUnit: types.optional(WithinUnit$inboundSchema),
-  clearDateWindow: types.optional(types.boolean()),
-  checkStatus: z.optional(z.nullable(CheckStatus$inboundSchema)),
-  authorID: types.optional(types.string()),
-  contentID: types.optional(types.string()),
-  conversationIds: types.optional(z.array(types.nullable(types.string()))),
-  search: types.optional(z.array(types.string())),
-});
-
-export function filterFromJSON(
-  jsonString: string,
-): SafeParseResult<Filter, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => Filter$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Filter' from JSON`,
-  );
-}
-
-/** @internal */
-export const Queue$inboundSchema: z.ZodMiniType<Queue, unknown> = z.object({
-  id: types.string(),
-  name: types.string(),
-  description: types.string(),
-  filter: z.lazy(() => Filter$inboundSchema),
-  unresolvedItemsCount: types.number(),
-  resolvedItemsCount: types.number(),
-  totalItemsCount: types.number(),
-});
-
-export function queueFromJSON(
-  jsonString: string,
-): SafeParseResult<Queue, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => Queue$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Queue' from JSON`,
-  );
-}
-
-/** @internal */
 export const GetQueueResponse$inboundSchema: z.ZodMiniType<
   GetQueueResponse,
   unknown
 > = z.object({
-  queue: z.lazy(() => Queue$inboundSchema),
+  queue: models.QueueWithCounts$inboundSchema,
 });
 
 export function getQueueResponseFromJSON(

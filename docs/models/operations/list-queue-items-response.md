@@ -10,17 +10,25 @@ let value: ListQueueItemsResponse = {
     data: [
       {
         id: "<id>",
-        content: "<value>",
+        contentId: "<id>",
+        content: {
+          type: "text",
+          text: "<value>",
+        },
         labels: [
           {
             label: "<value>",
-            score: 7651.06,
-            flagged: false,
+            score: 9550.55,
           },
         ],
         flagged: true,
-        status: "resolved",
-        timestamp: 9550.55,
+        severity: 2551.88,
+        status: "pending",
+        timestamp: 2968.32,
+        language: "<value>",
+        conversationId: "<id>",
+        authorId: "<id>",
+        contentType: "<value>",
       },
     ],
     pagination: {

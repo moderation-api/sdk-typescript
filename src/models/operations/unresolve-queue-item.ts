@@ -4,32 +4,40 @@
 
 import * as z from "zod/v4-mini";
 import { safeParse } from "../../lib/schemas.js";
+import * as openEnums from "../../types/enums.js";
+import { OpenEnum } from "../../types/enums.js";
 import { Result as SafeParseResult } from "../../types/fp.js";
 import * as types from "../../types/primitives.js";
 import { SDKValidationError } from "../errors/sdk-validation-error.js";
 
-export type UnresolveQueueItemRequestBody = {
-  /**
-   * Optional reason for unresolving the item
-   */
-  comment?: string | undefined;
-};
-
 export type UnresolveQueueItemRequest = {
   /**
-   * The queue ID
+   * The queue ID.
    */
   id: string;
   /**
-   * The item ID to unresolve
+   * The item ID to unresolve.
    */
   itemId: string;
   /**
-   * The project to act on, when you call with an organization key. Optional when the organization has one project. A project key acts on its own project: naming another one is an error.
+   * The project to act on, by ID or name. Required with an organization key unless the key reaches only one project; list projects with GET /projects. A project key acts on its own project and needs no value: naming another one is an error.
    */
   projectId?: string | undefined;
-  body: UnresolveQueueItemRequestBody;
 };
+
+/**
+ * `pending` waits for review. `resolved` is reviewed.
+ */
+export const UnresolveQueueItemStatus = {
+  Pending: "pending",
+  Resolved: "resolved",
+} as const;
+/**
+ * `pending` waits for review. `resolved` is reviewed.
+ */
+export type UnresolveQueueItemStatus = OpenEnum<
+  typeof UnresolveQueueItemStatus
+>;
 
 /**
  * Successful response
@@ -37,44 +45,20 @@ export type UnresolveQueueItemRequest = {
 export type UnresolveQueueItemResponse = {
   success: boolean;
   /**
-   * New status of the item
+   * `pending` waits for review. `resolved` is reviewed.
    */
-  status: string;
+  status: UnresolveQueueItemStatus;
   /**
-   * Timestamp when the item was unresolved
+   * When the item was unresolved (ISO 8601).
    */
   unresolvedAt: string;
 };
-
-/** @internal */
-export type UnresolveQueueItemRequestBody$Outbound = {
-  comment?: string | undefined;
-};
-
-/** @internal */
-export const UnresolveQueueItemRequestBody$outboundSchema: z.ZodMiniType<
-  UnresolveQueueItemRequestBody$Outbound,
-  UnresolveQueueItemRequestBody
-> = z.object({
-  comment: z.optional(z.string()),
-});
-
-export function unresolveQueueItemRequestBodyToJSON(
-  unresolveQueueItemRequestBody: UnresolveQueueItemRequestBody,
-): string {
-  return JSON.stringify(
-    UnresolveQueueItemRequestBody$outboundSchema.parse(
-      unresolveQueueItemRequestBody,
-    ),
-  );
-}
 
 /** @internal */
 export type UnresolveQueueItemRequest$Outbound = {
   id: string;
   itemId: string;
   projectId?: string | undefined;
-  body: UnresolveQueueItemRequestBody$Outbound;
 };
 
 /** @internal */
@@ -85,7 +69,6 @@ export const UnresolveQueueItemRequest$outboundSchema: z.ZodMiniType<
   id: z.string(),
   itemId: z.string(),
   projectId: z.optional(z.string()),
-  body: z.lazy(() => UnresolveQueueItemRequestBody$outboundSchema),
 });
 
 export function unresolveQueueItemRequestToJSON(
@@ -97,12 +80,18 @@ export function unresolveQueueItemRequestToJSON(
 }
 
 /** @internal */
+export const UnresolveQueueItemStatus$inboundSchema: z.ZodMiniType<
+  UnresolveQueueItemStatus,
+  unknown
+> = openEnums.inboundSchema(UnresolveQueueItemStatus);
+
+/** @internal */
 export const UnresolveQueueItemResponse$inboundSchema: z.ZodMiniType<
   UnresolveQueueItemResponse,
   unknown
 > = z.object({
   success: types.boolean(),
-  status: types.string(),
+  status: UnresolveQueueItemStatus$inboundSchema,
   unresolvedAt: types.string(),
 });
 

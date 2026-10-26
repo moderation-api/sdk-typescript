@@ -10,117 +10,58 @@ import { SDKValidationError } from "../errors/sdk-validation-error.js";
 
 export type GetQueueStatsRequest = {
   /**
-   * The queue ID
+   * The queue ID.
    */
   id: string;
   withinDays?: number | undefined;
   /**
-   * The project to act on, when you call with an organization key. Optional when the organization has one project. A project key acts on its own project: naming another one is an error.
+   * The project to act on, by ID or name. Required with an organization key unless the key reaches only one project; list projects with GET /projects. A project key acts on its own project and needs no value: naming another one is an error.
    */
   projectId?: string | undefined;
 };
 
 export type ReviewStats = {
   /**
-   * Average time in milliseconds to review an item
-   */
-  averageTimeToReview: number;
-  /**
-   * Total number of items reviewed
+   * Number of items resolved in this queue in the period.
    */
   totalReviewed: number;
   /**
-   * Total number of items pending review
+   * Number of items submitted in the period that wait for review now.
    */
   totalPending: number;
 };
 
-export type ActionStat = {
-  /**
-   * ID of the moderation action
-   */
-  actionId: string;
-  /**
-   * Name of the moderation action
-   */
-  actionName: string;
-  /**
-   * Number of times this action was taken
-   */
-  count: number;
-  /**
-   * Percentage this action represents of all actions
-   */
-  percentageOfTotal: number;
-};
-
-export type TopAction = {
-  /**
-   * Most used action by this reviewer
-   */
-  actionId: string;
-  /**
-   * Name of the most used action
-   */
-  actionName: string;
-  /**
-   * Number of times this action was used
-   */
-  count: number;
-};
-
 export type TopReviewer = {
   /**
-   * ID of the reviewer
+   * The user ID of the reviewer. `null` for items resolved with an API key.
    */
-  userId: string;
+  userId: string | null;
   /**
-   * Name of the reviewer
+   * The name of the reviewer.
    */
-  name: string;
+  name: string | null;
   /**
-   * Number of items reviewed
+   * Number of items the reviewer resolved in the period.
    */
   reviewCount: number;
-  /**
-   * Average review time in milliseconds
-   */
-  averageTimePerReview: number;
-  /**
-   * Optional accuracy score based on review quality metrics
-   */
-  accuracyScore?: number | undefined;
-  /**
-   * Most common actions taken by this reviewer
-   */
-  topActions: Array<TopAction>;
 };
 
 export type DailyReviewCount = {
   /**
-   * Date in YYYY-MM-DD format
+   * Date in YYYY-MM-DD format (UTC).
    */
   date: string;
   /**
-   * Number of reviews on this date
+   * Number of items resolved.
    */
   count: number;
 };
 
-export type FlaggedContentTrend = {
-  /**
-   * Content flag/label
-   */
-  label: string;
-  /**
-   * Trend indicator (-1 to 1) showing if this type of flagged content is increasing or decreasing
-   */
-  trend: number;
-};
-
 export type Trends = {
+  /**
+   * Resolved items per day. Days with no reviews are left out.
+   */
   dailyReviewCounts: Array<DailyReviewCount>;
-  flaggedContentTrends: Array<FlaggedContentTrend>;
 };
 
 /**
@@ -128,9 +69,8 @@ export type Trends = {
  */
 export type GetQueueStatsResponse = {
   reviewStats: ReviewStats;
-  actionStats: Array<ActionStat>;
   /**
-   * List of top reviewers and their statistics
+   * Reviewers with the most resolved items, most first. Up to 10.
    */
   topReviewers: Array<TopReviewer>;
   trends: Trends;
@@ -164,7 +104,6 @@ export function getQueueStatsRequestToJSON(
 /** @internal */
 export const ReviewStats$inboundSchema: z.ZodMiniType<ReviewStats, unknown> = z
   .object({
-    averageTimeToReview: types.number(),
     totalReviewed: types.number(),
     totalPending: types.number(),
   });
@@ -180,51 +119,11 @@ export function reviewStatsFromJSON(
 }
 
 /** @internal */
-export const ActionStat$inboundSchema: z.ZodMiniType<ActionStat, unknown> = z
-  .object({
-    actionId: types.string(),
-    actionName: types.string(),
-    count: types.number(),
-    percentageOfTotal: types.number(),
-  });
-
-export function actionStatFromJSON(
-  jsonString: string,
-): SafeParseResult<ActionStat, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ActionStat$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ActionStat' from JSON`,
-  );
-}
-
-/** @internal */
-export const TopAction$inboundSchema: z.ZodMiniType<TopAction, unknown> = z
-  .object({
-    actionId: types.string(),
-    actionName: types.string(),
-    count: types.number(),
-  });
-
-export function topActionFromJSON(
-  jsonString: string,
-): SafeParseResult<TopAction, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => TopAction$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'TopAction' from JSON`,
-  );
-}
-
-/** @internal */
 export const TopReviewer$inboundSchema: z.ZodMiniType<TopReviewer, unknown> = z
   .object({
-    userId: types.string(),
-    name: types.string(),
+    userId: types.nullable(types.string()),
+    name: types.nullable(types.string()),
     reviewCount: types.number(),
-    averageTimePerReview: types.number(),
-    accuracyScore: types.optional(types.number()),
-    topActions: z.array(z.lazy(() => TopAction$inboundSchema)),
   });
 
 export function topReviewerFromJSON(
@@ -257,30 +156,8 @@ export function dailyReviewCountFromJSON(
 }
 
 /** @internal */
-export const FlaggedContentTrend$inboundSchema: z.ZodMiniType<
-  FlaggedContentTrend,
-  unknown
-> = z.object({
-  label: types.string(),
-  trend: types.number(),
-});
-
-export function flaggedContentTrendFromJSON(
-  jsonString: string,
-): SafeParseResult<FlaggedContentTrend, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => FlaggedContentTrend$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'FlaggedContentTrend' from JSON`,
-  );
-}
-
-/** @internal */
 export const Trends$inboundSchema: z.ZodMiniType<Trends, unknown> = z.object({
   dailyReviewCounts: z.array(z.lazy(() => DailyReviewCount$inboundSchema)),
-  flaggedContentTrends: z.array(
-    z.lazy(() => FlaggedContentTrend$inboundSchema),
-  ),
 });
 
 export function trendsFromJSON(
@@ -299,7 +176,6 @@ export const GetQueueStatsResponse$inboundSchema: z.ZodMiniType<
   unknown
 > = z.object({
   reviewStats: z.lazy(() => ReviewStats$inboundSchema),
-  actionStats: z.array(z.lazy(() => ActionStat$inboundSchema)),
   topReviewers: z.array(z.lazy(() => TopReviewer$inboundSchema)),
   trends: z.lazy(() => Trends$inboundSchema),
 });

@@ -4,7 +4,7 @@
 
 import * as z from "zod/v4-mini";
 import { ModerationApiCore } from "../core.js";
-import { encodeJSON, encodeSimple } from "../lib/encodings.js";
+import { encodeSimple } from "../lib/encodings.js";
 import { matchStatusCode } from "../lib/http.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
@@ -31,13 +31,12 @@ import { Result } from "../types/fp.js";
  * Unresolve a queue item
  *
  * @remarks
- * Mark a previously resolved queue item as unresolved/pending
+ * Mark a resolved item of a queue as pending again. It is the same as removing a check-off in the dashboard: the item comes back in the pending list.
  */
 export function queueItemsUnresolve(
   client: ModerationApiCore,
   id: string,
   itemId: string,
-  body: operations.UnresolveQueueItemRequestBody,
   projectId?: string | undefined,
   options?: RequestOptions,
 ): APIPromise<
@@ -62,7 +61,6 @@ export function queueItemsUnresolve(
     client,
     id,
     itemId,
-    body,
     projectId,
     options,
   ));
@@ -72,7 +70,6 @@ async function $do(
   client: ModerationApiCore,
   id: string,
   itemId: string,
-  body: operations.UnresolveQueueItemRequestBody,
   projectId?: string | undefined,
   options?: RequestOptions,
 ): Promise<
@@ -99,7 +96,6 @@ async function $do(
   const input: operations.UnresolveQueueItemRequest = {
     id: id,
     itemId: itemId,
-    body: body,
     projectId: projectId,
   };
 
@@ -113,7 +109,7 @@ async function $do(
     return [parsed, { status: "invalid" }];
   }
   const payload = parsed.value;
-  const body$ = encodeJSON("body", payload.body, { explode: true });
+  const body = null;
 
   const pathParams = {
     id: encodeSimple("id", payload.id, {
@@ -128,7 +124,6 @@ async function $do(
   const path = pathToFunc("/queue/{id}/items/{itemId}/unresolve")(pathParams);
 
   const headers = new Headers(compactMap({
-    "Content-Type": "application/json",
     Accept: "application/json",
     "Project-Id": encodeSimple("Project-Id", payload.projectId, {
       explode: false,
@@ -161,7 +156,7 @@ async function $do(
     baseURL: options?.serverURL,
     path: path,
     headers: headers,
-    body: body$,
+    body: body,
     userAgent: client._options.userAgent,
     timeoutMs: options?.timeoutMs || client._options.timeoutMs || -1,
   }, options);

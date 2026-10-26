@@ -15,6 +15,7 @@ import { OpenEnum } from "../types/enums.js";
  * - `action_not_found`: The action does not exist.
  * - `author_not_found`: The author does not exist.
  * - `queue_not_found`: The review queue does not exist.
+ * - `queue_item_not_found`: The queue item does not exist in the project.
  * - `wordlist_not_found`: The wordlist does not exist.
  * - `webhook_not_found`: The webhook does not exist.
  * - `project_not_found`: The project does not exist.
@@ -25,6 +26,7 @@ export const NotFoundErrorCode = {
   ActionNotFound: "action_not_found",
   AuthorNotFound: "author_not_found",
   QueueNotFound: "queue_not_found",
+  QueueItemNotFound: "queue_item_not_found",
   WordlistNotFound: "wordlist_not_found",
   WebhookNotFound: "webhook_not_found",
   ProjectNotFound: "project_not_found",
@@ -39,6 +41,7 @@ export const NotFoundErrorCode = {
  * - `action_not_found`: The action does not exist.
  * - `author_not_found`: The author does not exist.
  * - `queue_not_found`: The review queue does not exist.
+ * - `queue_item_not_found`: The queue item does not exist in the project.
  * - `wordlist_not_found`: The wordlist does not exist.
  * - `webhook_not_found`: The webhook does not exist.
  * - `project_not_found`: The project does not exist.

@@ -8,27 +8,19 @@ import { Result as SafeParseResult } from "../../types/fp.js";
 import * as types from "../../types/primitives.js";
 import { SDKValidationError } from "../errors/sdk-validation-error.js";
 
-export type ResolveQueueItemRequestBody = {
-  /**
-   * Optional comment
-   */
-  comment?: string | undefined;
-};
-
 export type ResolveQueueItemRequest = {
   /**
-   * The queue ID
+   * The queue ID.
    */
   id: string;
   /**
-   * The item ID to resolve
+   * The item ID to resolve.
    */
   itemId: string;
   /**
-   * The project to act on, when you call with an organization key. Optional when the organization has one project. A project key acts on its own project: naming another one is an error.
+   * The project to act on, by ID or name. Required with an organization key unless the key reaches only one project; list projects with GET /projects. A project key acts on its own project and needs no value: naming another one is an error.
    */
   projectId?: string | undefined;
-  body: ResolveQueueItemRequestBody;
 };
 
 /**
@@ -37,44 +29,16 @@ export type ResolveQueueItemRequest = {
 export type ResolveQueueItemResponse = {
   success: boolean;
   /**
-   * Timestamp when the item was resolved
+   * When the item was resolved (ISO 8601).
    */
   resolvedAt: string;
-  /**
-   * Optional comment
-   */
-  comment?: string | undefined;
 };
-
-/** @internal */
-export type ResolveQueueItemRequestBody$Outbound = {
-  comment?: string | undefined;
-};
-
-/** @internal */
-export const ResolveQueueItemRequestBody$outboundSchema: z.ZodMiniType<
-  ResolveQueueItemRequestBody$Outbound,
-  ResolveQueueItemRequestBody
-> = z.object({
-  comment: z.optional(z.string()),
-});
-
-export function resolveQueueItemRequestBodyToJSON(
-  resolveQueueItemRequestBody: ResolveQueueItemRequestBody,
-): string {
-  return JSON.stringify(
-    ResolveQueueItemRequestBody$outboundSchema.parse(
-      resolveQueueItemRequestBody,
-    ),
-  );
-}
 
 /** @internal */
 export type ResolveQueueItemRequest$Outbound = {
   id: string;
   itemId: string;
   projectId?: string | undefined;
-  body: ResolveQueueItemRequestBody$Outbound;
 };
 
 /** @internal */
@@ -85,7 +49,6 @@ export const ResolveQueueItemRequest$outboundSchema: z.ZodMiniType<
   id: z.string(),
   itemId: z.string(),
   projectId: z.optional(z.string()),
-  body: z.lazy(() => ResolveQueueItemRequestBody$outboundSchema),
 });
 
 export function resolveQueueItemRequestToJSON(
@@ -103,7 +66,6 @@ export const ResolveQueueItemResponse$inboundSchema: z.ZodMiniType<
 > = z.object({
   success: types.boolean(),
   resolvedAt: types.string(),
-  comment: types.optional(types.string()),
 });
 
 export function resolveQueueItemResponseFromJSON(

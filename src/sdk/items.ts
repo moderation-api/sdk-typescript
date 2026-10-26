@@ -3,6 +3,7 @@
  */
 
 import { queueItemsList } from "../funcs/queue-items-list.js";
+import { queueItemsResolveMany } from "../funcs/queue-items-resolve-many.js";
 import { queueItemsResolve } from "../funcs/queue-items-resolve.js";
 import { queueItemsUnresolve } from "../funcs/queue-items-unresolve.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
@@ -12,10 +13,10 @@ import { PageIterator, unwrapResultIterator } from "../types/operations.js";
 
 export class Items extends ClientSDK {
   /**
-   * Get queue items
+   * List queue items
    *
    * @remarks
-   * Get paginated list of items in a moderation queue with filtering options
+   * List the items of a review queue, with the filters and the date window of the queue applied. By default only pending items. The list is paginated. Use the item `id` to resolve or unresolve an item.
    */
   async list(
     request: operations.ListQueueItemsRequest,
@@ -34,12 +35,11 @@ export class Items extends ClientSDK {
    * Resolve a queue item
    *
    * @remarks
-   * Mark a queue item as resolved with a specific moderation action
+   * Mark an item of a queue as resolved. It is the same as a check-off in the dashboard: the item leaves the pending list and a QUEUE_ITEM_COMPLETED webhook is sent. To also take a moderation action, use `POST /actions/execute`.
    */
   async resolve(
     id: string,
     itemId: string,
-    body: operations.ResolveQueueItemRequestBody,
     projectId?: string | undefined,
     options?: RequestOptions,
   ): Promise<operations.ResolveQueueItemResponse> {
@@ -47,6 +47,26 @@ export class Items extends ClientSDK {
       this,
       id,
       itemId,
+      projectId,
+      options,
+    ));
+  }
+
+  /**
+   * Resolve queue items
+   *
+   * @remarks
+   * Mark up to 100 items of a queue as resolved in one request. Each item is resolved the same as with `POST /queue/{id}/items/{itemId}/resolve`. IDs that do not exist in the project are skipped and returned in `notFoundIds`.
+   */
+  async resolveMany(
+    id: string,
+    body: operations.ResolveQueueItemsRequestBody,
+    projectId?: string | undefined,
+    options?: RequestOptions,
+  ): Promise<operations.ResolveQueueItemsResponse> {
+    return unwrapAsync(queueItemsResolveMany(
+      this,
+      id,
       body,
       projectId,
       options,
@@ -57,12 +77,11 @@ export class Items extends ClientSDK {
    * Unresolve a queue item
    *
    * @remarks
-   * Mark a previously resolved queue item as unresolved/pending
+   * Mark a resolved item of a queue as pending again. It is the same as removing a check-off in the dashboard: the item comes back in the pending list.
    */
   async unresolve(
     id: string,
     itemId: string,
-    body: operations.UnresolveQueueItemRequestBody,
     projectId?: string | undefined,
     options?: RequestOptions,
   ): Promise<operations.UnresolveQueueItemResponse> {
@@ -70,7 +89,6 @@ export class Items extends ClientSDK {
       this,
       id,
       itemId,
-      body,
       projectId,
       options,
     ));
