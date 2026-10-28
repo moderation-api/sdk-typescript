@@ -42,6 +42,11 @@ export class ModerationApi extends ClientSDK {
     return (this._actions ??= new Actions(this._options));
   }
 
+  private _content?: Content;
+  get content(): Content {
+    return (this._content ??= new Content(this._options));
+  }
+
   private _webhooks?: Webhooks;
   get webhooks(): Webhooks {
     return (this._webhooks ??= new Webhooks(this._options));
@@ -60,11 +65,6 @@ export class ModerationApi extends ClientSDK {
   private _wordlist?: Wordlist;
   get wordlist(): Wordlist {
     return (this._wordlist ??= new Wordlist(this._options));
-  }
-
-  private _content?: Content;
-  get content(): Content {
-    return (this._content ??= new Content(this._options));
   }
 
   private _projects?: Projects;

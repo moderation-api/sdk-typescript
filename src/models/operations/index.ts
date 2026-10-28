@@ -3,6 +3,8 @@
  */
 
 export * from "./add-wordlist-words.js";
+export * from "./allow-content.js";
+export * from "./block-author.js";
 export * from "./create-action.js";
 export * from "./create-author.js";
 export * from "./create-channel.js";
@@ -44,10 +46,13 @@ export * from "./list-queue-items.js";
 export * from "./list-queues.js";
 export * from "./list-webhooks.js";
 export * from "./list-wordlists.js";
+export * from "./reject-content.js";
 export * from "./remove-wordlist-words.js";
 export * from "./resolve-queue-item.js";
 export * from "./resolve-queue-items.js";
 export * from "./submit-content.js";
+export * from "./suspend-author.js";
+export * from "./unblock-author.js";
 export * from "./unresolve-queue-item.js";
 export * from "./update-action.js";
 export * from "./update-author.js";

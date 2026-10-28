@@ -403,6 +403,9 @@ Create the organization client only where you manage projects and channels, for 
 * [retrieve](docs/sdks/authors/README.md#retrieve) - Get author details
 * [update](docs/sdks/authors/README.md#update) - Update author details
 * [delete](docs/sdks/authors/README.md#delete) - Delete an author
+* [block](docs/sdks/authors/README.md#block) - Block author
+* [suspend](docs/sdks/authors/README.md#suspend) - Suspend author
+* [unblock](docs/sdks/authors/README.md#unblock) - Unblock author
 
 ### [Channels](docs/sdks/channels/README.md)
 
@@ -415,6 +418,8 @@ Create the organization client only where you manage projects and channels, for 
 
 ### [Content](docs/sdks/content/README.md)
 
+* [reject](docs/sdks/content/README.md#reject) - Reject content
+* [allow](docs/sdks/content/README.md#allow) - Allow content
 * [submit](docs/sdks/content/README.md#submit) - Submit content
 
 ### [Feedback](docs/sdks/feedback/README.md)
@@ -503,10 +508,13 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`analyticsPolicies`](docs/sdks/analytics/README.md#policies) - Get the most flagged policies
 - [`analyticsSummary`](docs/sdks/analytics/README.md#summary) - Get the analytics summary
 - [`analyticsVolumes`](docs/sdks/analytics/README.md#volumes) - Get volumes over time
+- [`authorsBlock`](docs/sdks/authors/README.md#block) - Block author
 - [`authorsCreate`](docs/sdks/authors/README.md#create) - Create a new author
 - [`authorsDelete`](docs/sdks/authors/README.md#delete) - Delete an author
 - [`authorsList`](docs/sdks/authors/README.md#list) - List authors
 - [`authorsRetrieve`](docs/sdks/authors/README.md#retrieve) - Get author details
+- [`authorsSuspend`](docs/sdks/authors/README.md#suspend) - Suspend author
+- [`authorsUnblock`](docs/sdks/authors/README.md#unblock) - Unblock author
 - [`authorsUpdate`](docs/sdks/authors/README.md#update) - Update author details
 - [`channelsCreate`](docs/sdks/channels/README.md#create) - Create a channel
 - [`channelsDelete`](docs/sdks/channels/README.md#delete) - Delete a channel
@@ -514,6 +522,8 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`channelsList`](docs/sdks/channels/README.md#list) - List channels
 - [`channelsRetrieve`](docs/sdks/channels/README.md#retrieve) - Get a channel
 - [`channelsUpdate`](docs/sdks/channels/README.md#update) - Update a channel
+- [`contentAllow`](docs/sdks/content/README.md#allow) - Allow content
+- [`contentReject`](docs/sdks/content/README.md#reject) - Reject content
 - [`contentSubmit`](docs/sdks/content/README.md#submit) - Submit content
 - [`feedbackCreate`](docs/sdks/feedback/README.md#create) - Send feedback
 - [`projectsApiKeysCreate`](docs/sdks/apikeys/README.md#create) - Create a project API key
@@ -719,10 +729,10 @@ run();
 
 
 **Inherit from [`ModerationAPIError`](./src/models/errors/moderation-api-error.ts)**:
-* [`NotFoundError`](./src/models/errors/not-found-error.ts): The resource does not exist or the key cannot see it. Status code `404`. Applicable to 39 of 53 methods.*
-* [`PermissionDeniedError`](./src/models/errors/permission-denied-error.ts): The API key cannot do this, or the plan limit for this resource is reached. Status code `403`. Applicable to 36 of 53 methods.*
-* [`InternalServerError`](./src/models/errors/internal-server-error.ts): Something went wrong on our side. Retry with backoff. Status code `500`. Applicable to 23 of 53 methods.*
-* [`ConflictError`](./src/models/errors/conflict-error.ts): The request conflicts with the current state of a resource. Status code `409`. Applicable to 2 of 53 methods.*
+* [`NotFoundError`](./src/models/errors/not-found-error.ts): The resource does not exist or the key cannot see it. Status code `404`. Applicable to 44 of 58 methods.*
+* [`PermissionDeniedError`](./src/models/errors/permission-denied-error.ts): The API key cannot do this, or the plan limit for this resource is reached. Status code `403`. Applicable to 36 of 58 methods.*
+* [`InternalServerError`](./src/models/errors/internal-server-error.ts): Something went wrong on our side. Retry with backoff. Status code `500`. Applicable to 23 of 58 methods.*
+* [`ConflictError`](./src/models/errors/conflict-error.ts): The request conflicts with the current state of a resource. Status code `409`. Applicable to 2 of 58 methods.*
 * [`ResponseValidationError`](./src/models/errors/response-validation-error.ts): Type mismatch between the data returned from the server and the structure expected by the SDK. See `error.rawValue` for the raw value and `error.pretty()` for a nicely formatted multi-line string.
 
 </details>

@@ -36,6 +36,14 @@ export type ExecuteActionRequestBody = {
    * Optional duration in milliseconds for actions with timeouts
    */
   duration?: number | undefined;
+  /**
+   * The user ID or email of the organization member who made the decision. The action is recorded as theirs.
+   */
+  moderator?: string | undefined;
+  /**
+   * Record an allow or reject decision as a casebook case. Defaults to true when `moderator` is set, else false. Without `moderator`, the case is recorded as System.
+   */
+  createCasebookCase?: boolean | undefined;
 };
 
 export type ExecuteActionRequest = {
@@ -64,6 +72,8 @@ export type ExecuteActionRequestBody$Outbound = {
   value?: string | undefined;
   queueId?: string | undefined;
   duration?: number | undefined;
+  moderator?: string | undefined;
+  createCasebookCase?: boolean | undefined;
 };
 
 /** @internal */
@@ -77,6 +87,8 @@ export const ExecuteActionRequestBody$outboundSchema: z.ZodMiniType<
   value: z.optional(z.string()),
   queueId: z.optional(z.string()),
   duration: z.optional(z.number()),
+  moderator: z.optional(z.string()),
+  createCasebookCase: z.optional(z.boolean()),
 });
 
 export function executeActionRequestBodyToJSON(

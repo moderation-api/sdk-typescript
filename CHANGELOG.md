@@ -1,5 +1,19 @@
 # Changelog
 
+## 5.3.0 (2026-10-28)
+
+Full Changelog: [v5.2.0...v5.3.0](https://github.com/moderation-api/sdk-typescript/compare/v5.2.0...v5.3.0)
+
+### API changes
+
+- `POST /actions/execute`: added the new optional request property `createCasebookCase`
+- `POST /actions/execute`: added the new optional request property `moderator`
+- `POST /authors/{id}/block`: endpoint added
+- `POST /authors/{id}/suspend`: endpoint added
+- `POST /authors/{id}/unblock`: endpoint added
+- `POST /content/{id}/allow`: endpoint added
+- `POST /content/{id}/reject`: endpoint added
+
 ## 5.2.0 (2026-10-26)
 
 Full Changelog: [v5.1.1...v5.2.0](https://github.com/moderation-api/sdk-typescript/compare/v5.1.1...v5.2.0)
