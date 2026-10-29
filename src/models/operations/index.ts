@@ -18,6 +18,7 @@ export * from "./delete-author.js";
 export * from "./delete-channel.js";
 export * from "./delete-project.js";
 export * from "./delete-webhook.js";
+export * from "./delete-wordlist.js";
 export * from "./duplicate-channel.js";
 export * from "./duplicate-project.js";
 export * from "./execute-action.js";

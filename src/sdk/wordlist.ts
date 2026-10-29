@@ -3,6 +3,7 @@
  */
 
 import { wordlistCreate } from "../funcs/wordlist-create.js";
+import { wordlistDelete } from "../funcs/wordlist-delete.js";
 import { wordlistGetEmbeddingStatus } from "../funcs/wordlist-get-embedding-status.js";
 import { wordlistList } from "../funcs/wordlist-list.js";
 import { wordlistRetrieve } from "../funcs/wordlist-retrieve.js";
@@ -94,6 +95,25 @@ export class Wordlist extends ClientSDK {
       this,
       id,
       body,
+      projectId,
+      options,
+    ));
+  }
+
+  /**
+   * Delete wordlist
+   *
+   * @remarks
+   * Delete a wordlist and its words. Channels that use the wordlist do not block the delete: the wordlist is removed from their policies. `detachedChannelIds` lists those channels. This cannot be undone.
+   */
+  async delete(
+    id: string,
+    projectId?: string | undefined,
+    options?: RequestOptions,
+  ): Promise<operations.DeleteWordlistResponse> {
+    return unwrapAsync(wordlistDelete(
+      this,
+      id,
       projectId,
       options,
     ));

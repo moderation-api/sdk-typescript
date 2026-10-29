@@ -17,7 +17,7 @@ let value: ResolveQueueItemsResponse = {
 
 ## Fields
 
-| Field                                      | Type                                       | Required                                   | Description                                |
-| ------------------------------------------ | ------------------------------------------ | ------------------------------------------ | ------------------------------------------ |
-| `resolved`                                 | *number*                                   | :heavy_check_mark:                         | Number of items resolved.                  |
-| `notFoundIds`                              | *string*[]                                 | :heavy_check_mark:                         | Item IDs that do not exist in the project. |
+| Field                                                               | Type                                                                | Required                                                            | Description                                                         |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `resolved`                                                          | *number*                                                            | :heavy_check_mark:                                                  | Number of items resolved.                                           |
+| `notFoundIds`                                                       | *string*[]                                                          | :heavy_check_mark:                                                  | IDs from `itemIds` that match no item or content ID in the project. |
