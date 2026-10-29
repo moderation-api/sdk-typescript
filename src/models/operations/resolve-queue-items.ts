@@ -10,7 +10,7 @@ import { SDKValidationError } from "../errors/sdk-validation-error.js";
 
 export type ResolveQueueItemsRequestBody = {
   /**
-   * The item IDs to resolve. Up to 100.
+   * The items to resolve, up to 100. Each is the item `id` from `GET /queue/{id}/items`, or the `contentId` you sent to `POST /moderate` (webhooks send it as `item.id`). For a content ID, the newest submission with that content ID is used, as the queue shows it.
    */
   itemIds: Array<string>;
 };
@@ -36,7 +36,7 @@ export type ResolveQueueItemsResponse = {
    */
   resolved: number;
   /**
-   * Item IDs that do not exist in the project.
+   * IDs from `itemIds` that match no item or content ID in the project.
    */
   notFoundIds: Array<string>;
 };
