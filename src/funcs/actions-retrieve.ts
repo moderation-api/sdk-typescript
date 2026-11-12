@@ -31,7 +31,7 @@ import { Result } from "../types/fp.js";
  * Get an action
  *
  * @remarks
- * Get an action by ID.
+ * Get an action by ID: its type, where it shows in the review queues, the values it takes and its webhooks.
  */
 export function actionsRetrieve(
   client: ModerationApiCore,

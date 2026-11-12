@@ -15,6 +15,7 @@ export const Sort = {
   Lifo: "LIFO",
   Random: "RANDOM",
   SeverityDesc: "SEVERITY_DESC",
+  RobocallDesc: "ROBOCALL_DESC",
 } as const;
 export type Sort = ClosedEnum<typeof Sort>;
 

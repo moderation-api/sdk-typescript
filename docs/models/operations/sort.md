@@ -11,5 +11,5 @@ let value: Sort = "LIFO";
 ## Values
 
 ```typescript
-"FIFO" | "LIFO" | "RANDOM" | "SEVERITY_DESC"
+"FIFO" | "LIFO" | "RANDOM" | "SEVERITY_DESC" | "ROBOCALL_DESC"
 ```

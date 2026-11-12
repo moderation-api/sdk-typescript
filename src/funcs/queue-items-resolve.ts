@@ -31,7 +31,7 @@ import { Result } from "../types/fp.js";
  * Resolve a queue item
  *
  * @remarks
- * Mark an item of a queue as resolved. It is the same as a check-off in the dashboard: the item leaves the pending list and a QUEUE_ITEM_COMPLETED webhook is sent. To also take a moderation action, use `POST /actions/execute`.
+ * Mark an item of a queue as resolved. It is the same as a check-off in the dashboard: the item leaves the pending list and a QUEUE_ITEM_COMPLETED webhook is sent. `itemId` is the item `id` or your `contentId`. To also take a moderation action, use `POST /actions/execute`.
  */
 export function queueItemsResolve(
   client: ModerationApiCore,

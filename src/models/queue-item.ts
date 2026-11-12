@@ -218,11 +218,11 @@ export type QueueItemStatus = OpenEnum<typeof QueueItemStatus>;
 
 export type QueueItem = {
   /**
-   * The item ID. Use it to resolve or unresolve the item in this queue.
+   * The item ID: the ID of this submission. Use it, or `contentId`, to resolve or unresolve the item in this queue.
    */
   id: string;
   /**
-   * Your content ID, as you sent it to `POST /moderate`.
+   * Your content ID, as you sent it to `POST /moderate`. Webhooks send it as `item.id`. The resolve endpoints accept it in place of `id`.
    */
   contentId: string;
   /**

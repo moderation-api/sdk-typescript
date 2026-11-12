@@ -31,7 +31,7 @@ import { Result } from "../types/fp.js";
  * Update an action
  *
  * @remarks
- * Update an action.
+ * Update the settings of an action: its name, type, queues and values. The new settings apply the next time the action is executed. Updating an action does not execute it.
  */
 export function actionsUpdate(
   client: ModerationApiCore,

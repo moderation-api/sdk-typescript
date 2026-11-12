@@ -31,7 +31,7 @@ import { Result } from "../types/fp.js";
  * Resolve queue items
  *
  * @remarks
- * Mark up to 100 items of a queue as resolved in one request. Each item is resolved the same as with `POST /queue/{id}/items/{itemId}/resolve`. IDs that do not exist in the project are skipped and returned in `notFoundIds`.
+ * Mark up to 100 items of a queue as resolved in one request. Each item is resolved the same as with `POST /queue/{id}/items/{itemId}/resolve`, and each ID is an item `id` or your `contentId`. IDs that match no item in the project are skipped and returned in `notFoundIds`.
  */
 export function queueItemsResolveMany(
   client: ModerationApiCore,

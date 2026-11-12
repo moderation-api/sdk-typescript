@@ -470,6 +470,7 @@ Create the organization client only where you manage projects and channels, for 
 * [create](docs/sdks/wordlist/README.md#create) - Create wordlist
 * [retrieve](docs/sdks/wordlist/README.md#retrieve) - Get wordlist
 * [update](docs/sdks/wordlist/README.md#update) - Update wordlist
+* [delete](docs/sdks/wordlist/README.md#delete) - Delete wordlist
 * [getEmbeddingStatus](docs/sdks/wordlist/README.md#getembeddingstatus) - Get embedding status
 
 #### [Wordlist.Words](docs/sdks/words/README.md)
@@ -547,6 +548,7 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`webhooksRetrieve`](docs/sdks/webhooks/README.md#retrieve) - Get a webhook
 - [`webhooksUpdate`](docs/sdks/webhooks/README.md#update) - Update a webhook
 - [`wordlistCreate`](docs/sdks/wordlist/README.md#create) - Create wordlist
+- [`wordlistDelete`](docs/sdks/wordlist/README.md#delete) - Delete wordlist
 - [`wordlistGetEmbeddingStatus`](docs/sdks/wordlist/README.md#getembeddingstatus) - Get embedding status
 - [`wordlistList`](docs/sdks/wordlist/README.md#list) - List wordlists
 - [`wordlistRetrieve`](docs/sdks/wordlist/README.md#retrieve) - Get wordlist
@@ -729,10 +731,10 @@ run();
 
 
 **Inherit from [`ModerationAPIError`](./src/models/errors/moderation-api-error.ts)**:
-* [`NotFoundError`](./src/models/errors/not-found-error.ts): The resource does not exist or the key cannot see it. Status code `404`. Applicable to 44 of 58 methods.*
-* [`PermissionDeniedError`](./src/models/errors/permission-denied-error.ts): The API key cannot do this, or the plan limit for this resource is reached. Status code `403`. Applicable to 36 of 58 methods.*
-* [`InternalServerError`](./src/models/errors/internal-server-error.ts): Something went wrong on our side. Retry with backoff. Status code `500`. Applicable to 23 of 58 methods.*
-* [`ConflictError`](./src/models/errors/conflict-error.ts): The request conflicts with the current state of a resource. Status code `409`. Applicable to 2 of 58 methods.*
+* [`NotFoundError`](./src/models/errors/not-found-error.ts): The resource does not exist or the key cannot see it. Status code `404`. Applicable to 45 of 59 methods.*
+* [`PermissionDeniedError`](./src/models/errors/permission-denied-error.ts): The API key cannot do this, or the plan limit for this resource is reached. Status code `403`. Applicable to 36 of 59 methods.*
+* [`InternalServerError`](./src/models/errors/internal-server-error.ts): Something went wrong on our side. Retry with backoff. Status code `500`. Applicable to 23 of 59 methods.*
+* [`ConflictError`](./src/models/errors/conflict-error.ts): The request conflicts with the current state of a resource. Status code `409`. Applicable to 2 of 59 methods.*
 * [`ResponseValidationError`](./src/models/errors/response-validation-error.ts): Type mismatch between the data returned from the server and the structure expected by the SDK. See `error.rawValue` for the raw value and `error.pretty()` for a nicely formatted multi-line string.
 
 </details>

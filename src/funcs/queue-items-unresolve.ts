@@ -31,7 +31,7 @@ import { Result } from "../types/fp.js";
  * Unresolve a queue item
  *
  * @remarks
- * Mark a resolved item of a queue as pending again. It is the same as removing a check-off in the dashboard: the item comes back in the pending list.
+ * Mark a resolved item of a queue as pending again. It is the same as removing a check-off in the dashboard: the item comes back in the pending list. `itemId` is the item `id` or your `contentId`.
  */
 export function queueItemsUnresolve(
   client: ModerationApiCore,
