@@ -31,7 +31,7 @@ import { Result } from "../types/fp.js";
  * Execute moderation action
  *
  * @remarks
- * Execute a moderation action on one or more content items.
+ * Execute one action of the project, by ID or key, on content items or authors. A built-in action changes them in Moderation API (for example rejects the items or blocks the authors). Every executed action is recorded, and the project sends it to the webhooks of the action and to its other webhook endpoints, where the customer platform can act on it. List the actions first to see what each one does.
  */
 export function actionsExecute(
   client: ModerationApiCore,

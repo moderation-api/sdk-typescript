@@ -1,5 +1,16 @@
 # Changelog
 
+## 5.4.0 (2026-11-12)
+
+Full Changelog: [v5.3.0...v5.4.0](https://github.com/moderation-api/sdk-typescript/compare/v5.3.0...v5.4.0)
+
+### API changes
+
+- `POST /moderate`: added the new `hidden_lookalike` enum value to the request property `policies/items/oneOf[subschema #36: Unicode Spoofing]/signals/propertyNames/`
+- `POST /moderate`: added the new `leetspeak` enum value to the request property `policies/items/oneOf[subschema #36: Unicode Spoofing]/signals/propertyNames/`
+- `GET /queue/{id}/items`: added the new enum value `ROBOCALL_DESC` to the `query` request parameter `sort`
+- `DELETE /wordlist/{id}`: endpoint added
+
 ## 5.3.0 (2026-10-28)
 
 Full Changelog: [v5.2.0...v5.3.0](https://github.com/moderation-api/sdk-typescript/compare/v5.2.0...v5.3.0)

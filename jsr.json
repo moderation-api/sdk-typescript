@@ -2,7 +2,7 @@
 
 {
   "name": "@moderation-api/sdk",
-  "version": "5.3.0",
+  "version": "5.4.0",
   "exports": {
     ".": "./src/index.ts",    
     "./models/errors": "./src/models/errors/index.ts",    
